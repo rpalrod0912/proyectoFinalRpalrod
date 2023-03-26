@@ -1,9 +1,10 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <router-link to="/">Inicio</router-link>
+  <!--<img alt="Vue logo" src="./assets/logo.png" />-->
 
-  <router-link to="/prueba">PRUEBA</router-link>
   <router-view />
+
+  <router-link to="/">Inicio</router-link>
+  <router-link to="/prueba">PRUEBA</router-link>
 </template>
 
 <script>
@@ -13,6 +14,13 @@ export default {
 </script>
 
 <style>
+* {
+  margin: 0;
+}
+body {
+  background-color: black;
+}
+/*
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -20,5 +28,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  background-color: black;
 }
+*/
 </style>
