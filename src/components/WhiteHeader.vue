@@ -1,10 +1,10 @@
 <template>
   <header>
-    <img src="../assets/menuBlanco.png" />
+    <img class="menu" src="../assets/menuBlanco.png" />
     <img class="logo" src="../assets/LogoOscuroTransparente.png" />
     <ul>
       <li>
-        <img src="../assets/searchBlanco.png" />
+        <img class="searchBar" src="../assets/whiteSearchBar.png" />
       </li>
       <li>
         <img src="../assets/usuario.png" />
@@ -22,26 +22,40 @@ export default {
 };
 </script>
 <style lang="scss">
-* {
-  margin: 0;
-}
 header {
   height: 10rem;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
   img {
-    width: 4rem;
-    height: 4rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
   width: 100%;
-
-  ul {
-    display: flex;
+  .menu {
+    margin-left: 2rem;
   }
+  ul {
+    list-style-type: none;
+
+    display: flex;
+    margin-right: 2rem;
+    marker: none;
+    .searchBar {
+      width: 13rem;
+      margin-left: 0px;
+    }
+    li {
+      margin: 1rem;
+    }
+  }
+  background-color: transparent;
 
   display: flex;
 
   .logo {
     width: 30rem;
-    height: 20rem;
+    height: 10rem;
   }
 }
 </style>
