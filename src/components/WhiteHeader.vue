@@ -54,8 +54,10 @@ header {
   display: flex;
 
   .logo {
-    width: 30rem;
-    height: 10rem;
+    position: fixed;
+    left: 39%;
+    width: 27rem;
+    height: 8rem;
   }
 }
 </style>

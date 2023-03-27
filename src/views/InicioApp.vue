@@ -5,7 +5,10 @@
       <img src="../assets/imInicioUsoWeb.jpg" />
     </section>
     <section class="secIni2">
-      <img src="../assets/iagencombinadaWeb-min.png" />
+      <img src="../assets/imSec2.png" />
+    </section>
+    <section class="secIni3">
+      <img src="../assets/imSec3.jpg" />
     </section>
   </main>
 </template>
@@ -31,6 +34,13 @@ main {
     }
   }
   .secIni2 {
+    margin-top: 2rem;
+    img {
+      width: 100%;
+    }
+  }
+
+  .secIni3 {
     margin-top: 2rem;
     img {
       width: 100%;
