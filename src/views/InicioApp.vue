@@ -29,7 +29,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@600;700&display=swap");
 * {
   margin: 0;
 }

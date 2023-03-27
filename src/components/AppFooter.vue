@@ -50,6 +50,16 @@ footer {
   ul {
     list-style-type: none;
   }
+  .help {
+    li {
+      margin-top: 0.5rem;
+      font-family: "Noto Sans";
+      font-style: normal;
+      font-weight: 600;
+      color: #95a3a4;
+      font-size: 1.2rem;
+    }
+  }
   .socialDiv {
     margin-top: 2rem;
     display: flex;
