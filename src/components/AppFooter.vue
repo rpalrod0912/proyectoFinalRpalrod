@@ -38,6 +38,12 @@
         <li class="sepVertical">|</li>
         <li>Política de Cookies</li>
       </ul>
+      <div class="pageLang">
+        <img src="../assets/worldIcon.png" />
+        <p>España</p>
+        <div class="sepVerticalBlack">|</div>
+        <p>Español</p>
+      </div>
     </section>
   </footer>
 </template>
@@ -51,6 +57,18 @@ ul {
   list-style-type: none;
 }
 
+.sepVerticalBlack {
+  display: flex;
+  justify-items: center;
+  padding: 1px;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 700;
+  color: black;
+  width: 0.1rem;
+  justify-content: center;
+}
+
 .sepVertical {
   display: flex;
   justify-items: center;
@@ -62,7 +80,7 @@ ul {
   width: 0.3rem;
   background-color: #95a3a4;
   justify-content: center;
-  text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 .separador {
   border-top: 1px solid #dadada;
@@ -122,13 +140,26 @@ ul {
   font-weight: 600;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   ul {
     display: flex;
     align-items: center;
 
     li {
       margin: 1rem;
+    }
+  }
+  .pageLang {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p,
+    div {
+      margin: 0.3rem;
+    }
+    img {
+      width: 2rem;
+      height: 2rem;
     }
   }
 }
