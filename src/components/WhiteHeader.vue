@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img class="menu" src="../assets/menuBlanco.png" />
+    <MenuGeneral class="menu"></MenuGeneral>
     <img class="logo" src="../assets/LogoOscuroTransparente.png" />
     <ul>
       <li>
@@ -16,12 +16,15 @@
   </header>
 </template>
 <script>
+import MenuGeneral from "./MenuGeneral.vue";
+
 export default {
   /*eslint-disable */
   name: "NavBar",
+  components: { MenuGeneral },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 header {
   height: 10rem;
   justify-content: space-between;

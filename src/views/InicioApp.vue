@@ -28,13 +28,18 @@ export default {
   components: { WhiteHeader, AppFooter },
 };
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@600;700&display=swap");
 * {
   margin: 0;
 }
 body {
   background-color: white;
+}
+.bodyOpacity {
+  -webkit-transition: opacity 300ms ease-in-out;
+  transition: opacity 300ms ease-in-out;
+  opacity: 0.5;
 }
 main {
   .secIni1 {
