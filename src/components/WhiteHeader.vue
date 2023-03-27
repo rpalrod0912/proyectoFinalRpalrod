@@ -1,6 +1,6 @@
 <template>
   <header>
-    <MenuGeneral class="menu"></MenuGeneral>
+    <MenuGeneral @click="check" class="menu"></MenuGeneral>
     <img class="logo" src="../assets/LogoOscuroTransparente.png" />
     <ul>
       <li>

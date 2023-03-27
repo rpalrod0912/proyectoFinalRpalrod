@@ -1,6 +1,6 @@
 <template>
   <div class="hamburger-menu">
-    <input id="menu__toggle" type="checkbox" />
+    <input @click="check" id="menu__toggle" type="checkbox" />
     <label class="menu__btn" for="menu__toggle">
       <span></span>
     </label>
@@ -13,13 +13,27 @@
       <li><a class="menu__item" href="#">Twitter</a></li>
     </ul>
   </div>
+  <div class="opacity"></div>
 </template>
 <script>
 export default {
   name: "MenuGeneral",
+  methods: {
+    check() {
+      const pageBody = document.querySelector("body");
+      pageBody.classList.toggle("opacity");
+    },
+  },
 };
 </script>
 <style lang="scss">
+.opacity {
+  z-index: 1;
+  opacity: 0.5;
+  transition: opacity 300ms ease-in-out;
+  background-color: #000;
+}
+
 #menu__toggle {
   opacity: 0;
 }
@@ -78,6 +92,7 @@ export default {
   background-color: white;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
   transition-duration: 0.25s;
+  opacity: 1;
 }
 .menu__item {
   display: block;
