@@ -2,9 +2,6 @@
   <!--<img alt="Vue logo" src="./assets/logo.png" />-->
 
   <router-view />
-
-  <router-link to="/">Inicio</router-link>
-  <router-link to="/prueba">PRUEBA</router-link>
 </template>
 
 <script>
@@ -14,11 +11,12 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap");
+
 * {
   margin: 0;
 }
 body {
-  background-color: black;
 }
 /*
 #app {

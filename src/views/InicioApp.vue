@@ -17,13 +17,15 @@
       <img src="../assets/imSec3.jpg" />
     </section>
   </main>
+  <AppFooter></AppFooter>
 </template>
 <script>
+import AppFooter from "@/components/AppFooter.vue";
 import WhiteHeader from "@/components/WhiteHeader.vue";
 export default {
   /*eslint-disable */
   name: "InicioApp",
-  components: { WhiteHeader },
+  components: { WhiteHeader, AppFooter },
 };
 </script>
 <style scoped lang="scss">
