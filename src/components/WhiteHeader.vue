@@ -4,7 +4,7 @@
     <img class="logo" :src="this.logo" />
     <ul>
       <li>
-        <MenuBusqueda></MenuBusqueda>
+        <MenuBusqueda color="Dark"></MenuBusqueda>
       </li>
       <li>
         <img :src="this.userIcon" />

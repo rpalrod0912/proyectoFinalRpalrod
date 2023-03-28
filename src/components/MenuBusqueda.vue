@@ -1,17 +1,50 @@
 <template>
-  <input
-    @click="check"
-    id="checkedBusqueda"
-    type="checkbox"
-    name="checkBusqueda"
-  />
-  <label for="checkBusqueda">
-    <img class="searchBar searchMenu" src="../assets/whiteSearchBar.png" />
+  <input id="checkedBusqueda" type="checkbox" name="checkBusqueda" />
+
+  <label @click="menuAction(true)" for="checkBusqueda">
+    <img class="searchBar searchMenu" :src="this.modo" />
   </label>
+  <ul class="menu__box">
+    <WhiteHeader tipo="Dark"></WhiteHeader>
+
+    <p>Búsqueda</p>
+    <p>Trending</p>
+    <p>Sudadera Hombre Blanca</p>
+    <p>Chaqueta Hombre</p>
+    <p>Chaqueta Camiseta Blanca</p>
+
+    <div @click="menuAction(false)" class="greyContainer"></div>
+  </ul>
 </template>
 <script>
+import WhiteHeader from "@/components/WhiteHeader.vue";
+
 export default {
+  /*eslint-disable */
+  created() {
+    if (this.color === "Dark") {
+      this.modo = this.busquedaOscuro;
+    } else {
+      this.modo = this.busquedaClaro;
+    }
+  },
+  components: WhiteHeader,
   name: "MenuBusqueda",
+  props: {
+    color: String,
+  },
+  methods: {
+    menuAction(bool) {
+      document.querySelector("#checkedBusqueda").checked = bool;
+    },
+  },
+  data() {
+    return {
+      modo: null,
+      busquedaClaro: require("../assets/whiteSearchBar.png"),
+      busquedaOscuro: require("../assets/searchBlack.png"),
+    };
+  },
 };
 </script>
 <style lang="scss">
