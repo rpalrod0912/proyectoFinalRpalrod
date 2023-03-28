@@ -1,19 +1,24 @@
 <template>
-  <div class="hamburger-menu">
-    <input @click="check" id="menu__toggle" type="checkbox" />
-    <label class="menu__btn" for="menu__toggle">
-      <span></span>
-    </label>
+  <div class="generalContainers">
+    <div>
+      <input @click="check" id="menu__toggle" type="checkbox" />
+      <label class="menu__btn" for="menu__toggle">
+        <span></span>
+      </label>
 
-    <ul class="menu__box">
-      <li><a class="menu__item" href="#">Home</a></li>
-      <li><a class="menu__item" href="#">About</a></li>
-      <li><a class="menu__item" href="#">Team</a></li>
-      <li><a class="menu__item" href="#">Contact</a></li>
-      <li><a class="menu__item" href="#">Twitter</a></li>
-    </ul>
+      <ul class="menu__box">
+        <div>
+          <li><a class="menu__item" href="#">Home</a></li>
+          <li><a class="menu__item" href="#">About</a></li>
+          <li><a class="menu__item" href="#">Team</a></li>
+          <li><a class="menu__item" href="#">Contact</a></li>
+          <li><a class="menu__item" href="#">Twitter</a></li>
+          <div class="greyContainer"></div>
+        </div>
+      </ul>
+    </div>
+    <!--<div class="opacity"></div>-->
   </div>
-  <div class="opacity"></div>
 </template>
 <script>
 export default {
@@ -27,11 +32,14 @@ export default {
 };
 </script>
 <style lang="scss">
-.opacity {
+.generalContainers {
+  display: flex;
   z-index: 1;
-  opacity: 0.5;
+  width: 100%;
+}
+
+.opacity {
   transition: opacity 300ms ease-in-out;
-  background-color: #000;
 }
 
 #menu__toggle {
@@ -49,10 +57,17 @@ export default {
   top: 0;
   transform: rotate(90deg);
   background-color: black;
+  .greyContainer {
+    visibility: visible;
+  }
 }
 #menu__toggle:checked ~ .menu__box {
   left: 0 !important;
+  .greyContainer {
+    left: 20% !important;
+  }
 }
+
 .menu__btn {
   position: fixed;
 
@@ -84,7 +99,8 @@ export default {
   position: fixed;
   top: 0;
   left: -100%;
-  width: 300px;
+  //width: 300px;
+  width: 20%;
   height: 100%;
   margin: 0;
   padding: 80px 0;
@@ -93,6 +109,18 @@ export default {
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
   transition-duration: 0.25s;
   opacity: 1;
+  .greyContainer {
+    left: auto;
+    background-color: rgb(52, 50, 50);
+    position: fixed;
+    left: -100%;
+    width: 80%;
+    height: 300rem;
+    z-index: 1;
+    bottom: 0%;
+    opacity: 0.6;
+    transition-duration: 0.25s;
+  }
 }
 .menu__item {
   display: block;
