@@ -1,6 +1,7 @@
 <template>
   <div class="generalContainers">
     <div>
+      <div @click="menuAction(true)" class="areaClick"></div>
       <input @click="check" id="menu__toggle" type="checkbox" />
       <label class="menu__btn" for="menu__toggle">
         <span></span>
@@ -13,7 +14,7 @@
           <li><a class="menu__item" href="#">Team</a></li>
           <li><a class="menu__item" href="#">Contact</a></li>
           <li><a class="menu__item" href="#">Twitter</a></li>
-          <div class="greyContainer"></div>
+          <div @click="menuAction(false)" class="greyContainer"></div>
         </div>
       </ul>
     </div>
@@ -39,21 +40,28 @@ export default {
       const pageBody = document.querySelector("body");
       pageBody.classList.toggle("bodyStyle");
     },
+    menuAction(bool) {
+      document.querySelector("#menu__toggle").checked = bool;
+    },
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 $baseColor: white;
 $secondColor: black;
 
-.generalContainers {
-  display: flex;
-  z-index: 1;
-  width: 100%;
-}
-
 .bodyStyle {
   overflow: hidden;
+}
+
+.areaClick {
+  z-index: auto;
+  height: 60%;
+  width: 9%;
+  position: absolute;
+  left: 1vw;
+  top: 2vw;
+  cursor: pointer;
 }
 
 #menu__toggle {
