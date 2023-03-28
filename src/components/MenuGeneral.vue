@@ -26,7 +26,7 @@ export default {
   methods: {
     check() {
       const pageBody = document.querySelector("body");
-      pageBody.classList.toggle("opacity");
+      pageBody.classList.toggle("bodyStyle");
     },
   },
 };
@@ -38,8 +38,8 @@ export default {
   width: 100%;
 }
 
-.opacity {
-  transition: opacity 300ms ease-in-out;
+.bodyStyle {
+  overflow: hidden;
 }
 
 #menu__toggle {
