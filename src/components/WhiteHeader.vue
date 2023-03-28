@@ -1,27 +1,68 @@
 <template>
   <header>
-    <MenuGeneral @click="check" class="menu"></MenuGeneral>
-    <img class="logo" src="../assets/LogoOscuroTransparente.png" />
+    <MenuGeneral color="Dark" @click="check" class="menu"></MenuGeneral>
+    <img class="logo" :src="this.logo" />
     <ul>
       <li>
-        <img class="searchBar" src="../assets/whiteSearchBar.png" />
+        <MenuBusqueda></MenuBusqueda>
       </li>
       <li>
-        <img src="../assets/usuario.png" />
+        <img :src="this.userIcon" />
       </li>
       <li>
-        <img src="../assets/bolsoBlanco.png" />
+        <img :src="this.carritoIcon" />
       </li>
     </ul>
   </header>
 </template>
 <script>
+import MenuBusqueda from "./MenuBusqueda.vue";
 import MenuGeneral from "./MenuGeneral.vue";
 
 export default {
   /*eslint-disable */
+  created() {
+    this.tipoHeader = this.tipo;
+    if (this.tipoHeader === "Dark") {
+      this.logo = this.iconos.logoOscuro;
+      this.searchIcon = this.iconos.busquedaOscuro;
+      this.userIcon = this.iconos.userOscuro;
+      this.carritoIcon = this.iconos.carritoOscuro;
+    } else {
+      this.logo = this.iconos.logoClaro;
+      this.searchIcon = this.iconos.busquedaClaro;
+      this.userIcon = this.iconos.userClaro;
+      this.carritoIcon = this.iconos.carritoClaro;
+      console.log(this.logo);
+      console.log(this.searchIcon);
+      console.log(this.userIcon);
+    }
+  },
   name: "NavBar",
-  components: { MenuGeneral },
+
+  data() {
+    return {
+      tipoHeader: "white",
+      iconos: {
+        logoClaro: require("../assets/LogoOscuroTransparente.png"),
+        logoOscuro: require("../assets/LogoOscuroSinFondo.png"),
+        busquedaClaro: require("../assets/whiteSearchBar.png"),
+        busquedaOscuro: require("../assets/searchBlack.png"),
+        userClaro: require("../assets/usuario.png"),
+        userOscuro: require("../assets/blackUser.png"),
+        carritoClaro: require("../assets/bolsoBlanco.png"),
+        carritoOscuro: require("../assets/bolso.png"),
+      },
+      logo: null,
+      searchIcon: null,
+      userIcon: null,
+      carritoIcon: null,
+    };
+  },
+  components: { MenuGeneral, MenuBusqueda },
+  props: {
+    tipo: "String",
+  },
 };
 </script>
 <style lang="scss" scoped>

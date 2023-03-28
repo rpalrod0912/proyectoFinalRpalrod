@@ -1,51 +1,26 @@
 <template>
-  <div class="generalContainers">
-    <div>
-      <input @click="check" id="menu__toggle" type="checkbox" />
-      <label class="menu__btn" for="menu__toggle">
-        <span></span>
-      </label>
-
-      <ul class="menu__box">
-        <div>
-          <li><a class="menu__item" href="#">Home</a></li>
-          <li><a class="menu__item" href="#">About</a></li>
-          <li><a class="menu__item" href="#">Team</a></li>
-          <li><a class="menu__item" href="#">Contact</a></li>
-          <li><a class="menu__item" href="#">Twitter</a></li>
-          <div class="greyContainer"></div>
-        </div>
-      </ul>
-    </div>
-    <!--<div class="opacity"></div>-->
-  </div>
+  <input
+    @click="check"
+    id="checkedBusqueda"
+    type="checkbox"
+    name="checkBusqueda"
+  />
+  <label for="checkBusqueda">
+    <img class="searchBar searchMenu" src="../assets/whiteSearchBar.png" />
+  </label>
 </template>
 <script>
 export default {
-  /*eslint-disable */
-  created() {
-    console.log(this.color);
-    if (this.color === "Dark") {
-      document.documentElement.style.setProperty("--baseColor", "black");
-      document.documentElement.style.setProperty("--secondColor", "white");
-    }
-  },
-  name: "MenuGeneral",
-  props: {
-    color: "String",
-  },
-  methods: {
-    check() {
-      const pageBody = document.querySelector("body");
-      pageBody.classList.toggle("bodyStyle");
-    },
-  },
+  name: "MenuBusqueda",
 };
 </script>
 <style lang="scss">
-$baseColor: white;
-$secondColor: black;
-
+#checkedBusqueda {
+  display: none;
+}
+.searchMenu {
+  cursor: pointer;
+}
 .generalContainers {
   display: flex;
   z-index: 1;
@@ -69,12 +44,12 @@ $secondColor: black;
 #menu__toggle:checked + .menu__btn > span::before {
   top: 0;
   transform: rotate(0deg);
-  background-color: $secondColor;
+  background-color: black;
 }
 #menu__toggle:checked + .menu__btn > span::after {
   top: 0;
   transform: rotate(90deg);
-  background-color: $secondColor;
+  background-color: black;
   .greyContainer {
     visibility: visible;
   }
@@ -101,7 +76,7 @@ $secondColor: black;
   position: absolute;
   width: 100%;
   height: 2px;
-  background-color: var(--baseColor, $baseColor);
+  background-color: white;
   transition-duration: 0.25s;
 }
 .menu__btn > span::before {
@@ -123,13 +98,13 @@ $secondColor: black;
   margin: 0;
   padding: 80px 0;
   list-style: none;
-  background-color: $baseColor;
+  background-color: white;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
   transition-duration: 0.25s;
   opacity: 1;
   .greyContainer {
     left: auto;
-    background-color: $secondColor;
+    background-color: rgb(8 8 8);
     position: fixed;
     left: -100%;
     width: 80%;

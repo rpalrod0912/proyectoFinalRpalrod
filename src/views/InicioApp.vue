@@ -1,5 +1,5 @@
 <template>
-  <WhiteHeader></WhiteHeader>
+  <WhiteHeader tipo="blanco"></WhiteHeader>
   <main>
     <section class="secIni1">
       <img src="../assets/imInicioUsoWeb.jpg" />
