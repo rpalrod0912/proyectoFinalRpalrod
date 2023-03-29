@@ -104,5 +104,10 @@ header {
     width: 27rem;
     height: 8rem;
   }
+  @media (max-width: 1400px) {
+    .logo {
+      position: revert;
+    }
+  }
 }
 </style>
