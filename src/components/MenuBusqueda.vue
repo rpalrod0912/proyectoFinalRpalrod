@@ -11,6 +11,17 @@
       menuButtonColor="Dark"
       tipo="Dark"
     ></SearchHeader>
+    <div class="cajaBusqueda">
+      <div class="lineaBusqueda">
+        <img src="../assets/lupaBlack.png" />
+        <input
+          type="text"
+          class="inputBusqueda"
+          placeholder="¿QUÉ ESTÁS BUSCANDO?"
+        />
+      </div>
+      <div class="separadorAlterno"></div>
+    </div>
     <p class="TopMenu__item textoPlano">Búsqueda</p>
     <p class="TopMenu__item textoPlano">Trending</p>
     <p class="TopMenu__item textoPlano">Sudadera Hombre Blanca</p>
@@ -72,6 +83,31 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
+input[type="text"] {
+  background: transparent;
+  border: none;
+}
+.cajaBusqueda {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  align-items: center;
+  img {
+    width: 4rem;
+    height: 4rem;
+  }
+  .lineaBusqueda {
+    display: flex;
+    flex-direction: row;
+  }
+  .inputBusqueda {
+    padding-left: 2rem;
+    @include fuenteSemiBold;
+    font-size: 2rem;
+    color: DADADA;
+  }
+}
 
 #checkedBusqueda {
   display: none;
