@@ -6,12 +6,16 @@
   </label>
 
   <ul class="TopMenu__box">
-    <SearchHeader class="TopMenu__item" tipo="Dark"></SearchHeader>
-    <p class="TopMenu__item">Búsqueda</p>
-    <p class="TopMenu__item">Trending</p>
-    <p class="TopMenu__item">Sudadera Hombre Blanca</p>
-    <p class="TopMenu__item">Chaqueta Hombre</p>
-    <p class="TopMenu__item">Chaqueta Camiseta Blanca</p>
+    <SearchHeader
+      class="TopMenu__item"
+      menuButtonColor="Dark"
+      tipo="Dark"
+    ></SearchHeader>
+    <p class="TopMenu__item textoPlano">Búsqueda</p>
+    <p class="TopMenu__item textoPlano">Trending</p>
+    <p class="TopMenu__item textoPlano">Sudadera Hombre Blanca</p>
+    <p class="TopMenu__item textoPlano">Chaqueta Hombre</p>
+    <p class="TopMenu__item textoPlano">Chaqueta Camiseta Blanca</p>
 
     <div @click="menuAction(false)" class="greyContainer"></div>
   </ul>
@@ -36,9 +40,16 @@ export default {
     menuAction(bool) {
       debugger;
       document.querySelector("#TopMenu__toggle").checked = bool;
-      document
-        .getElementById("menuGeneral")
-        .querySelector(".menu__btn").style.opacity = "0";
+      if (bool === true) {
+        document
+          .getElementById("menuGeneral")
+          .querySelector(".menu__btn").style.opacity = "0";
+      }
+      if (bool === false) {
+        document
+          .getElementById("menuGeneral")
+          .querySelector(".menu__btn").style.opacity = "1";
+      }
 
       console.log("estilos");
       /*
@@ -59,16 +70,14 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+@import "../helpers/mixings.scss";
+
 #checkedBusqueda {
   display: none;
 }
 .searchMenu {
   cursor: pointer;
-}
-.generalContainers {
-  display: flex;
-  z-index: 1;
 }
 
 .bodyStyle {
@@ -103,7 +112,9 @@ export default {
   left: 0rem;
   padding: 0rem;
   .greyContainer {
-    top: 80% !important;
+    top: 60% !important;
+    left: 0rem;
+    width: 100%;
   }
 }
 
@@ -137,8 +148,7 @@ export default {
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 0;
-  left: -100%;
+  top: -100%;
   //width: 300px;
   width: 100%;
   height: 60%;
@@ -147,12 +157,14 @@ export default {
   list-style: none;
   background-color: white;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
-  transition-duration: 0.25s;
+  transition-duration: 0.1s;
   opacity: 1;
   .greyContainer {
     left: auto;
     background-color: rgb(8 8 8);
     position: fixed;
+    //Posicion de la que parte el fondo transparente, este caso cambiamos a arriba hacia abajo
+    top: -100%;
     left: -100%;
     width: 80%;
     height: 300rem;
@@ -163,14 +175,16 @@ export default {
   }
 }
 .TopMenu__item {
-  display: block;
   padding: 12px 24px;
-  color: #333;
-  font-family: "Roboto", sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  text-decoration: none;
-  transition-duration: 0.25s;
+  margin-top: 0.5rem;
+
+  encabezado {
+  }
+}
+.textoPlano {
+  @include fuenteSemiBold;
+  color: #95a3a4;
+  font-size: 1.2rem;
 }
 .TopMenu__item:hover {
   background-color: #cfd8dc;
