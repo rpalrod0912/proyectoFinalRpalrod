@@ -3,7 +3,16 @@
     <div>
       <div @click="menuAction(true)" class="areaClick"></div>
       <input @click="check" id="menu__toggle" type="checkbox" />
-      <label class="menu__btn" for="menu__toggle">
+
+      <label
+        v-if="this.colorBoton === 'Dark'"
+        class="menu__btn blackSpan"
+        for="menu__toggle"
+      >
+        <span class="blackSpan"></span>
+      </label>
+
+      <label v-else class="menu__btn whiteSpan" for="menu__toggle">
         <span></span>
       </label>
 
@@ -25,15 +34,22 @@
 export default {
   /*eslint-disable */
   created() {
-    console.log(this.color);
+    debugger;
+    this.colorBoton = this.menuButtonColor;
     if (this.color === "Dark") {
       document.documentElement.style.setProperty("--baseColor", "black");
       document.documentElement.style.setProperty("--secondColor", "white");
     }
   },
+  data() {
+    return {
+      colorBoton: null,
+    };
+  },
   name: "MenuGeneral",
   props: {
     color: "String",
+    menuButtonColor: "String",
   },
   methods: {
     check() {
@@ -46,7 +62,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 $baseColor: white;
 $secondColor: black;
 
@@ -112,6 +128,16 @@ $secondColor: black;
   background-color: var(--baseColor, $baseColor);
   transition-duration: 0.25s;
 }
+
+//ESTA CLASE SOLO PONDRA EL SPAN NEGRO CUANDO TENGAMOS EL HEADER SECUNDARIO DEL MENU ABIERTO
+.blackSpan {
+  span,
+  span::before,
+  span::after {
+    background-color: black;
+  }
+}
+
 .menu__btn > span::before {
   content: "";
   top: -8px;

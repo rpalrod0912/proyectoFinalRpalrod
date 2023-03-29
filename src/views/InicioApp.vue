@@ -29,6 +29,7 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "../helpers/mixings.scss";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@600;700&display=swap");
 * {
   margin: 0;
@@ -40,6 +41,11 @@ body {
   -webkit-transition: opacity 300ms ease-in-out;
   transition: opacity 300ms ease-in-out;
   opacity: 0.5;
+}
+//GENERAL CONTAINER -> CSS MENU IZQUIERDAD GENERAWL DE LA PÁGINA
+.generalContainers {
+  display: flex;
+  z-index: 1;
 }
 main {
   .secIni1 {

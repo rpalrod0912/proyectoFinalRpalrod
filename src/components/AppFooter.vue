@@ -53,6 +53,8 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+@import "../helpers/mixings.scss";
+
 ul {
   list-style-type: none;
 }
@@ -135,9 +137,7 @@ ul {
 .secFoot2 {
   margin-top: 4rem;
   margin-bottom: 3rem;
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 600;
+  @include fuenteSemiBold;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

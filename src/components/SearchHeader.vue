@@ -1,6 +1,11 @@
 <template>
   <header>
-    <MenuGeneral id="searchBusqueda" @click="check" class="menu"></MenuGeneral>
+    <MenuGeneral
+      menuButtonColor="Dark"
+      id="searchBusqueda"
+      @click="check"
+      class="menu"
+    ></MenuGeneral>
     <img class="logo" :src="this.logo" />
     <ul>
       <li>
@@ -66,6 +71,7 @@ export default {
   components: { MenuGeneral, MenuBusqueda },
   props: {
     tipo: "String",
+    menuButtonColor: "Black",
   },
 };
 </script>

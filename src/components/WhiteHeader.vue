@@ -62,6 +62,7 @@ export default {
   components: { MenuGeneral, MenuBusqueda },
   props: {
     tipo: "String",
+    menuButtonColor: "String",
   },
 };
 </script>
