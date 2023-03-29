@@ -41,8 +41,8 @@ body {
   border-top: 1px solid #95a3a4;
   height: 2px;
   padding: 0;
-  width: 80%;
-  margin: 20px auto 0 auto;
+  width: 100%;
+  margin-top: 1.1rem;
 }
 .bodyOpacity {
   -webkit-transition: opacity 300ms ease-in-out;

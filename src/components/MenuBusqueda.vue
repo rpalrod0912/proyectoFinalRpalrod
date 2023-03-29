@@ -22,8 +22,7 @@
       </div>
       <div class="separadorAlterno"></div>
     </div>
-    <p class="TopMenu__item textoPlano">Búsqueda</p>
-    <p class="TopMenu__item textoPlano">Trending</p>
+    <p class="TopMenu__item textoGrueso">Trending</p>
     <p class="TopMenu__item textoPlano">Sudadera Hombre Blanca</p>
     <p class="TopMenu__item textoPlano">Chaqueta Hombre</p>
     <p class="TopMenu__item textoPlano">Chaqueta Camiseta Blanca</p>
@@ -83,16 +82,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
-input[type="text"] {
+input[type="text"],
+input[type="text"]:focus {
   background: transparent;
   border: none;
+  outline-width: 0;
 }
 .cajaBusqueda {
   display: flex;
   flex-direction: column;
   width: 80%;
   margin: 0 auto;
-  align-items: center;
+  align-items: flex-start;
   img {
     width: 4rem;
     height: 4rem;
@@ -126,9 +127,18 @@ input[type="text"] {
   margin-top: 0.5rem;
 }
 .textoPlano {
+  margin-left: 9%;
+  margin-right: 9%;
   @include fuenteSemiBold;
   color: #95a3a4;
   font-size: 1.2rem;
+}
+.textoGrueso {
+  margin-left: 9%;
+  margin-right: 9%;
+  @include fuenteSemiBold;
+  color: black;
+  font-size: 1.8rem;
 }
 .TopMenu__item:hover {
   background-color: #cfd8dc;
