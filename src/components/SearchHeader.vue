@@ -9,7 +9,7 @@
     <img class="logo" :src="this.logo" />
     <ul>
       <li>
-        <img :src="this.deleteIcon" />
+        <img @click="closeMenu" :src="this.deleteIcon" />
       </li>
       <li>
         <img :src="this.userIcon" />
@@ -67,6 +67,14 @@ export default {
       carritoIcon: null,
       deleteIcon: null,
     };
+  },
+  methods: {
+    closeMenu() {
+      document.querySelector("#TopMenu__toggle").checked = false;
+      document
+        .getElementById("menuGeneral")
+        .querySelector(".menu__btn").style.opacity = "1";
+    },
   },
   components: { MenuGeneral, MenuBusqueda },
   props: {
