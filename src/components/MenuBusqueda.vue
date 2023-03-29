@@ -1,24 +1,23 @@
 <template>
-  <input id="checkedBusqueda" type="checkbox" name="checkBusqueda" />
+  <input id="TopMenu__toggle" type="checkbox" name="checkBusqueda" />
 
   <label @click="menuAction(true)" for="checkBusqueda">
     <img class="searchBar searchMenu" :src="this.modo" />
   </label>
-  <ul class="menu__box">
-    <WhiteHeader tipo="Dark"></WhiteHeader>
 
-    <p>Búsqueda</p>
-    <p>Trending</p>
-    <p>Sudadera Hombre Blanca</p>
-    <p>Chaqueta Hombre</p>
-    <p>Chaqueta Camiseta Blanca</p>
+  <ul class="TopMenu__box">
+    <SearchHeader class="TopMenu__item" tipo="Dark"></SearchHeader>
+    <p class="TopMenu__item">Búsqueda</p>
+    <p class="TopMenu__item">Trending</p>
+    <p class="TopMenu__item">Sudadera Hombre Blanca</p>
+    <p class="TopMenu__item">Chaqueta Hombre</p>
+    <p class="TopMenu__item">Chaqueta Camiseta Blanca</p>
 
     <div @click="menuAction(false)" class="greyContainer"></div>
   </ul>
 </template>
 <script>
-import WhiteHeader from "@/components/WhiteHeader.vue";
-
+import SearchHeader from "../components/SearchHeader.vue";
 export default {
   /*eslint-disable */
   created() {
@@ -28,14 +27,27 @@ export default {
       this.modo = this.busquedaClaro;
     }
   },
-  components: WhiteHeader,
   name: "MenuBusqueda",
+  components: { SearchHeader },
   props: {
     color: String,
   },
   methods: {
     menuAction(bool) {
-      document.querySelector("#checkedBusqueda").checked = bool;
+      debugger;
+      document.querySelector("#TopMenu__toggle").checked = bool;
+      document
+        .getElementById("menuGeneral")
+        .querySelector(".menu__btn").style.opacity = "0";
+
+      console.log("estilos");
+      /*
+      if (document.getElementById("TopMenu__toggle").checked) {
+        alert("checked");
+      } else {
+        alert("You didn't check it! Let me check it for you.");
+      }
+      */
     },
   },
   data() {
@@ -57,29 +69,28 @@ export default {
 .generalContainers {
   display: flex;
   z-index: 1;
-  width: 100%;
 }
 
 .bodyStyle {
   overflow: hidden;
 }
 
-#menu__toggle {
+#TopMenu__toggle {
   z-index: 1;
   width: 1rem;
   position: relative;
   right: -1rem;
   opacity: 0;
 }
-#menu__toggle:checked + .menu__btn > span {
+#TopMenu__toggle:checked + .menu__btn > span {
   transform: rotate(45deg);
 }
-#menu__toggle:checked + .menu__btn > span::before {
+#TopMenu__toggle:checked + .menu__btn > span::before {
   top: 0;
   transform: rotate(0deg);
   background-color: black;
 }
-#menu__toggle:checked + .menu__btn > span::after {
+#TopMenu__toggle:checked + .menu__btn > span::after {
   top: 0;
   transform: rotate(90deg);
   background-color: black;
@@ -87,10 +98,12 @@ export default {
     visibility: visible;
   }
 }
-#menu__toggle:checked ~ .menu__box {
-  left: 0 !important;
+#TopMenu__toggle:checked ~ .TopMenu__box {
+  top: 0rem !important;
+  left: 0rem;
+  padding: 0rem;
   .greyContainer {
-    left: 20% !important;
+    top: 80% !important;
   }
 }
 
@@ -120,14 +133,15 @@ export default {
   content: "";
   top: 8px;
 }
-.menu__box {
-  display: block;
+.TopMenu__box {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: 0;
   left: -100%;
   //width: 300px;
-  width: 20%;
-  height: 100%;
+  width: 100%;
+  height: 60%;
   margin: 0;
   padding: 80px 0;
   list-style: none;
@@ -148,7 +162,7 @@ export default {
     transition-duration: 0.25s;
   }
 }
-.menu__item {
+.TopMenu__item {
   display: block;
   padding: 12px 24px;
   color: #333;
@@ -158,7 +172,7 @@ export default {
   text-decoration: none;
   transition-duration: 0.25s;
 }
-.menu__item:hover {
+.TopMenu__item:hover {
   background-color: #cfd8dc;
 }
 </style>

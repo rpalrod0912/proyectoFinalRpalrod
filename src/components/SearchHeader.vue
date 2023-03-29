@@ -1,10 +1,10 @@
 <template>
   <header>
-    <MenuGeneral id="menuGeneral" @click="check" class="menu"></MenuGeneral>
+    <MenuGeneral id="searchBusqueda" @click="check" class="menu"></MenuGeneral>
     <img class="logo" :src="this.logo" />
     <ul>
       <li>
-        <MenuBusqueda color="Dark"></MenuBusqueda>
+        <img :src="this.deleteIcon" />
       </li>
       <li>
         <img :src="this.userIcon" />
@@ -25,20 +25,20 @@ export default {
     this.tipoHeader = this.tipo;
     if (this.tipoHeader === "Dark") {
       this.logo = this.iconos.logoOscuro;
-      this.searchIcon = this.iconos.busquedaOscuro;
       this.userIcon = this.iconos.userOscuro;
+      this.deleteIcon = this.iconos.deleteOscuro;
       this.carritoIcon = this.iconos.carritoOscuro;
     } else {
       this.logo = this.iconos.logoClaro;
-      this.searchIcon = this.iconos.busquedaClaro;
       this.userIcon = this.iconos.userClaro;
+      this.deleteIcon = this.iconos.deleteClaro;
       this.carritoIcon = this.iconos.carritoClaro;
       console.log(this.logo);
       console.log(this.searchIcon);
       console.log(this.userIcon);
     }
   },
-  name: "WhiteHeader",
+  name: "SearchHeader",
 
   data() {
     return {
@@ -48,6 +48,9 @@ export default {
         logoOscuro: require("../assets/LogoOscuroSinFondo.png"),
         busquedaClaro: require("../assets/whiteSearchBar.png"),
         busquedaOscuro: require("../assets/searchBlack.png"),
+        deleteClaro: require("../assets/DeleteIcon.png"),
+        deleteOscuro: require("../assets/DeleteIcon.png"),
+
         userClaro: require("../assets/usuario.png"),
         userOscuro: require("../assets/blackUser.png"),
         carritoClaro: require("../assets/bolsoBlanco.png"),
@@ -57,6 +60,7 @@ export default {
       searchIcon: null,
       userIcon: null,
       carritoIcon: null,
+      deleteIcon: null,
     };
   },
   components: { MenuGeneral, MenuBusqueda },
@@ -67,10 +71,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 header {
+  display: flex;
   height: 10rem;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
   img {
     width: 2.5rem;
     height: 2.5rem;
@@ -98,8 +102,6 @@ header {
   display: flex;
 
   .logo {
-    position: fixed;
-    left: 39%;
     width: 27rem;
     height: 8rem;
   }
