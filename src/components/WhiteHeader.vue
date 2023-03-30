@@ -7,7 +7,7 @@
         <MenuBusqueda color="Dark"></MenuBusqueda>
       </li>
       <li>
-        <img :src="this.userIcon" />
+        <LoginMenu></LoginMenu>
       </li>
       <li>
         <img :src="this.carritoIcon" />
@@ -16,6 +16,7 @@
   </header>
 </template>
 <script>
+import LoginMenu from "./LoginMenu.vue";
 import MenuBusqueda from "./MenuBusqueda.vue";
 import MenuGeneral from "./MenuGeneral.vue";
 
@@ -59,14 +60,14 @@ export default {
       carritoIcon: null,
     };
   },
-  components: { MenuGeneral, MenuBusqueda },
+  components: { MenuGeneral, MenuBusqueda, LoginMenu },
   props: {
     tipo: "String",
     menuButtonColor: "String",
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 header {
   height: 10rem;
   justify-content: space-between;
