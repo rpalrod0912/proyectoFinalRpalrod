@@ -11,7 +11,7 @@
       menuButtonColor="Dark"
       tipo="Dark"
     ></SearchHeader>
-    <div class="cajaBusqueda">
+    <div class="TopMenu__item cajaBusqueda">
       <div class="lineaBusqueda">
         <img src="../assets/lupaBlack.png" />
         <input
@@ -125,6 +125,7 @@ input[type="text"]:focus {
 .TopMenu__item {
   padding: 12px 24px;
   margin-top: 0.5rem;
+  position: initial;
 }
 .textoPlano {
   margin-left: 9%;
