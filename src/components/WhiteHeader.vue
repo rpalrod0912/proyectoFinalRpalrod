@@ -10,12 +10,13 @@
         <LoginMenu></LoginMenu>
       </li>
       <li>
-        <img :src="this.carritoIcon" />
+        <CarritoMenu></CarritoMenu>
       </li>
     </ul>
   </header>
 </template>
 <script>
+import CarritoMenu from "./CarritoMenu.vue";
 import LoginMenu from "./LoginMenu.vue";
 import MenuBusqueda from "./MenuBusqueda.vue";
 import MenuGeneral from "./MenuGeneral.vue";
@@ -60,7 +61,7 @@ export default {
       carritoIcon: null,
     };
   },
-  components: { MenuGeneral, MenuBusqueda, LoginMenu },
+  components: { MenuGeneral, MenuBusqueda, LoginMenu, CarritoMenu },
   props: {
     tipo: "String",
     menuButtonColor: "String",

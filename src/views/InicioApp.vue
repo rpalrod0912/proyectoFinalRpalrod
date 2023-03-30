@@ -4,6 +4,7 @@
     <section class="secIni1">
       <img src="../assets/imInicioUsoWeb.jpg" />
     </section>
+
     <section class="secIniOfer">
       <h1>
         ¡PROMOCIONES HASTA EL 50 % DE DESCUENTO! ELIGE ENTRE MÁS DE 100
@@ -21,6 +22,7 @@
 </template>
 <script>
 import AppFooter from "@/components/AppFooter.vue";
+
 import WhiteHeader from "@/components/WhiteHeader.vue";
 export default {
   /*eslint-disable */

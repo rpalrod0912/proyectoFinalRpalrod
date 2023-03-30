@@ -6,21 +6,40 @@
   </label>
 
   <ul class="RightMenu__box">
-    <div class="cajaBusqueda">
-      <div class="lineaBusqueda">
-        <img src="../assets/lupaBlack.png" />
-        <input
-          type="text"
-          class="inputBusqueda"
-          placeholder="¿QUÉ ESTÁS BUSCANDO?"
-        />
-      </div>
-      <div class="separadorAlterno"></div>
+    <div class="cabeceraMenu">
+      <h1 class="TopMenu__item textoGruesoh1">ACCEDER</h1>
+      <img @click="menuAction(false)" :src="this.deleteIcon" />
     </div>
-    <p class="TopMenu__item textoGrueso">Trending</p>
-    <p class="TopMenu__item textoPlano">Sudadera Hombre Blanca</p>
-    <p class="TopMenu__item textoPlano">Chaqueta Hombre</p>
-    <p class="TopMenu__item textoPlano">Chaqueta Camiseta Blanca</p>
+    <div class="contenidoLogin">
+      <label for="emailPhoneInput" class="TopMenu__item textoGruesoh1">
+        INTRODUCE TU NÚMERO DE TELÉFONO O E-MAIL
+      </label>
+      <input
+        id="emailPhoneInput"
+        name="emailPhoneInput"
+        placeholder="Email/Número Móvil"
+        type="text"
+      />
+      <button class="nextButton">SIGUIENTE</button>
+      <p class="TopMenu__item textoPlanoFino">O si lo prefieres</p>
+      <button class="socialButton">
+        <img src="../assets/gmail.png" />
+        <p>CONTINUAR CON GMAIL</p>
+      </button>
+      <button class="socialButton">
+        <img src="../assets/facebook.png" />
+        <p>CONTINUAR CON FACEBOOK</p>
+      </button>
+
+      <p class="TopMenu__item textoPlanoFino">
+        Al iniciar sesión con mi login social, acepto vincular mi cuenta
+        conforme a la Política de Privacidad
+      </p>
+      <p class="TopMenu__item textoPlanoFino">
+        Utilizaremos el teléfono / correo electrónico indicado para enviar el
+        código de verificación.
+      </p>
+    </div>
 
     <div @click="menuAction(false)" class="greyContainer"></div>
   </ul>
@@ -31,8 +50,10 @@ export default {
   created() {
     if (this.color === "Dark") {
       this.modo = this.UserOscuro;
+      this.deleteIcon = this.deleteOscuro;
     } else {
       this.modo = this.UserClaro;
+      this.deleteIcon = this.deleteClaro;
     }
   },
   name: "LoginMenu",
@@ -58,8 +79,7 @@ export default {
       /*
         if (document.getElementById("TopMenu__toggle").checked) {
           alert("checked");
-        } else {
-          alert("You didn't check it! Let me check it for you.");
+        } else {box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);k it! Let me check it for you.");
         }
         */
     },
@@ -67,40 +87,72 @@ export default {
   data() {
     return {
       modo: null,
+      deleteIcon: null,
       UserClaro: require("../assets/usuario.png"),
       UserOscuro: require("../assets/blackUser.png"),
+      deleteClaro: require("../assets/DeleteIcon.png"),
+      deleteOscuro: require("../assets/DeleteIcon.png"),
     };
   },
 };
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
-input[type="text"],
-input[type="text"]:focus {
-  background: transparent;
-  border: none;
-  outline-width: 0;
-}
-.cajaBusqueda {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin: 0 auto;
-  align-items: flex-start;
+
+.socialButton {
+  @include loginButton("#DADADA", "black", "0.6rem;");
+  font-size: 1rem;
+  justify-content: flex-start;
   img {
-    width: 4rem;
-    height: 4rem;
+    padding-right: 0.4rem;
   }
-  .lineaBusqueda {
-    display: flex;
-    flex-direction: row;
+  padding-top: 1.8rem;
+  padding-bottom: 1.8rem;
+}
+.nextButton {
+  @include loginButton("black", "white", "2rem");
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.contenidoLogin {
+  display: flex;
+
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 80%;
+
+  label {
+    width: 60%;
+    text-align: left;
   }
-  .inputBusqueda {
+
+  input[type="text"],
+  input[type="text"]:focus {
+    margin-top: 2rem;
+    height: 2.5rem;
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 10px;
     padding-left: 2rem;
     @include fuenteSemiBold;
-    font-size: 2rem;
-    color: DADADA;
+    font-size: 1rem;
   }
+}
+.cabeceraMenu {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    left: 10%;
+    bottom: 1%;
+  }
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);
 }
 
 #checkedBusqueda {
@@ -130,6 +182,12 @@ input[type="text"]:focus {
   color: #95a3a4;
   font-size: 1.2rem;
 }
+.textoPlanoFino {
+  @include fuenteSemiBold;
+  color: black;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
 .textoGrueso {
   margin-left: 9%;
   margin-right: 9%;
@@ -137,7 +195,12 @@ input[type="text"]:focus {
   color: black;
   font-size: 1.8rem;
 }
-.TopMenu__item:hover {
-  background-color: #cfd8dc;
+.textoGruesoh1 {
+  margin-left: 9%;
+  margin-right: 9%;
+  @include fuenteSemiBold;
+  color: black;
+  font-size: 1.3rem;
+  text-align: center;
 }
 </style>
