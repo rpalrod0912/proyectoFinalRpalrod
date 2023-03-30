@@ -17,9 +17,21 @@
         src="../assets/SeeThrough.png"
       />
     </div>
+    <ButtonComponent class="btn" msj="SIGUIENTE"></ButtonComponent>
+    <ButtonComponent
+      class="btn"
+      msj="Acceder con código vía SMS"
+    ></ButtonComponent>
+    <ButtonComponent
+      class="btn"
+      msj="Acceder con código vía e-mail"
+    ></ButtonComponent>
+    <p class="underLineTxt">Restablecer Contraseña</p>
   </section>
 </template>
 <script>
+import ButtonComponent from "./ButtonComponent.vue";
+
 export default {
   created() {
     this.modoTexto = false;
@@ -44,6 +56,7 @@ export default {
       }
     },
   },
+  components: { ButtonComponent },
 };
 </script>
 <style lang="scss">
@@ -54,7 +67,15 @@ export default {
   top: 18rem;
   flex-direction: column;
   align-items: center;
-  height: 200rem;
+  .underLineTxt {
+    margin-top: 2.5rem;
+    text-decoration: underline;
+    @include fuenteRegular;
+    font-size: 1rem;
+  }
+  .btn {
+    margin-top: 2rem;
+  }
   h1 {
     @include fuenteBold;
     font-size: 2.3rem;
@@ -65,10 +86,13 @@ export default {
     display: flex;
     align-items: flex-end;
     align-items: center;
+    width: 18rem;
+
     input[type="password"],
     input[type="password"]:focus,
     input[type="text"],
     input[type="password"]:focus {
+      position: relative;
       height: 2.5rem;
       background: transparent;
       border: 1px solid black;
