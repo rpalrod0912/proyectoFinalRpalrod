@@ -4,6 +4,12 @@
   font-weight: 600;
 }
 
+@mixin fuenteBold {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 700;
+}
+
 @mixin loginButton($color, $colorLetra, $marginTop) {
   margin-top: #{$marginTop};
   width: 18rem;

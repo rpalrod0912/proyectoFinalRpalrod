@@ -1,16 +1,21 @@
 <template>
   <header>
-    <MenuGeneral id="menuGeneral" @click="check" class="menu"></MenuGeneral>
+    <MenuGeneral
+      :color="this.tipoHeader"
+      id="menuGeneral"
+      @click="check"
+      class="menu"
+    ></MenuGeneral>
     <img class="logo" :src="this.logo" />
     <ul>
       <li>
-        <MenuBusqueda color="Dark"></MenuBusqueda>
+        <MenuBusqueda :color="this.tipoHeader"></MenuBusqueda>
       </li>
       <li>
-        <LoginMenu></LoginMenu>
+        <LoginMenu :color="this.tipoHeader"></LoginMenu>
       </li>
       <li>
-        <CarritoMenu></CarritoMenu>
+        <CarritoMenu :color="this.tipoHeader"></CarritoMenu>
       </li>
     </ul>
   </header>
