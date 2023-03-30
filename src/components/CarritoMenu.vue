@@ -15,8 +15,12 @@
           class="labelCarrito"
           for="cartCheck"
         >
-          <img src="../assets/bolso.png" />
-          <p>CARRITO (0)</p>
+          <div class="grupoFlex">
+            <img src="../assets/bolso.png" />
+            <p>CARRITO (0)</p>
+          </div>
+
+          <div class="marcador"></div>
         </label>
         <input type="checkbox" name="likeCheck" id="likeCheck" />
 
@@ -28,11 +32,13 @@
           <img src="../assets/likeWhite.png" />
           <p>WISHLIST (0)</p>
         </label>
-        <img @click="menuAction(false)" :src="this.deleteIcon" />
+        <div class="closeDiv" @click="menuAction(false)">
+          <img :src="this.deleteIcon" />
+        </div>
       </div>
-      <div class="contenidoLogin">
-        <p v-if="this.checked">HOLA</p>
-        <p v-if="!this.checked">HOLA2</p>
+      <div class="contenidoCarrito">
+        <p class="textoP">TU CESTA ESTA VACÍA</p>
+        <button class="seeProductsButton">VER PRODUCTOS</button>
       </div>
     </div>
     <div v-else-if="!checked">
@@ -50,13 +56,19 @@
         <input type="checkbox" name="likeCheck" id="likeCheck" />
 
         <label class="labelCarrito" for="likeCheck">
-          <img src="../assets/likeWhite.png" />
-          <p>WISHLIST (0)</p>
+          <div class="grupoFlex">
+            <img src="../assets/likeWhite.png" />
+            <p>WISHLIST (0)</p>
+          </div>
+          <div class="marcador"></div>
         </label>
-        <img @click="menuAction(false)" :src="this.deleteIcon" />
+        <div class="closeDiv" @click="menuAction(false)">
+          <img :src="this.deleteIcon" />
+        </div>
       </div>
-      <div class="contenidoLogin">
-        <p>ESTA ES LA WISHLIST</p>
+      <div class="contenidoCarrito">
+        <p class="textoP">TU WISHLIST ESTA VACÍA</p>
+        <button class="seeProductsButton">VER PRODUCTOS</button>
       </div>
     </div>
 
@@ -152,6 +164,17 @@ export default {
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 
+.grupoFlex {
+  flex-direction: row;
+}
+.marcador {
+  width: 115%;
+  height: 1px;
+  border: 1px solid black;
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+}
 .cabeceraMenu {
   display: flex;
   width: 100%;
@@ -165,14 +188,37 @@ export default {
   }
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);
 }
-
+.textoP {
+  font-size: 2rem;
+  @include fuenteSemiBold;
+}
 #checkedBusqueda {
   display: none;
 }
 .searchMenu {
   cursor: pointer;
 }
-
+.seeProductsButton {
+  padding-top: 5rem;
+  margin-top: 2rem;
+  width: 18rem;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  height: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  font-size: 1.4rem;
+  padding-top: 1.3rem;
+  padding-bottom: 1.3rem;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+}
 .bodyStyle {
   overflow: hidden;
 }
@@ -225,12 +271,41 @@ export default {
     background-color: grey;
   }
 }
-.labelUnchecked {
-  background-color: #95a3a4;
+.contenidoCarrito {
+  display: flex;
+  padding-top: 5rem;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 80%;
+
+  label {
+    width: 60%;
+    text-align: left;
+  }
 }
-.labelCarrito {
+.labelUnchecked {
   width: 40%;
   display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #95a3a4;
+  border: 2px solid black;
+  opacity: 0.6;
+  img {
+    padding-right: 2rem;
+  }
+  @include fuenteSemiBold;
+}
+.labelCarrito {
+  position: relative;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
@@ -240,5 +315,10 @@ export default {
     padding-right: 2rem;
   }
   @include fuenteSemiBold;
+}
+.closeDiv {
+  display: flex;
+  width: 20%;
+  justify-content: center;
 }
 </style>
