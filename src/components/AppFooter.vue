@@ -7,7 +7,6 @@
         <li>Estado de mi pedido</li>
         <li>Envíos</li>
       </ul>
-
       <ul class="social">
         <h1>REDES SOCIALES</h1>
         <div class="socialDiv">
