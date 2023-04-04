@@ -1,5 +1,7 @@
 <template>
   <footer>
+    <div class="separadorNoMargin"></div>
+
     <section class="secFoot1">
       <ul class="help">
         <h1>AYUDA</h1>
@@ -89,6 +91,12 @@ ul {
   height: 2px;
   padding: 0;
   margin: 20px auto 0 auto;
+}
+
+.separadorNoMargin {
+  border-top: 1px solid #dadada;
+  height: 2px;
+  padding: 0;
 }
 .secFoot1 {
   display: flex;
