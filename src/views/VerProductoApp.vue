@@ -33,6 +33,10 @@
               </div>
             </label>
           </div>
+          <ButtonComponent
+            class="colorBoton"
+            msj="AÑADIR A LA CESTA"
+          ></ButtonComponent>
         </div>
       </section>
       <section class="descripcionProd">
@@ -46,6 +50,7 @@
 </template>
 <script>
 import AppFooter from "@/components/AppFooter.vue";
+import ButtonComponent from "@/components/ButtonComponent.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 import WhiteHeader from "@/components/WhiteHeader.vue";
@@ -65,7 +70,7 @@ export default {
       productData: null,
     };
   },
-  components: { WhiteHeader, LoadingSpinner, AppFooter },
+  components: { WhiteHeader, LoadingSpinner, AppFooter, ButtonComponent },
   methods: {
     async getProductData(id) {
       this.carga = false;
@@ -90,6 +95,12 @@ body {
     padding-top: 18rem;
     margin-bottom: 10rem;
   }
+  .colorBoton {
+    @include loginButton("green", "white", "2rem");
+    height: 1rem;
+    width: 15rem;
+    cursor: pointer;
+  }
   .descripcionProd {
     width: 65%;
     display: flex;
@@ -107,6 +118,7 @@ body {
   }
   .presentacionProd {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     align-items: flex-start;
@@ -118,6 +130,7 @@ body {
   }
 
   .productDiv {
+    min-width: 20rem;
     width: 30%;
     display: flex;
     flex-wrap: wrap;
