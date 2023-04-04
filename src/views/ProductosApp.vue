@@ -23,6 +23,7 @@ export default {
 
     this.getPages();
     this.cargarPagina(1);
+    debugger;
   },
   data() {
     return {
@@ -40,6 +41,8 @@ export default {
         (res) => res.json()
       );
       this.imgArray = data;
+      console.log(this.imgArray);
+
       this.carga = true;
     },
     async getPages() {

@@ -6,6 +6,114 @@
   font-weight: 400;
 }
 
+@mixin dropdownList {
+  label.dropdown--label {
+    position: relative;
+    height: 45px;
+    width: 300px;
+    line-height: 46px;
+    display: inline-block;
+
+    .dropdown--checkbox {
+      position: absolute;
+      left: -2000000px;
+    }
+
+    .dropdown--text {
+      cursor: pointer;
+      border: 2px solid #dee5ff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px #dee5ff;
+      display: block;
+      width: 100%;
+      background: #fff;
+      color: #262e47;
+      font-weight: bold;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+
+      .dropdown--arrow {
+        width: 10px;
+        height: 10px;
+        border-right: 2px solid #616d90;
+        border-bottom: 2px solid #616d90;
+        margin-left: auto;
+        transform: rotate(45deg);
+        transition: all ease-in 0.3s;
+        position: relative;
+        top: -2px;
+      }
+    }
+
+    .dropdown--list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 5;
+      opacity: 0;
+      visibility: hidden;
+      top: 50%;
+      transition: all ease-out 0.3s;
+      box-shadow: 0px 14px 43px 0px #dee5ff;
+      background: #fff;
+      border-radius: 5px;
+      overflow: hidden;
+      max-height: 200px;
+      overflow-y: scroll;
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+      &::-webkit-scrollbar-track {
+        backrgound: #fff;
+        border-left: 1px solid #dee5ff;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #dee5ff;
+        border-radius: 5px;
+        &:hover {
+          background: #cfd8f7;
+        }
+      }
+
+      ul {
+        padding: 0;
+        margin: 0;
+        li {
+          p {
+            white-space: nowrap;
+            text-decoration: none;
+            color: #333a52;
+            display: block;
+            padding: 5px 20px;
+          }
+          p:hover {
+            background: #f7f9fd;
+          }
+        }
+      }
+    }
+
+    .dropdown--checkbox:checked ~ .dropdown--list {
+      top: 120%;
+      opacity: 1;
+      visibility: visible;
+      transition: all ease-in 0.3s;
+    }
+
+    .dropdown--checkbox:checked ~ .dropdown--text {
+      .dropdown--arrow {
+        transform: rotate(-135deg);
+        top: 5px;
+      }
+    }
+  }
+}
+
 @mixin formWindow {
   display: flex;
   position: relative;

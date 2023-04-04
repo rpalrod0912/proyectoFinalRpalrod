@@ -1,7 +1,11 @@
 <template>
   <main>
     <div class="contenedorImagenes" v-if="this.carga">
-      <div v-for="(producto, index) in this.imgArray" :key="index">
+      <div
+        @click="this.seeProduct(producto.id)"
+        v-for="(producto, index) in this.imgArray"
+        :key="index"
+      >
         <div class="productDiv">
           <img :src="producto.imagen" />
         </div>
@@ -34,6 +38,15 @@ export default {
     },
   },
   components: { LoadingSpinner },
+  methods: {
+    seeProduct(id) {
+      debugger;
+      this.$router.push({
+        name: "product",
+        query: { prodId: id },
+      });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -62,7 +75,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 320px;
   height: 488px;
   background-color: beige;
@@ -71,7 +84,12 @@ main {
   img {
     width: 15rem;
   }
+  .productoInfo1 {
+    position: relative;
+    right: 29vw;
+  }
 }
+
 .textoH2 {
   text-align: center;
   @include fuenteSemiBold;
