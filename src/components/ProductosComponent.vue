@@ -50,6 +50,14 @@ main {
   align-items: center;
   justify-content: center;
 }
+//Para monitores Ultrawide como el mio, no es para el despliegue final
+
+@media (min-width: 1921px) {
+  .contenedorImagenes {
+    margin-left: 15rem;
+    margin-right: 15rem;
+  }
+}
 .productDiv {
   display: flex;
   flex-wrap: wrap;
