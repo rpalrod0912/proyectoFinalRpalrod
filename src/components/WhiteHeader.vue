@@ -195,4 +195,41 @@ header {
     }
   }
 }
+@media (min-width: 300px) and (max-width: 399px) {
+  .userOptions {
+    position: relative;
+    right: 4em;
+  }
+  .menu__btn {
+    left: 1em;
+    top: 4.8em;
+  }
+  header {
+    width: 100%;
+    .headerMedia {
+      right: 7rem;
+      position: relative;
+    }
+    .logo {
+      position: absolute;
+      left: 23%;
+      width: 12em;
+      height: 1.8em;
+    }
+    img {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+    ul {
+      marker: none;
+      margin: 0rem;
+      li {
+        right: 4rem;
+        position: relative;
+        margin: 0rem;
+      }
+      right: -29.9rem;
+    }
+  }
+}
 </style>
