@@ -176,11 +176,12 @@ header {
   header {
     width: 100%;
     .headerMedia {
-      right: 4em;
-      position: relative;
+      left: 2em;
+      position: fixed;
+      top: 4em;
     }
     .logo {
-      position: absolute;
+      //position: absolute;
       left: 23%;
       width: 11em;
       height: 1.8em;
@@ -219,8 +220,9 @@ header {
   header {
     width: 100%;
     .headerMedia {
-      right: 4em;
-      position: relative;
+      left: 2em;
+      position: fixed;
+      top: 4em;
     }
     .logo {
       position: absolute;
