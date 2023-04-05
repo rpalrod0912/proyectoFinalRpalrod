@@ -212,7 +212,7 @@ header {
     }
     .logo {
       position: absolute;
-      left: 23%;
+      left: 21%;
       width: 12em;
       height: 1.8em;
     }
