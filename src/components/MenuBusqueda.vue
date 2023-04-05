@@ -3,6 +3,13 @@
 
   <label @click="menuAction(true)" for="checkBusqueda">
     <img class="searchBar searchMenu" :src="this.modo" />
+
+    <img
+      class="searchIcon"
+      v-if="this.color === 'Dark'"
+      src="../assets/lupaNegra.png"
+    />
+    <img class="searchIcon" v-else src="../assets/LupaBlanca.png" />
   </label>
 
   <ul class="TopMenu__box">
@@ -76,6 +83,8 @@ export default {
       modo: null,
       busquedaClaro: require("../assets/whiteSearchBar.png"),
       busquedaOscuro: require("../assets/searchBlack.png"),
+      lupaClara: require("../assets/LupaBlanca.png"),
+      lupaNegra: require("../assets/lupaNegra.png"),
     };
   },
 };

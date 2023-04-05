@@ -26,6 +26,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.searchBar {
+  width: 13rem;
+  margin-left: 0px;
+}
 header {
   height: 10rem;
   justify-content: space-between;
@@ -45,14 +49,12 @@ header {
     display: flex;
     margin-right: 2rem;
     marker: none;
-    .searchBar {
-      width: 13rem;
-      margin-left: 0px;
-    }
+
     li {
       margin: 1rem;
     }
   }
+
   background-color: transparent;
 
   display: flex;

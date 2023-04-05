@@ -162,5 +162,9 @@ body {
     right: 29vw;
     */
   }
+  .spinner {
+    display: flex;
+    margin: 0 auto;
+  }
 }
 </style>

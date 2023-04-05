@@ -6,10 +6,19 @@
       @click="check"
       class="menu"
     ></MenuGeneral>
-    <img class="logo" :src="this.logo" />
     <ul>
       <li>
-        <MenuBusqueda :color="this.tipoHeader"></MenuBusqueda>
+        <div class="headerMedia">
+          <MenuBusqueda :color="this.tipoHeader"></MenuBusqueda>
+        </div>
+      </li>
+    </ul>
+    <img class="logo" :src="this.logo" />
+    <ul class="userOptions">
+      <li>
+        <div class="headerWithoutMedia">
+          <MenuBusqueda :color="this.tipoHeader"></MenuBusqueda>
+        </div>
       </li>
       <li>
         <LoginMenu :color="this.tipoHeader"></LoginMenu>
@@ -79,6 +88,7 @@ header {
   justify-content: space-between;
   align-items: center;
   position: fixed;
+
   img {
     width: 2.5rem;
     height: 2.5rem;
@@ -108,12 +118,80 @@ header {
   .logo {
     position: fixed;
     left: 39%;
-    width: 27rem;
-    height: 8rem;
+    width: 14rem;
+    height: 2rem;
   }
+
   @media (max-width: 1400px) {
     .logo {
       position: revert;
+    }
+  }
+  @media (min-width: 897px) {
+    .headerMedia {
+      display: none;
+    }
+    .searchIcon {
+      display: none;
+    }
+  }
+
+  @media (max-width: 897px) {
+    .headerWithoutMedia {
+      display: none;
+    }
+
+    header {
+      width: 0%;
+
+      ul {
+        img {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
+    }
+    .searchBar {
+      display: none;
+    }
+    .logo {
+    }
+  }
+}
+@media (min-width: 400px) and (max-width: 634px) {
+  .userOptions {
+    position: relative;
+    right: 4em;
+  }
+  .menu__btn {
+    left: 1em;
+    top: 4.8em;
+  }
+  header {
+    width: 100%;
+    .headerMedia {
+      right: 7rem;
+      position: relative;
+    }
+    .logo {
+      position: absolute;
+      left: 23%;
+      width: 12em;
+      height: 1.8em;
+    }
+    img {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+    ul {
+      marker: none;
+      margin: 0rem;
+      li {
+        right: 4rem;
+        position: relative;
+        margin: 0rem;
+      }
+      right: -29.9rem;
     }
   }
 }
