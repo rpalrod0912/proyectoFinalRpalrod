@@ -159,24 +159,30 @@ header {
   }
 }
 @media (min-width: 400px) and (max-width: 634px) {
+  .secFoot2 {
+    flex-direction: column;
+    ul {
+      flex-direction: column;
+    }
+  }
   .userOptions {
     position: relative;
-    right: 4em;
+    right: -3em;
   }
   .menu__btn {
-    left: 1em;
+    left: 0.5em;
     top: 4.8em;
   }
   header {
     width: 100%;
     .headerMedia {
-      right: 7rem;
+      right: 4em;
       position: relative;
     }
     .logo {
       position: absolute;
       left: 23%;
-      width: 12em;
+      width: 11em;
       height: 1.8em;
     }
     img {
@@ -196,24 +202,30 @@ header {
   }
 }
 @media (min-width: 300px) and (max-width: 399px) {
+  .secFoot2 {
+    flex-direction: column;
+    ul {
+      flex-direction: column;
+    }
+  }
   .userOptions {
     position: relative;
-    right: 4em;
+    right: -3em;
   }
   .menu__btn {
-    left: 1em;
+    left: 0.5em;
     top: 4.8em;
   }
   header {
     width: 100%;
     .headerMedia {
-      right: 7rem;
+      right: 4em;
       position: relative;
     }
     .logo {
       position: absolute;
-      left: 21%;
-      width: 12em;
+      left: 23%;
+      width: 11em;
       height: 1.8em;
     }
     img {
