@@ -191,4 +191,27 @@ input[type="text"]:focus {
     }
   }
 }
+@media (min-width: 400px) and (max-width: 499px) {
+  .cajaBusqueda {
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
+    .inputBusqueda {
+      font-size: 1.4rem;
+    }
+  }
+}
+@media (max-width: 399px) {
+  .cajaBusqueda {
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
+    .inputBusqueda {
+      padding-left: 1em;
+      font-size: 1.2rem;
+    }
+  }
+}
 </style>
