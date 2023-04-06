@@ -63,7 +63,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 
 $baseColor: white;
@@ -105,7 +105,7 @@ $secondColor: black;
     left: 31% !important;
   }
 }
-@media (min-width: 600px) and (max-width: 899px) {
+@media (min-width: 701px) and (max-width: 899px) {
   .menu__box {
     width: 50%;
   }
@@ -114,7 +114,7 @@ $secondColor: black;
   }
 }
 
-@media (min-width: 300px) and (max-width: 599px) {
+@media (min-width: 300px) and (max-width: 700px) {
   .itemsBox {
     margin-top: 2rem;
     display: flex;

@@ -70,6 +70,12 @@ export default {
   },
   methods: {
     closeMenu() {
+      document.getElementById("logoWhite").classList.toggle("headerError");
+      document.getElementById("loginMenuId").classList.toggle("headerError");
+      document.getElementById("carritoMenuId").classList.toggle("headerError");
+
+      const pageBody = document.querySelector("body");
+      pageBody.classList.toggle("bodyStyle");
       document.querySelector("#TopMenu__toggle").checked = false;
       document
         .getElementById("menuGeneral")
@@ -116,8 +122,8 @@ header {
   display: flex;
 
   .logo {
-    width: 27rem;
-    height: 8rem;
+    width: 14rem;
+    height: 2rem;
   }
 
   @media (max-width: 1400px) {

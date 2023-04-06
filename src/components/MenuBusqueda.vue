@@ -56,6 +56,9 @@ export default {
   methods: {
     menuAction(bool) {
       debugger;
+      document.getElementById("logoWhite").classList.toggle("headerError");
+      document.getElementById("loginMenuId").classList.toggle("headerError");
+      document.getElementById("carritoMenuId").classList.toggle("headerError");
       document.querySelector("#TopMenu__toggle").checked = bool;
       if (bool === true) {
         document
@@ -67,8 +70,8 @@ export default {
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "1";
       }
-
-      console.log("estilos");
+      const pageBody = document.querySelector("body");
+      pageBody.classList.toggle("bodyStyle");
       /*
       if (document.getElementById("TopMenu__toggle").checked) {
         alert("checked");
@@ -89,8 +92,17 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../helpers/mixings.scss";
+
+.bodyStyle {
+  overflow: hidden;
+}
+
+.headerError {
+  display: none;
+}
+
 input[type="text"],
 input[type="text"]:focus {
   background: transparent;
@@ -152,5 +164,13 @@ input[type="text"]:focus {
 }
 .TopMenu__item:hover {
   background-color: #cfd8dc;
+}
+@media (max-width: 780px) {
+  .TopMenu__box {
+    height: 100%;
+  }
+  #TopMenu__toggle:checked ~ .TopMenu__box .greyContainer {
+    display: none;
+  }
 }
 </style>

@@ -6,24 +6,22 @@
       @click="check"
       class="menu"
     ></MenuGeneral>
-    <ul>
+    <ul class="headerMedia">
       <li>
-        <div class="headerMedia">
-          <MenuBusqueda :color="this.tipoHeader"></MenuBusqueda>
-        </div>
+        <MenuBusqueda :color="this.tipoHeader"></MenuBusqueda>
       </li>
     </ul>
-    <img class="logo" :src="this.logo" />
+    <img id="logoWhite" class="logo" :src="this.logo" />
     <ul class="userOptions">
       <li>
         <div class="headerWithoutMedia">
           <MenuBusqueda :color="this.tipoHeader"></MenuBusqueda>
         </div>
       </li>
-      <li>
+      <li id="loginMenuId">
         <LoginMenu :color="this.tipoHeader"></LoginMenu>
       </li>
-      <li>
+      <li id="carritoMenuId">
         <CarritoMenu :color="this.tipoHeader"></CarritoMenu>
       </li>
     </ul>
@@ -116,7 +114,7 @@ header {
   display: flex;
 
   .logo {
-    position: fixed;
+    //position: fixed;
     left: 39%;
     width: 14rem;
     height: 2rem;
@@ -129,7 +127,9 @@ header {
   }
   @media (min-width: 897px) {
     .headerMedia {
-      display: none;
+      .searchBar {
+        display: none;
+      }
     }
     .searchIcon {
       display: none;
@@ -176,13 +176,13 @@ header {
   header {
     width: 100%;
     .headerMedia {
-      left: 2em;
+      left: 4.2em;
       position: fixed;
       top: 4em;
     }
     .logo {
-      //position: absolute;
-      left: 23%;
+      position: relative;
+      left: 9%;
       width: 11em;
       height: 1.8em;
     }
@@ -223,7 +223,7 @@ header {
   header {
     width: 100%;
     .headerMedia {
-      left: 2em;
+      left: 3em;
       position: fixed;
       top: 4em;
     }
