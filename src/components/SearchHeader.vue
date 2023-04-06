@@ -7,7 +7,7 @@
       class="menu"
     ></MenuGeneral>
     <img class="logo" :src="this.logo" />
-    <ul>
+    <ul class="searchHeaderUl">
       <li>
         <img @click="closeMenu" :src="this.deleteIcon" />
       </li>
@@ -129,6 +129,47 @@ header {
   @media (max-width: 1400px) {
     .logo {
       position: revert;
+    }
+  }
+
+  @media (min-width: 550px) and (max-width: 780px) {
+    .logo {
+      position: sticky;
+    }
+    .menu {
+      display: none;
+    }
+    padding-left: 2rem;
+    header img {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+    .searchHeaderUl {
+      li {
+        right: 0rem;
+      }
+    }
+  }
+
+  @media (max-width: 559px) {
+    .logo {
+      position: sticky;
+      left: 7%;
+      width: 8em;
+      height: 1.4em;
+    }
+    .menu {
+      display: none;
+    }
+    padding-left: 2rem;
+    header img {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+    .searchHeaderUl {
+      li {
+        right: -2em;
+      }
     }
   }
 }

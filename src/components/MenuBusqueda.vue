@@ -13,11 +13,13 @@
   </label>
 
   <ul class="TopMenu__box">
-    <SearchHeader
-      class="TopMenu__item"
-      menuButtonColor="Dark"
-      tipo="Dark"
-    ></SearchHeader>
+    <li class="headerBusq">
+      <SearchHeader
+        class="TopMenu__item"
+        menuButtonColor="Dark"
+        tipo="Dark"
+      ></SearchHeader>
+    </li>
     <div class="TopMenu__item cajaBusqueda">
       <div class="lineaBusqueda">
         <img src="../assets/lupaBlack.png" />
@@ -59,6 +61,7 @@ export default {
       document.getElementById("logoWhite").classList.toggle("headerError");
       document.getElementById("loginMenuId").classList.toggle("headerError");
       document.getElementById("carritoMenuId").classList.toggle("headerError");
+
       document.querySelector("#TopMenu__toggle").checked = bool;
       if (bool === true) {
         document
@@ -98,9 +101,16 @@ export default {
 .bodyStyle {
   overflow: hidden;
 }
+.menuBotonError {
+  display: none;
+}
 
 .headerError {
   display: none;
+  .menu__btn {
+    left: 3.5em;
+    top: 6.2em;
+  }
 }
 
 input[type="text"],
@@ -169,8 +179,16 @@ input[type="text"]:focus {
   .TopMenu__box {
     height: 100%;
   }
+
   #TopMenu__toggle:checked ~ .TopMenu__box .greyContainer {
     display: none;
+  }
+  .headerError {
+    display: none;
+    .menu__btn {
+      left: 3.5em;
+      top: 6.2em;
+    }
   }
 }
 </style>

@@ -223,7 +223,7 @@ header {
   header {
     width: 100%;
     .headerMedia {
-      left: 3em;
+      left: 4em;
       position: fixed;
       top: 4em;
     }
