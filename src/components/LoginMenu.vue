@@ -203,4 +203,44 @@ export default {
   font-size: 1.3rem;
   text-align: center;
 }
+@media (min-width: 900px) and (max-width: 1430px) {
+  .RightMenu__box {
+    width: 31%;
+  }
+  #RightMenu__toggle:checked ~ .RightMenu__box .greyContainer {
+    left: 0% !important;
+    width: 69%;
+  }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .RightMenu__box {
+    width: 50%;
+  }
+
+  #RightMenu__toggle:checked ~ .RightMenu__box .greyContainer {
+    left: -10% !important;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 599px) {
+  .itemsBox {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    li {
+      position: relative;
+      right: auto;
+      margin: 1rem;
+    }
+  }
+
+  .RightMenu__box {
+    width: 100%;
+  }
+  .greyContainer {
+    display: none;
+  }
+}
 </style>

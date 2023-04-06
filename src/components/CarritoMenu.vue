@@ -321,4 +321,43 @@ export default {
   width: 20%;
   justify-content: center;
 }
+@media (min-width: 900px) and (max-width: 1430px) {
+  .menu__box {
+    width: 31%;
+  }
+  #menu__toggle:checked ~ .CarritoMenu__box .greyContainer {
+    left: 31% !important;
+  }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .CarritoMenu__box {
+    width: 50%;
+  }
+
+  #CarritoMenu__toggle:checked ~ .CarritoMenu__box .greyContainer {
+    left: -10% !important;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 599px) {
+  .itemsBox {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    li {
+      position: relative;
+      right: auto;
+      margin: 1rem;
+    }
+  }
+
+  .CarritoMenu__box {
+    width: 100%;
+  }
+  .greyContainer {
+    display: none;
+  }
+}
 </style>
