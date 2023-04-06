@@ -135,6 +135,7 @@ header {
   @media (min-width: 550px) and (max-width: 780px) {
     .logo {
       position: sticky;
+      left: 0;
     }
     .menu {
       display: none;
