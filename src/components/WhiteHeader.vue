@@ -209,6 +209,9 @@ header {
       flex-direction: column;
     }
   }
+  .productDiv {
+    width: 70%;
+  }
   .userOptions {
     position: relative;
     right: -3em;

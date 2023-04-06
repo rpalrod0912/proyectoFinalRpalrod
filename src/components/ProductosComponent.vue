@@ -6,7 +6,7 @@
         v-for="(producto, index) in this.imgArray"
         :key="index"
       >
-        <div class="productDiv">
+        <div class="productDiv divMedia">
           <img :src="producto.imagen" />
         </div>
         <h2 class="textoH2">{{ producto.nombre }}</h2>
@@ -71,6 +71,7 @@ main {
     margin-right: 15rem;
   }
 }
+
 .productDiv {
   display: flex;
   flex-wrap: wrap;
@@ -87,6 +88,11 @@ main {
   .productoInfo1 {
     position: relative;
     right: 29vw;
+  }
+}
+@media (min-width: 300px) and (max-width: 399px) {
+  .productDiv {
+    margin: 0rem;
   }
 }
 
