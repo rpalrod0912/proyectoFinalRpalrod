@@ -167,4 +167,33 @@ body {
     margin: 0 auto;
   }
 }
+
+@media (max-width: 800px) {
+  body {
+    main {
+      padding-top: 8em;
+    }
+    .colorBoton {
+      width: 100%;
+    }
+    .productoInfo1 {
+      width: auto;
+      padding-left: 0rem;
+      padding-top: 0rem;
+      h2 {
+        text-align: center;
+      }
+    }
+    .descripcionProd {
+      h2 {
+        text-align: center;
+        font-size: 1.8em;
+        padding-bottom: 4rem;
+      }
+      p {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
 </style>

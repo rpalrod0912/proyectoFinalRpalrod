@@ -63,6 +63,8 @@ export default {
   methods: {
     menuAction(bool) {
       debugger;
+      const pageBody = document.querySelector("body");
+      pageBody.classList.toggle("bodyStyle");
       document.querySelector("#RightMenu__toggle").checked = bool;
       if (bool === true) {
         document

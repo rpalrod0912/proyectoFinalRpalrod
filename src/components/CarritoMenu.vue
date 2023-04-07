@@ -99,6 +99,8 @@ export default {
   },
   methods: {
     menuAction(bool) {
+      const pageBody = document.querySelector("body");
+      pageBody.classList.toggle("bodyStyle");
       debugger;
       document.querySelector("#CarritoMenu__toggle").checked = bool;
       if (bool === true) {
