@@ -70,12 +70,13 @@ export default {
   },
   methods: {
     closeMenu() {
-      document.getElementById("logoWhite").classList.toggle("headerError");
-      document.getElementById("loginMenuId").classList.toggle("headerError");
-      document.getElementById("carritoMenuId").classList.toggle("headerError");
-
+      debugger;
       const pageBody = document.querySelector("body");
       pageBody.classList.toggle("bodyStyle");
+      document.querySelector("#logoWhite").classList.toggle("headerError");
+      document.querySelector("#loginMenuId").classList.toggle("headerError");
+      document.querySelector("#carritoMenuId").classList.toggle("headerError");
+
       document.querySelector("#TopMenu__toggle").checked = false;
       document
         .getElementById("menuGeneral")

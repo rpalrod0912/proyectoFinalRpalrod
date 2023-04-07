@@ -8,7 +8,10 @@
     ></MenuGeneral>
     <ul class="headerMedia">
       <li>
-        <MenuBusqueda :color="this.tipoHeader"></MenuBusqueda>
+        <MenuBusqueda
+          @click="closeMenu"
+          :color="this.tipoHeader"
+        ></MenuBusqueda>
       </li>
     </ul>
     <img id="logoWhite" class="logo" :src="this.logo" />
@@ -77,6 +80,13 @@ export default {
   props: {
     tipo: "String",
     menuButtonColor: "String",
+  },
+  methods: {
+    closeMenu() {
+      document.getElementById("logoWhite").classList.toggle("headerError");
+      document.getElementById("loginMenuId").classList.toggle("headerError");
+      document.getElementById("carritoMenuId").classList.toggle("headerError");
+    },
   },
 };
 </script>
