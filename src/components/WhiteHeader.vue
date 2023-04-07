@@ -233,6 +233,7 @@ header {
   }
   header {
     width: 100%;
+    z-index: 1;
     .headerMedia {
       left: 4em;
       position: fixed;

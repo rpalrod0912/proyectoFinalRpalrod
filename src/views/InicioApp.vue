@@ -17,10 +17,12 @@
       </h1>
     </section>
     <section class="secIni2">
-      <img src="../assets/imSec2.png" />
+      <img class="imgSecDesktop" src="../assets/imSec2.png" />
+      <img class="imgSecMobile" src="../assets/mobile/imSec2Comprimida.jpg" />
     </section>
     <section class="secIni3">
-      <img src="../assets/imSec3.jpg" />
+      <img class="imgSecDesktop" src="../assets/imSec3.jpg" />
+      <img class="imgSecMobile" src="../assets/mobile/imSec3comprimida.jpg" />
     </section>
   </main>
   <AppFooter></AppFooter>
@@ -71,7 +73,7 @@ main {
     }
   }
   .secIniOfer {
-    margin-top: 1.5rem;
+    //margin-top: 1.5rem;
 
     display: flex;
     height: auto;
@@ -86,25 +88,27 @@ main {
     justify-content: center;
   }
   .secIni2 {
-    margin-top: 2rem;
+    margin-top: 0.3em;
     img {
       width: 100%;
     }
   }
 
   .secIni3 {
-    margin-top: 2rem;
+    //margin-top: 2rem;
     img {
       width: 100%;
     }
   }
 }
 @media (min-width: 500px) {
-  .vidSec1 {
+  .vidSec1,
+  .imgSecMobile {
     display: none;
   }
 }
 @media (max-width: 499px) {
+  .imgSecDesktop,
   .imgSec1 {
     display: none;
   }
