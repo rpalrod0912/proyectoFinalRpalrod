@@ -3,7 +3,9 @@
     <label for="firstNameInput">
       <h1>INTRODUCE TU NOMBRE</h1>
     </label>
-    <div class="passwordInput">
+    <div
+      :class="v$.name.$error === true ? 'passwordInputError' : 'passwordInput'"
+    >
       <input
         id="firstNameInput"
         name="firstNameInput"
@@ -12,10 +14,17 @@
         v-model="this.name"
       />
     </div>
+    <span class="alertText" v-if="v$.name.$error"
+      >El nombre es obligatorio y debe contener al menos 3 caracateres</span
+    >
     <label for="lastNameInput">
       <h1>INTRODUCE TUS APELLIDOS</h1>
     </label>
-    <div class="passwordInput">
+    <div
+      :class="
+        v$.lastName.$error === true ? 'passwordInputError' : 'passwordInput'
+      "
+    >
       <input
         id="lastNameInput"
         name="lastNameInput"
@@ -24,6 +33,9 @@
         v-model="this.lastName"
       />
     </div>
+    <span class="alertText" v-if="v$.lastName.$error"
+      >Los apellidos deben contener al menos 6 carácteres</span
+    >
     <label for="lastNameInput">
       <h1>INTRODUCE TU CORREO</h1>
     </label>
@@ -48,7 +60,13 @@
     <label for="passInput">
       <h1>CREA TU CONTRASEÑA</h1>
     </label>
-    <div class="passwordInput">
+    <div
+      :class="
+        v$.password.password.$error === true
+          ? 'passwordInputError'
+          : 'passwordInput'
+      "
+    >
       <input
         id="passInput"
         name="passInput"
@@ -57,11 +75,20 @@
         v-model="this.password.password"
       />
     </div>
-
+    <span class="alertText" v-if="v$.password.password.$error"
+      >La contraseña debe tener como minimo 8 caracteres, una letra mayuscula,
+      una minuscula, y un carácter especial.
+    </span>
     <label for="repPassInput">
       <h1>REPITE TU CONTRASEÑA</h1>
     </label>
-    <div class="passwordInput">
+    <div
+      :class="
+        v$.password.confirmPwd.$error === true
+          ? 'passwordInputError'
+          : 'passwordInput'
+      "
+    >
       <input
         id="repPassInput"
         name="repPassInput"
@@ -70,9 +97,16 @@
         v-model="this.password.confirmPwd"
       />
     </div>
+    <span class="alertText" v-if="v$.password.confirmPwd.$error"
+      >La contraseña deben ser iguales
+    </span>
 
     <label for="repPassInput"> <h1>INTRODUCE TU NÚMERO DE TELÉFONO</h1> </label>
-    <div class="passwordInput">
+    <div
+      :class="
+        v$.phoneNumber.$error === true ? 'passwordInputError' : 'passwordInput'
+      "
+    >
       <input
         id="phoneInput"
         name="phoneInput"
@@ -81,6 +115,10 @@
         v-model="this.phoneNumber"
       />
     </div>
+    <span class="alertText" v-if="v$.phoneNumber.$error"
+      >El número es incorrecto, verifica que solo tiene numeros decimales y no
+      supera la longiutd de 9 caracteres</span
+    >
 
     <input @click="submitRegister" class="registerSubmit" type="submit" />
   </form>
@@ -88,7 +126,19 @@
 <script>
 /*eslint-disable */
 import useValidate from "@vuelidate/core";
-import { required, email, sameAs } from "@vuelidate/validators";
+import {
+  required,
+  email,
+  sameAs,
+  minLength,
+  maxLength,
+  numeric,
+  helpers,
+} from "@vuelidate/validators";
+
+const passwordRegex = helpers.regex(
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/
+);
 
 export default {
   name: "RegisterComponent",
@@ -109,14 +159,19 @@ export default {
   },
   validations() {
     return {
-      name: { required },
-      lastName: { required },
+      name: { required, minLength: minLength(3) },
+      lastName: { required, maxLength: minLength(6) },
       email: { required, email },
       password: {
-        password: { required },
-        confirmPwd: { required },
+        password: { required, passwordRegex },
+        confirmPwd: { required, sameAs: sameAs(this.password.password) },
       },
-      phoneNumber: { required },
+      phoneNumber: {
+        required,
+        numeric,
+        minLength: minLength(9),
+        maxLength: maxLength(9),
+      },
     };
   },
   methods: {
