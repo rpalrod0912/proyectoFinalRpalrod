@@ -184,6 +184,7 @@ header {
     top: 4.8em;
   }
   header {
+    z-index: 1;
     width: 100%;
     .headerMedia {
       left: 4.2em;

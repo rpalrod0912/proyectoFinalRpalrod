@@ -2,7 +2,12 @@
   <WhiteHeader tipo="blanco"></WhiteHeader>
   <main>
     <section class="secIni1">
-      <img src="../assets/imInicioUsoWeb.jpg" />
+      <img class="imgSec1" src="../assets/imInicioUsoWeb.jpg" />
+      <video
+        autoplay
+        class="vidSec1"
+        src="../assets/video/videoSection1.mp4"
+      ></video>
     </section>
 
     <section class="secIniOfer">
@@ -35,6 +40,9 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap");
 * {
   margin: 0;
+}
+.vidSec1 {
+  width: 100%;
 }
 body {
   background-color: white;
@@ -89,6 +97,16 @@ main {
     img {
       width: 100%;
     }
+  }
+}
+@media (min-width: 500px) {
+  .vidSec1 {
+    display: none;
+  }
+}
+@media (max-width: 499px) {
+  .imgSec1 {
+    display: none;
   }
 }
 </style>
