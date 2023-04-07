@@ -1,5 +1,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap");
 
+@mixin inputPwd {
+  display: flex;
+  align-items: flex-end;
+  align-items: center;
+  width: 18rem;
+
+  input[type="password"],
+  input[type="password"]:focus,
+  input[type="text"],
+  input[type="password"]:focus {
+    position: relative;
+    height: 2.5rem;
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 2rem;
+    @include fuenteSemiBold;
+    font-size: 1rem;
+    align-items: flex-end;
+  }
+  img {
+    width: 2.1rem;
+    height: 2rem;
+    position: relative;
+    right: 3rem;
+  }
+}
 @mixin fuenteRegular {
   font-family: "Noto Sans";
   font-style: normal;
@@ -137,29 +164,18 @@
   }
   .passwordInput {
     display: flex;
-    align-items: flex-end;
-    align-items: center;
-    width: 18rem;
-
+    flex-direction: column;
+    @include inputPwd();
+  }
+  .passwordInputError {
+    display: flex;
+    flex-direction: column;
+    @include inputPwd();
     input[type="password"],
     input[type="password"]:focus,
     input[type="text"],
     input[type="password"]:focus {
-      position: relative;
-      height: 2.5rem;
-      background: transparent;
-      border: 1px solid black;
-      border-radius: 10px;
-      padding-left: 2rem;
-      @include fuenteSemiBold;
-      font-size: 1rem;
-      align-items: flex-end;
-    }
-    img {
-      width: 2.1rem;
-      height: 2rem;
-      position: relative;
-      right: 3rem;
+      border: 1px solid red;
     }
   }
 }

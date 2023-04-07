@@ -112,4 +112,19 @@ export default {
 .loginWindow {
   @include formWindow;
 }
+@media (max-width: 800px) {
+  .genericButton {
+    width: 17rem;
+  }
+  .loginWindow {
+    h1 {
+      text-align: center;
+      font-size: 1.6em;
+      width: 99%;
+    }
+  }
+  .pDescrip {
+    font-size: 1.1em;
+  }
+}
 </style>
