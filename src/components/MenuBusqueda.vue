@@ -1,5 +1,10 @@
 <template>
-  <input id="TopMenu__toggle" type="checkbox" name="checkBusqueda" />
+  <input
+    @click="menuAction(true)"
+    id="TopMenu__toggle"
+    type="checkbox"
+    name="checkBusqueda"
+  />
 
   <label @click="menuAction(true)" for="checkBusqueda">
     <img class="searchBar searchMenu" :src="this.modo" />
@@ -58,6 +63,7 @@ export default {
   methods: {
     menuAction(bool) {
       debugger;
+
       document.querySelector("#logoWhite").classList.toggle("headerError");
       document.querySelector("#loginMenuId").classList.toggle("headerError");
       document.querySelector("#carritoMenuId").classList.toggle("headerError");
