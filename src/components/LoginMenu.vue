@@ -47,7 +47,10 @@
   <ul v-if="this.authentication" class="RightMenu__box">
     <div v-if="cargando">
       <div class="cabeceraMenu">
-        <h1 class="TopMenu__item textoGruesoh1">HOLA {{ userData.nombre }}</h1>
+        <h1 class="TopMenu__item textoGruesoh1">
+          HOLA {{ userData.nombre.toUpperCase() }}
+          {{ userData.lastName.toUpperCase() }}
+        </h1>
         <img @click="menuAction(false)" :src="this.deleteIcon" />
       </div>
 

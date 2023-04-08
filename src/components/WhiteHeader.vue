@@ -70,7 +70,7 @@ export default {
         self.$store.commit("setCurrentMail", user.email);
         self.authentication = true;
         self.id = user.uid;
-        self.userData = self.fetchUserData(user.uid);
+        self.userData = await self.fetchUserData(user.uid);
         const carrito = JSON.parse(
           localStorage.getItem(`carrito_${user.email}`)
         );
