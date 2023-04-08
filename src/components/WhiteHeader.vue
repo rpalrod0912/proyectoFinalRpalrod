@@ -22,7 +22,11 @@
         </div>
       </li>
       <li id="loginMenuId">
-        <LoginMenu :color="this.tipoHeader"></LoginMenu>
+        <LoginMenu
+          :userData="this.userData"
+          :authentication="this.authentication"
+          :color="this.tipoHeader"
+        ></LoginMenu>
       </li>
       <li id="carritoMenuId">
         <CarritoMenu :color="this.tipoHeader"></CarritoMenu>
@@ -31,10 +35,14 @@
   </header>
 </template>
 <script>
+/*eslint-disable */
+
+import { auth, signOut } from "@/auth/firebaseConfig.js";
 import CarritoMenu from "./CarritoMenu.vue";
 import LoginMenu from "./LoginMenu.vue";
 import MenuBusqueda from "./MenuBusqueda.vue";
 import MenuGeneral from "./MenuGeneral.vue";
+import { API_URL } from "@/helpers/basicHelpers";
 
 export default {
   /*eslint-disable */
@@ -54,6 +62,34 @@ export default {
       console.log(this.searchIcon);
       console.log(this.userIcon);
     }
+    let self = this;
+    auth.onAuthStateChanged(async function (user) {
+      debugger;
+      if (user !== null) {
+        self.email = user.email;
+        self.$store.commit("setCurrentMail", user.email);
+        self.authentication = true;
+        self.id = user.uid;
+        self.userData = self.fetchUserData(user.uid);
+        const carrito = JSON.parse(
+          localStorage.getItem(`carrito_${user.email}`)
+        );
+        self.carritoNumero = carrito.cesta.length;
+        self.$store.commit("setCurrentCartLength", self.carritoNumero);
+        //self.carritoNumero = await self.contarProd(user.uid);
+        self.$store.commit("setCurrentAuth", true);
+        /*
+        self.$store.commit(
+          "setCurrentCartLength",
+          await self.contarProd(user.uid)
+        );
+        */
+        console.log("Autenticacion es " + self.authentication);
+        self.$store.commit("setCurrentUser", user.uid);
+      } else {
+        self.authentication = false;
+      }
+    });
   },
   name: "WhiteHeader",
 
@@ -74,6 +110,8 @@ export default {
       searchIcon: null,
       userIcon: null,
       carritoIcon: null,
+      authentication: false,
+      userData: null,
     };
   },
   components: { MenuGeneral, MenuBusqueda, LoginMenu, CarritoMenu },
@@ -86,6 +124,13 @@ export default {
       document.getElementById("logoWhite").classList.toggle("headerError");
       document.getElementById("loginMenuId").classList.toggle("headerError");
       document.getElementById("carritoMenuId").classList.toggle("headerError");
+    },
+    async fetchUserData(id) {
+      debugger;
+      const data = await fetch(`${API_URL}users/id/${id}`).then((res) =>
+        res.json()
+      );
+      return data;
     },
   },
 };

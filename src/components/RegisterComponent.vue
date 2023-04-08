@@ -119,13 +119,22 @@
       >El número es incorrecto, verifica que solo tiene numeros decimales y no
       supera la longiutd de 9 caracteres</span
     >
-
-    <input @click="submitRegister" class="registerSubmit" type="submit" />
+    <span class="alertText" v-if="userFound"
+      >Por favor, usa un correo distinto, ese ya existe
+    </span>
+    <input class="registerSubmit" type="submit" />
   </form>
 </template>
 <script>
 /*eslint-disable */
+import {
+  app,
+  auth,
+  createUserWithEmailAndPassword,
+} from "@/auth/firebaseConfig.js";
+import { API_URL, toHome } from "@/helpers/basicHelpers";
 import useValidate from "@vuelidate/core";
+import axios from "axios";
 import {
   required,
   email,
@@ -142,7 +151,11 @@ const passwordRegex = helpers.regex(
 
 export default {
   name: "RegisterComponent",
-
+  created() {
+    if (document.querySelector("body").classList.contains("bodyStyle")) {
+      document.querySelector("body").classList.toggle("bodyStyle");
+    }
+  },
   data() {
     return {
       //v$ es un estandar a la hora de trabjar con Vuelidate
@@ -155,6 +168,9 @@ export default {
         confirmPwd: "",
       },
       phoneNumber: "",
+      userFound: false,
+      exito: false,
+      reload: toHome,
     };
   },
   validations() {
@@ -175,19 +191,86 @@ export default {
     };
   },
   methods: {
-    submitRegister() {
+    async submitRegister() {
       debugger;
       this.v$.$touch();
-      /*
+
       this.v$.$validate();
       console.log(this.v$);
+      debugger;
       console.log(this.v$.$error);
       if (!this.v$.$error) {
-        alert("FORM SUBMITED");
+        await this.registerFireBase();
+        if (this.exito === true) {
+          this.$router.push({
+            name: "Inicio",
+            query: { recienRegistrado: "SI" },
+          });
+        }
       } else {
         alert("FORM FAILED VALIDAT");
       }
-      */
+    },
+    async registerFireBase() {
+      debugger;
+      const registerData = {
+        name: this.name,
+        lastName: this.lastName,
+        mail: this.email,
+        password: this.password.password,
+      };
+      console.log(auth);
+      console.log(registerData.mail);
+      console.log(registerData.password);
+
+      await createUserWithEmailAndPassword(
+        auth,
+        registerData.mail,
+        registerData.password
+      )
+        .then((userCredential) => {
+          debugger;
+          this.exito = true;
+          this.userFound = false;
+          const user = userCredential;
+          const userId = userCredential.user.uid;
+          this.postForm({
+            id: userId,
+            name: registerData.name,
+            lastName: registerData.lastName,
+            mail: registerData.mail,
+            password: registerData.password,
+          });
+          const usuario = userCredential.user;
+          if (localStorage.getItem(`carrito_${usuario.email}`) === null) {
+            localStorage.setItem(
+              `carrito_${usuario.email}`,
+              JSON.stringify({ userId: usuario.uid, cesta: [] })
+            );
+            ("CREADO!!");
+          }
+          //this.encontrarUsuario(usuario.email);
+          this.$store.commit("setCurrentMail", usuario.email);
+          ("NO CREADO YA EXISTE");
+        })
+        .catch((error) => {
+          debugger;
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          if (errorMessage === "Firebase: Error (auth/email-already-in-use).") {
+            this.exito = false;
+            this.userFound = true;
+            return;
+          }
+        });
+    },
+    async postForm(objetoUsuario) {
+      debugger;
+      objetoUsuario;
+      const data = await axios
+        .post(`${API_URL}users/`, objetoUsuario)
+        .then((res) => res.data)
+        .catch((error) => error);
     },
   },
 };

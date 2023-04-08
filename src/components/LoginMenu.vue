@@ -5,22 +5,23 @@
     <img :src="this.modo" />
   </label>
 
-  <ul class="RightMenu__box">
+  <ul v-if="!this.authentication" class="RightMenu__box">
     <div class="cabeceraMenu">
       <h1 class="TopMenu__item textoGruesoh1">ACCEDER</h1>
       <img @click="menuAction(false)" :src="this.deleteIcon" />
     </div>
-    <div class="contenidoLogin">
+    <form @submit.prevent="continueLogin" class="contenidoLogin">
       <label for="emailPhoneInput" class="TopMenu__item textoGruesoh1">
         INTRODUCE TU NÚMERO DE TELÉFONO O E-MAIL
       </label>
       <input
+        v-model="mail"
         id="emailPhoneInput"
         name="emailPhoneInput"
         placeholder="Email/Número Móvil"
         type="text"
       />
-      <button class="nextButton">SIGUIENTE</button>
+      <input type="submit" class="nextButtonSubmit" />
       <p class="TopMenu__item textoPlanoFino">O si lo prefieres</p>
       <button class="socialButton">
         <img src="../assets/gmail.png" />
@@ -39,15 +40,55 @@
         Utilizaremos el teléfono / correo electrónico indicado para enviar el
         código de verificación.
       </p>
+    </form>
+
+    <div @click="menuAction(false)" class="greyContainer"></div>
+  </ul>
+  <ul v-if="this.authentication" class="RightMenu__box">
+    <div v-if="cargando">
+      <div class="cabeceraMenu">
+        <h1 class="TopMenu__item textoGruesoh1">HOLA {{ userData.nombre }}</h1>
+        <img @click="menuAction(false)" :src="this.deleteIcon" />
+      </div>
+
+      <input
+        @click="logOut"
+        class="nextButtonSubmit"
+        type="button"
+        value="CERRAR SESIÓN"
+      />
     </div>
+    <LoadingSpinner v-else></LoadingSpinner>
 
     <div @click="menuAction(false)" class="greyContainer"></div>
   </ul>
 </template>
 <script>
+/*eslint-disable */
+
+import {
+  auth,
+  fetchSignInMethodsForEmail,
+  signOut,
+} from "@/auth/firebaseConfig.js";
+import useValidate from "@vuelidate/core";
+import axios from "axios";
+import { API_URL } from "@/helpers/basicHelpers";
+import {
+  required,
+  email,
+  sameAs,
+  minLength,
+  maxLength,
+  numeric,
+  helpers,
+} from "@vuelidate/validators";
+import LoadingSpinner from "./LoadingSpinner.vue";
+
 export default {
   /*eslint-disable */
-  created() {
+  async created() {
+    debugger;
     if (this.color === "Dark") {
       this.modo = this.UserOscuro;
       this.deleteIcon = this.deleteOscuro;
@@ -55,12 +96,94 @@ export default {
       this.modo = this.UserClaro;
       this.deleteIcon = this.deleteClaro;
     }
+    console.log(this.authentication);
+  },
+  data() {
+    return {
+      modo: null,
+      deleteIcon: null,
+      UserClaro: require("../assets/usuario.png"),
+      UserOscuro: require("../assets/blackUser.png"),
+      deleteClaro: require("../assets/DeleteIcon.png"),
+      deleteOscuro: require("../assets/DeleteIcon.png"),
+      mail: "",
+      cargando: false,
+      name: null,
+    };
   },
   name: "LoginMenu",
   props: {
     color: String,
+    authentication: Boolean,
+    userData: Object,
+  },
+  watch: {
+    authentication: function (newVal, oldVal) {
+      console.log("ES AHORA", newVal, "ERA ANTES ", oldVal);
+      if (newVal === true && this.userData !== null) {
+        this.cargando = true;
+      }
+    },
+    userData: function (newVal, oldVal) {
+      console.log("ES AHORA", newVal, "ERA ANTES ", oldVal);
+      if (newVal !== null && this.authentication === true) {
+        this.cargando = true;
+        debugger;
+        this.name = this.userData.nombre;
+        console.log(this.name);
+      }
+    },
+  },
+  validations() {
+    return {
+      mail: { required },
+    };
   },
   methods: {
+    async continueLogin() {
+      debugger;
+      console.log(auth);
+      await fetchSignInMethodsForEmail(auth, this.mail)
+        .then((signInMethods) => {
+          debugger;
+          console.log(signInMethods);
+          if (signInMethods.length) {
+            // The email already exists in the Auth database. You can check the
+            // sign-in methods associated with it by checking signInMethods array.
+            // Show the option to sign in with that sign-in method.
+            const pageBody = document.querySelector("body");
+            this.$router.push({
+              name: "login",
+              query: { email: this.mail },
+            });
+            pageBody.classList.toggle("bodyStyle");
+          } else {
+            // User does not exist. Ask user to sign up.
+            const pageBody = document.querySelector("body");
+            this.$router.push({
+              name: "register",
+            });
+            pageBody.classList.toggle("bodyStyle");
+          }
+        })
+        .catch((error) => {
+          // Some error occurred.
+        });
+    },
+    logOut() {
+      signOut(auth)
+        .then(() => {
+          this.authentication = false;
+          this.$store.commit("setCurrentAuth", this.authentication);
+          this.$store.commit("setCurrentUser", null);
+          this.$store.commit("setCurrentCartLength", null);
+          this.$store.commit("setCurrentMail", null);
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          ("ALGO OCURRIO");
+        });
+    },
     menuAction(bool) {
       debugger;
       const pageBody = document.querySelector("body");
@@ -76,30 +199,30 @@ export default {
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "1";
       }
-
       console.log("estilos");
       /*
-        if (document.getElementById("TopMenu__toggle").checked) {
-          alert("checked");
-        } else {box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);k it! Let me check it for you.");
-        }
-        */
+              if (document.getElementById("TopMenu__toggle").checked) {
+                alert("checked");
+              } else {box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);k it! Let me check it for you.");
+              }
+              */
     },
   },
-  data() {
-    return {
-      modo: null,
-      deleteIcon: null,
-      UserClaro: require("../assets/usuario.png"),
-      UserOscuro: require("../assets/blackUser.png"),
-      deleteClaro: require("../assets/DeleteIcon.png"),
-      deleteOscuro: require("../assets/DeleteIcon.png"),
-    };
-  },
+  components: { LoadingSpinner },
 };
 </script>
 <style lang="scss">
 @import "../helpers/mixings.scss";
+
+.nextButtonSubmit {
+  @include loginButton("black", "white", "2rem");
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  height: 3rem;
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 
 .socialButton {
   @include loginButton("#DADADA", "black", "0.6rem;");

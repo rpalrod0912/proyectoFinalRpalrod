@@ -1,5 +1,5 @@
 <template>
-  <section class="loginWindow">
+  <form @submit.prevent="submitLogin" class="loginWindow">
     <label for="loginPasswordInp">
       <h1 v-if="this.loginMode === 'sms' || this.loginMode === 'mail'">
         CÓDIGO DE VERIFICACÓN
@@ -13,8 +13,13 @@
     <p v-else-if="this.loginMode === 'mail'" class="pDescrip">
       Introduce el código que te hemos enviado por e-mail a ********02@gmail.com
     </p>
-    <div class="passwordInput">
-      <input type="password" placeholder="Contraseña" id="loginInput" />
+    <div class="passwordInputFlex">
+      <input
+        v-model="this.password"
+        type="password"
+        placeholder="Contraseña"
+        id="loginInput"
+      />
 
       <img
         v-if="!this.modoTexto"
@@ -27,7 +32,7 @@
         src="../assets/SeeThrough.png"
       />
     </div>
-    <ButtonComponent class="btn" msj="SIGUIENTE"></ButtonComponent>
+    <input class="loginSubmit" type="submit" />
     <ButtonComponent
       v-if="this.loginMode !== 'password'"
       class="btn"
@@ -55,9 +60,13 @@
     <p v-if="this.loginMode === 'mail'" class="underLineTxt">
       Acceder con código vía SMS
     </p>
-  </section>
+  </form>
 </template>
 <script>
+/*eslint-disable */
+import { auth, signInWithEmailAndPassword } from "@/auth/firebaseConfig.js";
+import { API_URL } from "@/helpers/basicHelpers";
+
 import ButtonComponent from "./ButtonComponent.vue";
 
 export default {
@@ -71,6 +80,7 @@ export default {
       mostrarTexto: require("../assets/SeeThrough.png"),
       ocultarTexto: require("../assets/blindIcon.png"),
       loginMode: null,
+      password: "",
     };
   },
   name: "LoginApp",
@@ -85,6 +95,53 @@ export default {
         this.modoTexto = false;
       }
     },
+    submitLogin() {
+      this.logInFirebase();
+    },
+    async logInFirebase() {
+      debugger;
+      const logInData = {
+        mail: this.$route.query.email,
+        pwd: this.password,
+      };
+      await signInWithEmailAndPassword(auth, logInData.mail, logInData.pwd)
+        .then((userCredential) => {
+          this.userNotFound = false;
+          this.passwordNotFound = false;
+          const user = userCredential.user;
+          this.encontrarUsuario(user.email);
+          this.$store.commit("setCurrentMail", user.email);
+          if (localStorage.getItem(`carrito_${user.email}`) === null) {
+            localStorage.setItem(
+              `carrito_${user.email}`,
+              JSON.stringify({ userId: user.uid, cesta: [] })
+            );
+            ("CREADO!!");
+          }
+          ("NO CREADO YA EXISTE");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          console.log(error);
+          if (errorCode === "auth/user-not-found") {
+            this.userNotFound = true;
+          }
+          if (errorCode === "auth/wrong-password") {
+            this.passwordNotFound = true;
+          }
+        });
+      this.userNotFound;
+    },
+    async encontrarUsuario(email) {
+      const mail = email;
+      const foundUser = await fetch(`${API_URL}users/login/${mail}`).then(
+        (res) => res.json()
+      );
+      foundUser;
+      if (foundUser !== "NOTFOUND") {
+        this.$router.push("/");
+      }
+    },
   },
   components: { ButtonComponent },
   props: {
@@ -94,6 +151,20 @@ export default {
 </script>
 <style lang="scss">
 @import "../helpers/mixings.scss";
+.loginSubmit {
+  input[type="password"],
+  input[type="password"]:focus,
+  input[type="text"],
+  input[type="password"]:focus {
+    margin-bottom: 2rem;
+  }
+
+  @include loginButton("black", "white", 3rem);
+  width: 20rem;
+  height: 3rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+}
 .colorBtnSoc {
   background-color: #dadada;
   border: 1px white;
@@ -114,6 +185,9 @@ export default {
 }
 @media (max-width: 800px) {
   .genericButton {
+    width: 17rem;
+  }
+  .loginSubmit {
     width: 17rem;
   }
   .loginWindow {

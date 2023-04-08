@@ -9,7 +9,10 @@
         src="../assets/video/videoSection1.mp4"
       ></video>
     </section>
-
+    <ButtonComponent
+      v-if="this.recienRegistrado === 'SI'"
+      msj="TE HAS REGISTRADO CON EXITO"
+    ></ButtonComponent>
     <section class="secIniOfer">
       <h1>
         ¡PROMOCIONES HASTA EL 50 % DE DESCUENTO! ELIGE ENTRE MÁS DE 100
@@ -29,12 +32,21 @@
 </template>
 <script>
 import AppFooter from "@/components/AppFooter.vue";
+import ButtonComponent from "@/components/ButtonComponent.vue";
 
 import WhiteHeader from "@/components/WhiteHeader.vue";
 export default {
   /*eslint-disable */
+  created() {
+    this.recienRegistrado = this.$route.query.recienRegistrado;
+  },
+  data() {
+    return {
+      recienRegistrado: "NO",
+    };
+  },
   name: "InicioApp",
-  components: { WhiteHeader, AppFooter },
+  components: { WhiteHeader, AppFooter, ButtonComponent },
 };
 </script>
 <style lang="scss">

@@ -6,7 +6,7 @@
       loginModeProp="sms"//Muestra Pantalla con acceso codigo sms
       loginModeProp="mail"//Muestra Pantalla con acceso codigo movil
     -->
-    <LoginComponent loginModeProp="mail"></LoginComponent>
+    <LoginComponent loginModeProp="password"></LoginComponent>
   </main>
 </template>
 <script>
