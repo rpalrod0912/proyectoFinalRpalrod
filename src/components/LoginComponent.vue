@@ -32,6 +32,9 @@
         src="../assets/SeeThrough.png"
       />
     </div>
+    <span class="alertText" v-if="passwordNotFound"
+      >Contraseña Incorrecta
+    </span>
     <input class="loginSubmit" type="submit" />
     <ButtonComponent
       v-if="this.loginMode !== 'password'"
@@ -73,6 +76,9 @@ export default {
   created() {
     this.modoTexto = false;
     this.loginMode = this.loginModeProp;
+    if (document.querySelector("body").classList.contains("bodyStyle")) {
+      document.querySelector("body").classList.toggle("bodyStyle");
+    }
   },
   data() {
     return {
@@ -81,6 +87,7 @@ export default {
       ocultarTexto: require("../assets/blindIcon.png"),
       loginMode: null,
       password: "",
+      passwordNotFound: false,
     };
   },
   name: "LoginApp",
@@ -151,6 +158,13 @@ export default {
 </script>
 <style lang="scss">
 @import "../helpers/mixings.scss";
+.alertText {
+  @include fuenteRegular;
+  font-size: 1.2em;
+  color: red;
+  padding-top: 1.2em;
+  text-align: center;
+}
 .loginSubmit {
   input[type="password"],
   input[type="password"]:focus,
