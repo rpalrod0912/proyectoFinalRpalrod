@@ -40,6 +40,10 @@ export default {
       document.documentElement.style.setProperty("--baseColor", "black");
       document.documentElement.style.setProperty("--secondColor", "white");
     }
+    if (this.color === "blanco") {
+      document.documentElement.style.setProperty("--baseColor", "white");
+      document.documentElement.style.setProperty("--secondColor", "black");
+    }
   },
   data() {
     return {
@@ -59,6 +63,15 @@ export default {
     menuAction(bool) {
       document.querySelector("#menu__toggle").checked = bool;
       this.check();
+    },
+  },
+  watch: {
+    color: function (newVal, oldVal) {
+      debugger;
+      if (newVal === "blanco") {
+        document.documentElement.style.setProperty("--baseColor", "white");
+        document.documentElement.style.setProperty("--secondColor", "black");
+      }
     },
   },
 };
