@@ -197,6 +197,13 @@ input[type="text"]:focus {
     }
   }
 }
+@media (min-width: 500px) and (max-width: 550px) {
+  .cajaBusqueda {
+    .inputBusqueda {
+      font-size: 1.8em;
+    }
+  }
+}
 @media (min-width: 400px) and (max-width: 499px) {
   .cajaBusqueda {
     img {
