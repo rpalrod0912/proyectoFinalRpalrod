@@ -12,9 +12,12 @@
 <script>
 import LoginComponent from "@/components/LoginComponent.vue";
 import WhiteHeader from "@/components/WhiteHeader.vue";
-
+import { scrollTop } from "@/helpers/basicHelpers";
 export default {
   /*eslint-disable */
+  created() {
+    scrollTop();
+  },
   name: "LoginApp",
   components: { WhiteHeader, LoginComponent },
   props: {

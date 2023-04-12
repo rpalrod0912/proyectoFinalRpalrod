@@ -9,8 +9,12 @@ import WhiteHeader from '@/components/WhiteHeader.vue';
 <script>
 import RegisterComponent from "@/components/RegisterComponent";
 import WhiteHeader from "@/components/WhiteHeader";
+import { scrollTop } from "@/helpers/basicHelpers";
 export default {
   name: "RegisterApp",
+  created() {
+    scrollTop();
+  },
   components: { WhiteHeader, RegisterComponent },
 };
 </script>

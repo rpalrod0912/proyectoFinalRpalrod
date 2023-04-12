@@ -56,11 +56,12 @@ import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import axios from "axios";
 
 import WhiteHeader from "@/components/WhiteHeader.vue";
-import { API_URL } from "@/helpers/basicHelpers";
+import { API_URL, scrollTop } from "@/helpers/basicHelpers";
 
 export default {
   name: "VerProductoApp",
   async created() {
+    scrollTop();
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };

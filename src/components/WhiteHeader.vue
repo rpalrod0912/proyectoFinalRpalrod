@@ -14,7 +14,7 @@
         ></MenuBusqueda>
       </li>
     </ul>
-    <img id="logoWhite" class="logo" :src="this.logo" />
+    <img @click="toHome()" id="logoWhite" class="logo" :src="this.logo" />
     <ul class="userOptions">
       <li>
         <div class="headerWithoutMedia">
@@ -129,6 +129,9 @@ export default {
     menuButtonColor: "String",
   },
   methods: {
+    toHome() {
+      this.$router.push("/");
+    },
     closeMenu() {
       document.getElementById("logoWhite").classList.toggle("headerError");
       document.getElementById("loginMenuId").classList.toggle("headerError");

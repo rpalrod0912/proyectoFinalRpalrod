@@ -33,11 +33,12 @@
 <script>
 import AppFooter from "@/components/AppFooter.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
-
+import { scrollTop } from "@/helpers/basicHelpers";
 import WhiteHeader from "@/components/WhiteHeader.vue";
 export default {
   /*eslint-disable */
   created() {
+    scrollTop();
     this.recienRegistrado = this.$route.query.recienRegistrado;
   },
   data() {

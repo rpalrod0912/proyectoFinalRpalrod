@@ -7,7 +7,7 @@
   <AppFooter></AppFooter>
 </template>
 <script>
-import { API_URL } from "@/helpers/basicHelpers";
+import { API_URL, scrollTop } from "@/helpers/basicHelpers";
 import axios from "axios";
 import WhiteHeader from "@/components/WhiteHeader.vue";
 import ProductosComponent from "@/components/ProductosComponent.vue";
@@ -18,6 +18,7 @@ export default {
   name: "ProductosApp",
   components: { WhiteHeader, ProductosComponent, AppFooter },
   async created() {
+    scrollTop();
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };

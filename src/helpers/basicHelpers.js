@@ -8,4 +8,8 @@ function toHome() {
   this.$router.push("/");
 }
 
-module.exports = { toHome, API_URL };
+function scrollTop() {
+  window.scrollTo(0, 0);
+}
+
+module.exports = { toHome, API_URL, scrollTop };
