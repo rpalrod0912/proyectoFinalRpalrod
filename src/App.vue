@@ -5,8 +5,41 @@
 </template>
 
 <script>
+/*eslint-disable */
+import axios from "axios";
 export default {
+  async created() {
+    await this.getToken();
+    debugger;
+    console.log(this.$store.state.currentToken);
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${this.$store.state.currentToken}`,
+    };
+  },
   name: "App",
+  methods: {
+    async getToken() {
+      debugger;
+      const data = await axios
+        .post(
+          "http://localhost:8080/token",
+          {},
+          {
+            auth: {
+              username: "holajavi@gmail.com",
+              password: "suspenso_01",
+            },
+          }
+        )
+        .then((res) => {
+          debugger;
+          this.$store.commit("setCurrentToken", res.data);
+        });
+
+      console.log(data);
+      console.log(this.token);
+    },
+  },
 };
 </script>
 

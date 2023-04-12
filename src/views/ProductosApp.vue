@@ -8,7 +8,7 @@
 </template>
 <script>
 import { API_URL } from "@/helpers/basicHelpers";
-
+import axios from "axios";
 import WhiteHeader from "@/components/WhiteHeader.vue";
 import ProductosComponent from "@/components/ProductosComponent.vue";
 import AppFooter from "@/components/AppFooter.vue";
@@ -17,13 +17,21 @@ export default {
   /*eslint-disable */
   name: "ProductosApp",
   components: { WhiteHeader, ProductosComponent, AppFooter },
-  created() {
+  async created() {
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${this.$store.state.currentToken}`,
+    };
     //METODO DE MI API ANTERIOR SOLO PARA PRUEBAS
     debugger;
-
-    this.getPages();
-    this.cargarPagina(1);
+    await this.cargarProductos();
     debugger;
+    console.log(this.datosProd);
+    this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
+    console.log(this.imgArray);
+    this.carga = true;
+
+    //this.getPages();
+    //this.cargarPagina(1);
   },
   data() {
     return {
@@ -31,9 +39,16 @@ export default {
       numeroPaginas: [],
       carga: false,
       imgArray: [],
+      datosProd: null,
     };
   },
   methods: {
+    async cargarProductos() {
+      this.carga = false;
+      const data = await axios
+        .get(`${API_URL}products`)
+        .then((res) => (this.datosProd = res.data));
+    },
     async cargarPagina(page) {
       debugger;
       this.carga = false;

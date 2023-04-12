@@ -9,6 +9,7 @@ export default createStore({
     currentCartLength: 0,
     currentName: null,
     currentLastName: null,
+    currentToken: null,
   },
   plugins: [createPersistedState()],
   mutations: {
@@ -29,6 +30,9 @@ export default createStore({
     },
     setCurrentLastName(state, lastName) {
       state.currentLastName = lastName;
+    },
+    setCurrentToken(state, token) {
+      state.currentToken = token;
     },
     logout(state) {
       state.currentAuth = null;

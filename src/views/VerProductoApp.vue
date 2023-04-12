@@ -49,18 +49,28 @@
   <AppFooter></AppFooter>
 </template>
 <script>
+/*eslint-disable */
 import AppFooter from "@/components/AppFooter.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import axios from "axios";
 
 import WhiteHeader from "@/components/WhiteHeader.vue";
 import { API_URL } from "@/helpers/basicHelpers";
 
 export default {
   name: "VerProductoApp",
-  created() {
-    this.productId = this.$route.query.prodId;
-    this.getProductData(this.productId);
+  async created() {
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${this.$store.state.currentToken}`,
+    };
+    this.productId = this.$route.query.prodNombre;
+    await this.getProductData(this.productId);
+    debugger;
+
+    this.productData = JSON.parse(JSON.stringify(this.datosProduct));
+    console.log(this.productData);
+    this.carga = true;
   },
   data() {
     return {
@@ -68,18 +78,19 @@ export default {
       productId: null,
       carga: false,
       productData: null,
+      datosProduct: null,
     };
   },
   components: { WhiteHeader, LoadingSpinner, AppFooter, ButtonComponent },
   methods: {
     async getProductData(id) {
+      debugger;
+      console.log(id);
       this.carga = false;
-      const data = await fetch(`${API_URL}productos/${id}`).then((res) =>
-        res.json()
-      );
-      this.productData = data;
-      console.log(this.productData);
-      this.carga = true;
+      const data = await axios
+        .get(`${API_URL}products/nombre/${id}`)
+        .then((res) => (this.datosProduct = res.data));
+      return data;
     },
   },
 };

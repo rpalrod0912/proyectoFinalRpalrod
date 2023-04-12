@@ -69,11 +69,16 @@
 /*eslint-disable */
 import { auth, signInWithEmailAndPassword } from "@/auth/firebaseConfig.js";
 import { API_URL } from "@/helpers/basicHelpers";
+import axios from "axios";
 
 import ButtonComponent from "./ButtonComponent.vue";
 
 export default {
   created() {
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${this.$store.state.currentToken}`,
+    };
+
     this.modoTexto = false;
     this.loginMode = this.loginModeProp;
     if (document.querySelector("body").classList.contains("bodyStyle")) {
@@ -139,15 +144,32 @@ export default {
         });
       this.userNotFound;
     },
+    /*
     async encontrarUsuario(email) {
       const mail = email;
-      const foundUser = await fetch(`${API_URL}users/login/${mail}`).then(
+      const foundUser = await fetch(`${API_URL}users/email/${mail}`).then(
         (res) => res.json()
       );
       foundUser;
       if (foundUser !== "NOTFOUND") {
         this.$router.push("/");
       }
+      
+    },
+    */
+    async encontrarUsuario(email) {
+      debugger;
+      const mail = email;
+      const data = await axios
+        .get(`http://localhost:8080/users/email/${mail}`)
+        .then((res) => {
+          (res) => res.json();
+        })
+        .catch((error) => error);
+      if (data !== "NOTFOUND") {
+        this.$router.push("/");
+      }
+      debugger;
     },
   },
   components: { ButtonComponent },

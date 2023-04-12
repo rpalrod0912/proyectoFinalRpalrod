@@ -36,17 +36,22 @@
 </template>
 <script>
 /*eslint-disable */
-
+import { isProxy, toRaw } from "vue";
 import { auth, signOut } from "@/auth/firebaseConfig.js";
 import CarritoMenu from "./CarritoMenu.vue";
 import LoginMenu from "./LoginMenu.vue";
 import MenuBusqueda from "./MenuBusqueda.vue";
 import MenuGeneral from "./MenuGeneral.vue";
+import axios from "axios";
+
 import { API_URL } from "@/helpers/basicHelpers";
 
 export default {
   /*eslint-disable */
   created() {
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${this.$store.state.currentToken}`,
+    };
     this.tipoHeader = this.tipo;
     if (this.tipoHeader === "Dark") {
       this.logo = this.iconos.logoOscuro;
@@ -70,7 +75,11 @@ export default {
         self.$store.commit("setCurrentMail", user.email);
         self.authentication = true;
         self.id = user.uid;
-        self.userData = await self.fetchUserData(user.uid);
+        const datosUsuario = await self.fetchUserData(user.uid);
+        debugger;
+
+        self.userData = JSON.parse(JSON.stringify(datosUsuario));
+        console.log(self.userData);
         const carrito = JSON.parse(
           localStorage.getItem(`carrito_${user.email}`)
         );
@@ -127,9 +136,12 @@ export default {
     },
     async fetchUserData(id) {
       debugger;
-      const data = await fetch(`${API_URL}users/id/${id}`).then((res) =>
-        res.json()
-      );
+      let datosUsuario;
+
+      const data = await axios
+        .get(`${API_URL}users/firebase/${id}`)
+        .then((res) => (datosUsuario = res.data));
+      console.log(data);
       return data;
     },
   },

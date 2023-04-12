@@ -2,7 +2,7 @@
   <main>
     <div class="contenedorImagenes" v-if="this.carga">
       <div
-        @click="this.seeProduct(producto.id)"
+        @click="this.seeProduct(producto.nombre)"
         v-for="(producto, index) in this.imgArray"
         :key="index"
       >
@@ -39,11 +39,11 @@ export default {
   },
   components: { LoadingSpinner },
   methods: {
-    seeProduct(id) {
+    seeProduct(nombre) {
       debugger;
       this.$router.push({
         name: "product",
-        query: { prodId: id },
+        query: { prodNombre: nombre },
       });
     },
   },

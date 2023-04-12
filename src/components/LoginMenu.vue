@@ -48,8 +48,8 @@
     <div v-if="cargando">
       <div class="cabeceraMenu">
         <h1 class="TopMenu__item textoGruesoh1">
-          HOLA {{ userData.nombre.toUpperCase() }}
-          {{ userData.lastName.toUpperCase() }}
+          HOLA {{ userName.toUpperCase() }}
+          {{ userLastName.toUpperCase() }}
         </h1>
         <img @click="menuAction(false)" :src="this.deleteIcon" />
       </div>
@@ -111,7 +111,8 @@ export default {
       deleteOscuro: require("../assets/DeleteIcon.png"),
       mail: "",
       cargando: false,
-      name: null,
+      userName: null,
+      userLastName: null,
     };
   },
   name: "LoginMenu",
@@ -132,8 +133,14 @@ export default {
       if (newVal !== null && this.authentication === true) {
         this.cargando = true;
         debugger;
-        this.name = this.userData.nombre;
+        let datos = JSON.parse(JSON.stringify(this.userData));
+        console.log(datos);
+        console.log(datos.nombre);
+        console.log(datos.apellidos);
+        this.userName = datos.nombre;
+        this.userLastName = datos.apellidos;
         console.log(this.name);
+        console.log(this.userLastName);
       }
     },
   },

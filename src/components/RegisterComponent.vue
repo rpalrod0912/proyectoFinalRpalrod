@@ -218,6 +218,7 @@ export default {
         lastName: this.lastName,
         mail: this.email,
         password: this.password.password,
+        phone: this.phoneNumber,
       };
       console.log(auth);
       console.log(registerData.mail);
@@ -236,10 +237,12 @@ export default {
           const userId = userCredential.user.uid;
           this.postForm({
             id: userId,
-            name: registerData.name,
-            lastName: registerData.lastName,
+            nombre: registerData.name,
+            apellidos: registerData.lastName,
             mail: registerData.mail,
-            password: registerData.password,
+            pwd: registerData.password,
+            firebaseId: userId,
+            phone: registerData.phone,
           });
           const usuario = userCredential.user;
           if (localStorage.getItem(`carrito_${usuario.email}`) === null) {
@@ -268,7 +271,7 @@ export default {
       debugger;
       objetoUsuario;
       const data = await axios
-        .post(`${API_URL}users/`, objetoUsuario)
+        .post(`${API_URL}users`, objetoUsuario)
         .then((res) => res.data)
         .catch((error) => error);
     },
