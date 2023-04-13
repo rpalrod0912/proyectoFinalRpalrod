@@ -30,8 +30,10 @@
         <img src="../assets/lupaBlack.png" />
         <input
           type="text"
+          v-model="searchInput"
           class="inputBusqueda"
           placeholder="¿QUÉ ESTÁS BUSCANDO?"
+          @keydown.enter.prevent="buscarElementos"
         />
       </div>
       <div class="separadorAlterno"></div>
@@ -45,10 +47,16 @@
   </ul>
 </template>
 <script>
+/*eslint-disable */
+
 import SearchHeader from "../components/SearchHeader.vue";
+import axios from "axios";
+import { API_URL } from "@/helpers/basicHelpers";
 export default {
-  /*eslint-disable */
   created() {
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${this.$store.state.currentToken}`,
+    };
     if (this.color === "Dark") {
       this.modo = this.busquedaOscuro;
     } else {
@@ -61,6 +69,36 @@ export default {
     color: String,
   },
   methods: {
+    buscarElementos() {
+      this.$router.push({
+        name: "products",
+        query: { prodFiltrados: this.searchInput },
+      });
+    },
+    /*
+    async fetchProductsByValue(val) {
+      debugger;
+      let datos;
+      const data = await axios
+        .get(`${API_URL}products`)
+        .then((res) => (datos = res.data));
+      let index = 0;
+      let encontrados = [];
+      while (index < datos.length) {
+        if (
+          datos[index].nombre
+            .split(" ")
+            .join("")
+            .toLowerCase()
+            .includes(val.split(" ").join("").toLowerCase())
+        ) {
+          encontrados.push(datos[index]);
+        }
+        index += 1;
+      }
+      this.searchsArray = encontrados;
+    },
+    */
     menuAction(bool) {
       debugger;
 
@@ -97,8 +135,17 @@ export default {
       busquedaOscuro: require("../assets/searchBlack.png"),
       lupaClara: require("../assets/LupaBlanca.png"),
       lupaNegra: require("../assets/lupaNegra.png"),
+      searchsArray: null,
+      searchInput: "",
     };
   },
+  /*
+  watch: {
+    searchInput(newval, oldval) {
+      this.fetchProductsByValue(newval);
+    },
+    
+  },*/
 };
 </script>
 <style lang="scss">
