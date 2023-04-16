@@ -45,9 +45,31 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap");
-
+body {
+  overflow: overlay;
+}
 * {
   margin: 0;
+}
+/*Estilos Barra de búsqueda*/
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  height: 56px;
+  border-radius: 8px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+  background-color: #363636;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #363636;
 }
 
 /*
