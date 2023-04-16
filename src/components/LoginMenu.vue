@@ -196,18 +196,21 @@ export default {
     },
     menuAction(bool) {
       debugger;
-      const pageBody = document.querySelector("body");
-      pageBody.classList.toggle("bodyStyle");
+
       document.querySelector("#RightMenu__toggle").checked = bool;
       if (bool === true) {
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "0";
+        const pageBody = document.querySelector("body");
+        pageBody.classList.add("bodyStyle");
       }
       if (bool === false) {
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "1";
+        const pageBody = document.querySelector("body");
+        pageBody.classList.remove("bodyStyle");
       }
       console.log("estilos");
       /*

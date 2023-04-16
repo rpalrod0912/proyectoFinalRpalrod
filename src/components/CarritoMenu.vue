@@ -100,18 +100,19 @@ export default {
   methods: {
     menuAction(bool) {
       const pageBody = document.querySelector("body");
-      pageBody.classList.toggle("bodyStyle");
       debugger;
       document.querySelector("#CarritoMenu__toggle").checked = bool;
       if (bool === true) {
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "0";
+        pageBody.classList.add("bodyStyle");
       }
       if (bool === false) {
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "1";
+        pageBody.classList.remove("bodyStyle");
       }
 
       console.log("estilos");
