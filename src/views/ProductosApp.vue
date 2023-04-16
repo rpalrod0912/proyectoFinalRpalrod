@@ -4,6 +4,19 @@
     v-bind:carga="this.carga"
     v-bind:imgArray="this.imgArray"
   ></ProductosComponent>
+  <ul class="pagination">
+    <div
+      @click="this.pagina = page"
+      v-for="(page, index) in this.numeroPaginas"
+      :key="index"
+      class="contenedorLi"
+      :class="{ liSeleccionado: pagina === page }"
+    >
+      <li>
+        {{ page }}
+      </li>
+    </div>
+  </ul>
   <AppFooter></AppFooter>
 </template>
 <script>
@@ -32,18 +45,13 @@ export default {
       this.$route.query.prodFiltrados === null ||
       this.$route.query.prodFiltrados === undefined
     ) {
-      await this.cargarProductos();
-      debugger;
-      console.log(this.datosProd);
+      await this.getPages();
+      await this.cargarPagina(this.pagina);
       this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
-      console.log(this.imgArray);
       this.carga = true;
     } else {
       await this.cargarProductosBusqueda(this.$route.query.prodFiltrados);
-      debugger;
-      console.log(this.datosProd);
       this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
-      console.log(this.imgArray);
       this.carga = true;
     }
 
@@ -52,7 +60,7 @@ export default {
   },
   data() {
     return {
-      page: 1,
+      pagina: 1,
       numeroPaginas: [],
       carga: false,
       imgArray: [],
@@ -92,29 +100,65 @@ export default {
     async cargarPagina(page) {
       debugger;
       this.carga = false;
-      const data = await fetch(`${API_URL}productos/paginas/${page}`).then(
-        (res) => res.json()
-      );
-      this.imgArray = data;
-      console.log(this.imgArray);
-
-      this.carga = true;
+      const data = await axios
+        .get(`${API_URL}products/paginas/${page}`)
+        .then((res) => (this.datosProd = res.data));
     },
     async getPages() {
       debugger;
 
-      const data = await fetch(`${API_URL}productos/paginas`).then((res) =>
-        res.json()
-      );
+      const data = await axios
+        .get(`${API_URL}products/paginas`)
+        .then((res) => (this.numeroPaginas = res.data));
       const cantidadPaginas = Object.keys(data).length;
       this.numeroPaginas = cantidadPaginas;
+    },
+  },
+  watch: {
+    pagina: async function (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        await this.cargarPagina(newVal);
+        this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
+        this.carga = true;
+        scrollTop();
+      }
     },
   },
 };
 </script>
 <style lang="scss" scoped>
+@import "../helpers/mixings.scss";
+
 body {
   display: flex;
   flex-direction: column;
+}
+.contenedorLi {
+  width: 3.5rem;
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+  border-radius: 50%;
+  border: 2px solid black;
+  cursor: pointer;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  list-style: none;
+  li {
+    cursor: pointer;
+
+    @include fuenteSemiBold;
+    margin: 1rem;
+  }
+}
+.liSeleccionado {
+  color: aliceblue;
+  background-color: black;
+
+  //font-size: 2rem;
 }
 </style>
