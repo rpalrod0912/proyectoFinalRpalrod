@@ -188,6 +188,7 @@ header {
     left: 39%;
     width: 14rem;
     height: 2rem;
+    cursor: pointer;
   }
 
   @media (max-width: 1400px) {

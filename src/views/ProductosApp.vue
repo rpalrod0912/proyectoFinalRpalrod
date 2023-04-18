@@ -1,5 +1,9 @@
 <template>
   <WhiteHeader tipo="Dark"></WhiteHeader>
+  <FilterMenu
+    @cambTalla="changeParentTalla"
+    @cambColor="changeParentColor"
+  ></FilterMenu>
   <ProductosComponent
     v-bind:carga="this.carga"
     v-bind:imgArray="this.imgArray"
@@ -25,11 +29,12 @@ import axios from "axios";
 import WhiteHeader from "@/components/WhiteHeader.vue";
 import ProductosComponent from "@/components/ProductosComponent.vue";
 import AppFooter from "@/components/AppFooter.vue";
+import FilterMenu from "@/components/FilterMenu.vue";
 
 export default {
   /*eslint-disable */
   name: "ProductosApp",
-  components: { WhiteHeader, ProductosComponent, AppFooter },
+  components: { WhiteHeader, ProductosComponent, AppFooter, FilterMenu },
   async created() {
     if (document.querySelector("body").classList.contains("bodyStyle")) {
       document.querySelector("body").classList.toggle("bodyStyle");
@@ -65,9 +70,21 @@ export default {
       carga: false,
       imgArray: [],
       datosProd: null,
+      colorElegido: null,
+      tallaElegida: null,
     };
   },
   methods: {
+    changeParentColor(val) {
+      debugger;
+      console.log(val);
+      this.colorElegido = val;
+    },
+    changeParentTalla(val) {
+      debugger;
+      console.log(val);
+      this.tallaElegida = val;
+    },
     async cargarProductosBusqueda(val) {
       this.carga = false;
       debugger;
@@ -133,6 +150,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 .contenedorLi {
   width: 3.5rem;
   background-color: aliceblue;

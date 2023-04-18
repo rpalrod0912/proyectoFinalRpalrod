@@ -32,6 +32,7 @@ export default {
   border: 1px solid black;
 
   border-radius: 10px;
+
   p {
     @include fuenteSemiBold;
     font-size: 1.2rem;

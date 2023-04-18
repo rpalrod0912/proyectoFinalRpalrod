@@ -82,6 +82,8 @@ main {
   background-color: beige;
   border-radius: 18px;
   margin: 3rem;
+  cursor: pointer;
+
   img {
     width: 15rem;
   }
