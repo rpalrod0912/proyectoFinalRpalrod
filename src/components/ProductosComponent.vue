@@ -54,7 +54,7 @@ export default {
 
 main {
   width: 100%;
-  padding-top: 18rem;
+  padding-top: 9rem;
   margin-bottom: 10rem;
 }
 .contenedorImagenes {

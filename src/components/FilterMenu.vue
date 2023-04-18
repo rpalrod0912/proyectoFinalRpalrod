@@ -19,10 +19,11 @@
           for="colorRadio"
           :key="index"
         >
+          <!--Si ponemos atributo name A UN NOMBRE QUE No tengan atributos en comin se cambiara a poderser marcar todos-->
           <input
             type="radio"
             :id="`colorRadio${color.color}`"
-            :name="`colorRadio${color.color}`"
+            name="colorRadio"
             class="radioColor"
             :value="color"
             @click="this.$emit('cambColor', color)"
@@ -47,7 +48,7 @@
           <input
             type="radio"
             :id="`tallaRadio${talla}`"
-            :name="`tallaRadio${talla}`"
+            name="tallaRadio"
             class="radioColor"
             :value="talla"
           />
@@ -110,11 +111,11 @@ export default {
       colores: [
         {
           color: "Blanco",
-          estilo: "lightgrey",
+          estilo: "white",
         },
         {
           color: "Negro",
-          estilo: "lightgrey",
+          estilo: "black",
         },
         {
           color: "Azul",
@@ -249,6 +250,14 @@ export default {
   span:hover {
     padding: 10px;
   }
+  input:checked + span {
+    position: absolute;
+    padding: 7px;
+
+    top: 50%;
+    left: 50%;
+    border: 1px solid black;
+  }
 }
 .secColor {
   @include fuenteSemiBold;
@@ -263,8 +272,7 @@ export default {
 .btnFiltrado {
   display: flex;
   margin: 0 auto;
-  position: relative;
-  top: 14rem;
+  margin-top: 12rem;
   background-color: rgb(238, 237, 237);
   p {
     color: black;
