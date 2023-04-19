@@ -10,6 +10,7 @@
       <h1 class="TopMenu__item textoGruesoh1">FILTRAR</h1>
       <img @click="menuAction(false)" :src="this.deleteIcon" />
     </div>
+
     <section class="secColor">
       <h1>Colores</h1>
       <div class="colorDiv">
@@ -57,6 +58,22 @@
           }}</span>
         </label>
       </div>
+    </section>
+    <section class="secColor">
+      <label for="tallaRadio">
+        <ButtonComponent
+          @click="changeSaleState('#saleCheck')"
+          class="saleButton"
+          msj="¡OFERTAS!"
+        ></ButtonComponent>
+      </label>
+      <input
+        type="radio"
+        id="saleCheck"
+        name="saleCheck"
+        class="radioColor"
+        :value="talla"
+      />
     </section>
     <div @click="menuAction(false)" class="greyContainer"></div>
   </ul>
@@ -181,6 +198,17 @@ export default {
     };
   },
   methods: {
+    changeSaleState(name) {
+      debugger;
+      const elementOferta = document.querySelector(name);
+      if (elementOferta.checked) {
+        elementOferta.checked = false;
+        this.$emit("cambSale", false);
+      } else {
+        elementOferta.checked = true;
+        this.$emit("cambSale", true);
+      }
+    },
     changeTalla(name, talla) {
       document.querySelector(name).checked = true;
       this.$emit("cambTalla", talla);
@@ -221,6 +249,10 @@ export default {
 </script>
 <style lang="scss">
 @import "../helpers/mixings.scss";
+.saleButton {
+  background-color: #e92222;
+  border: 1px solid #f34646;
+}
 .labelColorButton {
   display: inline-block;
   position: relative;
