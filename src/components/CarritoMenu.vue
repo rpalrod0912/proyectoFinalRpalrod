@@ -1,5 +1,10 @@
 <template>
-  <input id="CarritoMenu__toggle" type="checkbox" name="checkBusqueda" />
+  <input
+    @click="menuAction(true)"
+    id="CarritoMenu__toggle"
+    type="checkbox"
+    name="checkBusqueda"
+  />
 
   <label @click="menuAction(true)" for="checkBusqueda">
     <img :src="this.modo" />

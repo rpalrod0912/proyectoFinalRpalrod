@@ -1,5 +1,10 @@
 <template>
-  <input id="RightMenu__toggle" type="checkbox" name="checkBusqueda" />
+  <input
+    @click="menuAction(true)"
+    id="RightMenu__toggle"
+    type="checkbox"
+    name="checkBusqueda"
+  />
 
   <label @click="menuAction(true)" for="checkBusqueda">
     <img :src="this.modo" />
@@ -202,6 +207,7 @@ export default {
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "0";
+        document.getElementById("carritoMenuId").style.display = "none";
         const pageBody = document.querySelector("body");
         pageBody.classList.add("bodyStyle");
       }
@@ -210,6 +216,8 @@ export default {
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "1";
         const pageBody = document.querySelector("body");
+        document.getElementById("carritoMenuId").style.display = "flex";
+
         pageBody.classList.remove("bodyStyle");
       }
       console.log("estilos");

@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header id="headerId">
     <MenuGeneral
       :color="this.tipoHeader"
       id="menuGeneral"

@@ -3,7 +3,7 @@
   <ButtonComponent
     @click="menuAction(true)"
     class="btnFiltrado"
-    msj="Filtrar"
+    msj="FILTRAR PRODUCTOS"
   ></ButtonComponent>
   <ul class="filterMenu__box">
     <div class="cabeceraMenu">
@@ -75,7 +75,6 @@
         :value="talla"
       />
     </section>
-    <div @click="menuAction(false)" class="greyContainer"></div>
   </ul>
 </template>
 <script>
@@ -222,18 +221,24 @@ export default {
 
       document.querySelector("#FilterMenu__toggle").checked = bool;
       if (bool === true) {
+        /*
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "0";
         const pageBody = document.querySelector("body");
         pageBody.classList.add("bodyStyle");
+        */
+        document.getElementById("headerId").style.display = "none";
       }
       if (bool === false) {
+        /*
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "1";
         const pageBody = document.querySelector("body");
         pageBody.classList.remove("bodyStyle");
+        */
+        document.getElementById("headerId").style.display = "flex";
       }
       console.log("estilos");
       /*
@@ -309,6 +314,7 @@ export default {
   p {
     color: black;
   }
+  border: 1px solid #e7e7e7;
 }
 
 .nextButtonSubmit {
