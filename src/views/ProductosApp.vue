@@ -4,10 +4,18 @@
     @cambTalla="changeParentTalla"
     @cambColor="changeParentColor"
   ></FilterMenu>
+
   <ProductosComponent
+    v-if="!filterValue"
     v-bind:carga="this.carga"
     v-bind:imgArray="this.imgArray"
   ></ProductosComponent>
+  <ProductosComponent
+    v-else-if="tipoFiltro === 'color'"
+    v-bind:carga="this.carga"
+    v-bind:imgArray="this.filterArray"
+  >
+  </ProductosComponent>
   <ul class="pagination">
     <div
       @click="this.pagina = page"
@@ -72,18 +80,72 @@ export default {
       datosProd: null,
       colorElegido: null,
       tallaElegida: null,
+      filterArray: [],
+      filterValue: false,
+      tipoFiltro: null,
     };
   },
   methods: {
+    colorFilterState(val) {
+      debugger;
+      this.tipoFiltro = "color";
+      if (val === "Ninguno") {
+        this.filterValue = false;
+      } else {
+        console.log(
+          this.imgArray.filter((objeto) =>
+            objeto.color.includes(this.colorElegido.color)
+          )
+        );
+        this.filterArray = this.imgArray.filter((objeto) =>
+          objeto.color.includes(this.colorElegido.color)
+        );
+        console.log(this.filterArray);
+        this.filterValue = true;
+      }
+    },
+    filtrarOfertas() {
+      if (this.saleFilter) {
+        this.filterSalesArr();
+      }
+    },
+    sizeFilterState(talla) {
+      this.tipoFiltro = "tallas";
+      this.tallaSeleccionada = talla;
+      this.tallaSeleccionada;
+      const tallasRopa = ["S", "M", "L", "XL"];
+      if (talla === "Ninguno") {
+        this.filterValue = false;
+      } else if (!tallasRopa.includes(talla)) {
+        this.filterArray = this.imgArray.filter((objeto) =>
+          objeto.talla.includes(parseInt(talla))
+        );
+        this.filterValue = true;
+      } else {
+        this.filterArray = this.imgArray.filter((objeto) =>
+          objeto.talla.includes(talla)
+        );
+        this.filterValue = true;
+      }
+    },
+    filterSalesArr() {
+      this.loadOfertas = true;
+      this.ofertasArray = this.imgArray.filter((objeto) =>
+        objeto.hasOwnProperty("oferta")
+      );
+      return this.ofertasArray;
+    },
     changeParentColor(val) {
       debugger;
       console.log(val);
       this.colorElegido = val;
+      this.colorFilterState(val);
     },
     changeParentTalla(val) {
       debugger;
       console.log(val);
       this.tallaElegida = val;
+      this.sizeFilterState(val);
     },
     async cargarProductosBusqueda(val) {
       this.carga = false;
@@ -138,6 +200,21 @@ export default {
         this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
         this.carga = true;
         scrollTop();
+      }
+    },
+    imgArray: function (newVal, oldVal) {
+      if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+        if (this.saleFilter) {
+          this.filterSalesArr();
+        }
+        if (this.filterValue) {
+          if (this.tipoFiltro === "tallas") {
+            this.sizeFilterState(this.tallaElegida);
+          }
+          if (this.tipoFiltro === "color") {
+            this.colorFilterState(this.colorElegido);
+          }
+        }
       }
     },
   },
