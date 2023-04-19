@@ -11,7 +11,7 @@
     v-bind:imgArray="this.imgArray"
   ></ProductosComponent>
   <ProductosComponent
-    v-else-if="tipoFiltro === 'color'"
+    v-else-if="tipoFiltro === 'color' || tipoFiltro === 'tallas'"
     v-bind:carga="this.carga"
     v-bind:imgArray="this.filterArray"
   >
@@ -92,16 +92,26 @@ export default {
       if (val === "Ninguno") {
         this.filterValue = false;
       } else {
-        console.log(
-          this.imgArray.filter((objeto) =>
+        debugger;
+
+        if (this.tallaElegida) {
+          console.log(this.tallaElegida);
+          this.filterArray = this.imgArray.filter(
+            (objeto) =>
+              objeto.color.includes(this.colorElegido.color) &&
+              objeto.talla.includes(this.tallaElegida)
+          );
+          console.log(this.filterArray);
+          this.filterValue = true;
+        } else {
+          debugger;
+
+          this.filterArray = this.imgArray.filter((objeto) =>
             objeto.color.includes(this.colorElegido.color)
-          )
-        );
-        this.filterArray = this.imgArray.filter((objeto) =>
-          objeto.color.includes(this.colorElegido.color)
-        );
-        console.log(this.filterArray);
-        this.filterValue = true;
+          );
+          console.log(this.filterArray);
+          this.filterValue = true;
+        }
       }
     },
     filtrarOfertas() {
@@ -109,23 +119,45 @@ export default {
         this.filterSalesArr();
       }
     },
-    sizeFilterState(talla) {
+    sizeFilterState(tallaVal) {
       this.tipoFiltro = "tallas";
-      this.tallaSeleccionada = talla;
-      this.tallaSeleccionada;
+      debugger;
+
       const tallasRopa = ["S", "M", "L", "XL"];
-      if (talla === "Ninguno") {
+      if (tallaVal === "Ninguno") {
         this.filterValue = false;
-      } else if (!tallasRopa.includes(talla)) {
-        this.filterArray = this.imgArray.filter((objeto) =>
-          objeto.talla.includes(parseInt(talla))
-        );
-        this.filterValue = true;
+      } else if (!tallasRopa.includes(tallaVal)) {
+        if (this.colorElegido) {
+          this.filterArray = this.imgArray.filter(
+            (objeto) =>
+              objeto.talla.includes(tallaVal) &&
+              objeto.color.includes(this.colorElegido.color)
+          );
+        } else {
+          debugger;
+          this.filterArray = this.imgArray.filter((objeto) =>
+            objeto.talla.includes(tallaVal)
+          );
+          console.log(this.imgArray);
+          console.log(this.filterArray);
+          this.filterValue = true;
+        }
       } else {
-        this.filterArray = this.imgArray.filter((objeto) =>
-          objeto.talla.includes(talla)
-        );
-        this.filterValue = true;
+        if (this.colorElegido) {
+          this.filterArray = this.imgArray.filter(
+            (objeto) =>
+              objeto.talla.includes(tallaVal) &&
+              objeto.color.includes(this.colorElegido.color)
+          );
+        } else {
+          debugger;
+          console.log();
+          this.filterArray = this.imgArray.filter((objeto) =>
+            objeto.talla.includes(tallaVal)
+          );
+          console.log(this.filterArray);
+          this.filterValue = true;
+        }
       }
     },
     filterSalesArr() {
