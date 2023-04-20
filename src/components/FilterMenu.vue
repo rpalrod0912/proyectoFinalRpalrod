@@ -61,13 +61,14 @@
       </div>
     </section>
     <section class="secColor">
-      <label for="saleCheck">
+      <span class="labelForSale" for="saleCheck">
         <ButtonComponent
           @click="changeSaleState('#saleCheck')"
           class="saleButton"
+          id="buttonSale"
           msj="¡OFERTAS!"
         ></ButtonComponent>
-      </label>
+      </span>
       <input type="checkbox" class="check" id="saleCheck" name="saleCheck" />
     </section>
   </ul>
@@ -191,6 +192,18 @@ export default {
         console.log(this.userLastName);
       }
     },
+    salesCheck: function (newVal, oldVal) {
+      if (newVal) {
+        document.querySelector("#buttonSale").classList.remove("saleButton");
+
+        document.querySelector("#buttonSale").classList.add("saleButtonCheck");
+      } else {
+        document
+          .querySelector("#buttonSale")
+          .classList.remove("saleButtonCheck");
+        document.querySelector("#buttonSale").classList.add("saleButton");
+      }
+    },
   },
   validations() {
     return {
@@ -261,9 +274,17 @@ export default {
 </script>
 <style lang="scss">
 @import "../helpers/mixings.scss";
+
+.saleButtonCheck {
+  background-color: #5cbb5c;
+  border: 1px solid #5cbb5c;
+  color: white;
+  transition: 0.4s;
+}
 .saleButton {
   background-color: #e92222;
   border: 1px solid #f34646;
+  transition: 0.4s;
 }
 button:focus {
   background-color: blue;
@@ -317,9 +338,6 @@ button:focus {
 .secTallas {
   @include fuenteSemiBold;
   @include flexInputDpNone;
-}
-.check {
-  display: flex;
 }
 
 .btnFiltrado {
