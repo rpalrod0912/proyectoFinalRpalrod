@@ -100,8 +100,6 @@ export default {
     },
     */
     menuAction(bool) {
-      debugger;
-
       document.querySelector("#logoWhite").classList.toggle("headerError");
       document.querySelector("#loginMenuId").classList.toggle("headerError");
       document.querySelector("#carritoMenuId").classList.toggle("headerError");
