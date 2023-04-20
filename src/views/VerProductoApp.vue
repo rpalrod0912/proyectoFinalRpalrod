@@ -1,6 +1,8 @@
 <template>
   <WhiteHeader tipo="Dark"></WhiteHeader>
   <main>
+    <div @click="añadirProd()" v-if="added" class="outsideClick"></div>
+
     <div class="contenedorImagenes" v-if="this.carga">
       <section class="presentacionProd">
         <div class="productDiv">
@@ -34,10 +36,18 @@
             </label>
           </div>
           <ButtonComponent
+            @click="añadirProd()"
             class="colorBoton"
             msj="AÑADIR A LA CESTA"
           ></ButtonComponent>
         </div>
+        <input type="checkbox" v-model="this.added" id="popMenu__toggle" />
+        <ul id="menuBox" class="popMenu__box">
+          <div class="popMenu__item textoGuresoh1">HOLA</div>
+          <ul>
+            <div @click="menuAction(false)" class="greyContainer"></div>
+          </ul>
+        </ul>
       </section>
       <section class="descripcionProd">
         <h2>DESCRIPCIÓN</h2>
@@ -46,6 +56,7 @@
     </div>
     <div v-else><LoadingSpinner class="spinner"></LoadingSpinner></div>
   </main>
+
   <AppFooter></AppFooter>
 </template>
 <script>
@@ -60,6 +71,7 @@ import { API_URL, scrollTop } from "@/helpers/basicHelpers";
 
 export default {
   name: "VerProductoApp",
+  añadirProd() {},
   async created() {
     scrollTop();
     axios.defaults.headers.common = {
@@ -75,6 +87,7 @@ export default {
   },
   data() {
     return {
+      added: false,
       tallaElegida: null,
       productId: null,
       carga: false,
@@ -84,6 +97,15 @@ export default {
   },
   components: { WhiteHeader, LoadingSpinner, AppFooter, ButtonComponent },
   methods: {
+    añadirProd() {
+      debugger;
+      if (!this.added) {
+        console.log(document.querySelector("#popMenu__toggle").checked);
+        this.added = true;
+      } else {
+        this.added = false;
+      }
+    },
     async getProductData(id) {
       debugger;
       console.log(id);
@@ -94,11 +116,20 @@ export default {
       return data;
     },
   },
+  watch: {},
 };
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 //Ul Basado de https://codepen.io/ozer/pen/rRvogO
+.outsideClick {
+  position: absolute;
+  width: 100%;
+  background-color: #6e7272;
+  opacity: 0.6;
+  height: 191%;
+  top: 0;
+}
 body {
   display: flex;
   flex-direction: column;
@@ -112,6 +143,13 @@ body {
     height: 1rem;
     width: 15rem;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.1s;
+    z-index: 1;
+  }
+  .colorBoton:hover {
+    transform: scale(1.1);
   }
   .descripcionProd {
     width: 65%;
@@ -139,6 +177,44 @@ body {
 
   .dropdown {
     @include dropdownList;
+  }
+
+  .bodyStyle {
+    overflow: hidden;
+  }
+  @include popUpModal("#popMenu__toggle", ".menu__btn", ".popMenu__box");
+
+  .TopMenu__item {
+    padding: 12px 24px;
+    margin-top: 0.5rem;
+  }
+  .textoPlano {
+    margin-left: 9%;
+    margin-right: 9%;
+    @include fuenteSemiBold;
+    color: #95a3a4;
+    font-size: 1.2rem;
+  }
+  .textoPlanoFino {
+    @include fuenteSemiBold;
+    color: black;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .textoGrueso {
+    margin-left: 9%;
+    margin-right: 9%;
+    @include fuenteSemiBold;
+    color: black;
+    font-size: 1.8rem;
+  }
+  .textoGruesoh1 {
+    margin-left: 9%;
+    margin-right: 9%;
+    @include fuenteSemiBold;
+    color: black;
+    font-size: 1.3rem;
+    text-align: center;
   }
 
   .productDiv {

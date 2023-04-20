@@ -511,6 +511,108 @@
     }
   }
 }
+@mixin popUpModal($id, $id2, $id3) {
+  #{$id} {
+    z-index: 1;
+    width: 1rem;
+    position: relative;
+    right: -1rem;
+    opacity: 0;
+  }
+  #{$id}:checked + .menu__btn > span {
+    transform: rotate(45deg);
+  }
+  #{$id}:checked + .menu__btn > span::before {
+    top: 0;
+    transform: rotate(0deg);
+    background-color: black;
+  }
+  #{$id}:checked + .menu__btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+    background-color: black;
+    .greyContainer {
+      visibility: visible;
+    }
+  }
+  #{$id}:checked ~ .popMenu__box {
+    right: 0rem;
+    padding: 0rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 61%;
+    top: 40%;
+
+    z-index: 1;
+  }
+  #{$id}:checked ~ .greyContainer {
+    left: 0% !important;
+  }
+  #{$id2} {
+    position: fixed;
+
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  #{$id2} > span,
+  #{$id2} > span::before,
+  #{$id2} > span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    transition-duration: 0.25s;
+  }
+  #{$id2} > span::before {
+    content: "";
+    top: -8px;
+  }
+  #{$id2} > span::after {
+    content: "";
+    top: 8px;
+  }
+  .greyContainer {
+    left: auto;
+    background-color: black;
+    position: fixed;
+    left: -100%;
+    width: 75%;
+    height: 300rem;
+    bottom: 0%;
+    opacity: 0.6;
+    transition-duration: 0.25s;
+  }
+  #{$id3} {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 25%;
+    height: 32%;
+    margin: 0;
+    padding: 80px 0;
+    list-style: none;
+    background-color: white;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+    transition-duration: 0.25s;
+    opacity: 1;
+  }
+  @media (max-width: 1400px) {
+    #{$id3} {
+      width: 40%;
+      .greyContainer {
+        width: 60%;
+      }
+    }
+  }
+}
+
 @mixin estiloMenuFiltro($id, $id2, $id3) {
   #{$id} {
     z-index: 1;
