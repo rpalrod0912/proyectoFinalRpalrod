@@ -10,11 +10,14 @@ import axios from "axios";
 export default {
   async created() {
     await this.getToken();
-    debugger;
     console.log(this.$store.state.currentToken);
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };
+    const carrito = localStorage.getItem("userProducts");
+    if (carrito === null) {
+      localStorage.setItem("userProducts", JSON.stringify({ cesta: [] }));
+    }
   },
   name: "App",
   methods: {

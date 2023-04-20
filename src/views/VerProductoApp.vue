@@ -43,10 +43,22 @@
         </div>
         <input type="checkbox" v-model="this.added" id="popMenu__toggle" />
         <ul id="menuBox" class="popMenu__box">
-          <div class="popMenu__item textoGuresoh1">HOLA</div>
-          <ul>
-            <div @click="menuAction(false)" class="greyContainer"></div>
-          </ul>
+          <div v-if="tallaElegida" class="popMenu__item textoGuresoh1">
+            <div @click="añadirProd()" class="hoverBox">
+              <img class="closeModal" src="@/assets/DeleteIcon.png" />
+            </div>
+
+            <img src="@/assets/checked.png" />
+            <p>{{ this.productData.nombre }} HA SIDO AÑADIDO AL CARRITO</p>
+          </div>
+          <div v-else class="popMenu__item textoGuresoh1">
+            <div @click="añadirProd()" class="hoverBox">
+              <img class="closeModal" src="@/assets/DeleteIcon.png" />
+            </div>
+
+            <img src="@/assets/cancel.png" />
+            <p>DEBES ELEGIR TALLA Y COLOR PARA AÑADIR EL PRODUCTO AL CARRITO</p>
+          </div>
         </ul>
       </section>
       <section class="descripcionProd">
@@ -97,11 +109,44 @@ export default {
   },
   components: { WhiteHeader, LoadingSpinner, AppFooter, ButtonComponent },
   methods: {
+    añadirCarro() {
+      let carrito = JSON.parse(localStorage.getItem("userProducts"));
+      if (carrito === null) {
+        localStorage.setItem("userProducts", JSON.stringify({ cesta: [] }));
+        carrito = JSON.parse(localStorage.getItem("userProducts"));
+      }
+      const datosPrd = {
+        productName: this.productData.nombre,
+        talla: this.tallaElegida,
+        color: [],
+      };
+      debugger;
+
+      console.log(carrito);
+      const productAlreadyInCart = carrito.cesta.findIndex((producto) => {
+        debugger;
+        return producto.productName === datosPrd.productName;
+      });
+      if (productAlreadyInCart !== -1) {
+        carrito.cesta[productAlreadyInCart].cantidad += 1;
+        carrito.cesta[productAlreadyInCart].talla.push(datosPrd.talla);
+      } else {
+        carrito.cesta.push({
+          productName: this.productData.nombre,
+          cantidad: 1,
+          talla: [datosPrd.talla],
+        });
+      }
+      localStorage.setItem("userProducts", JSON.stringify(carrito));
+    },
     añadirProd() {
       debugger;
       if (!this.added) {
         console.log(document.querySelector("#popMenu__toggle").checked);
         this.added = true;
+        if (this.tallaElegida) {
+          this.añadirCarro();
+        }
       } else {
         this.added = false;
       }
@@ -122,6 +167,7 @@ export default {
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 //Ul Basado de https://codepen.io/ozer/pen/rRvogO
+
 .outsideClick {
   position: absolute;
   width: 100%;
@@ -184,9 +230,12 @@ body {
   }
   @include popUpModal("#popMenu__toggle", ".menu__btn", ".popMenu__box");
 
-  .TopMenu__item {
-    padding: 12px 24px;
-    margin-top: 0.5rem;
+  .popMenu__item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    //padding: 12px 24px;
+    //margin-top: 0.5rem;
   }
   .textoPlano {
     margin-left: 9%;

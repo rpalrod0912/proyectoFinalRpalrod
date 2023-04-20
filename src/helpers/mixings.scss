@@ -400,6 +400,7 @@
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
     transition-duration: 0.1s;
     opacity: 1;
+
     .greyContainer {
       left: auto;
       background-color: rgb(8 8 8);
@@ -545,6 +546,11 @@
     margin-right: auto;
     width: 61%;
     top: 40%;
+    border-radius: 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 
     z-index: 1;
   }
@@ -589,6 +595,38 @@
     transition-duration: 0.25s;
   }
   #{$id3} {
+    img {
+      width: 3rem;
+      padding-bottom: 4rem;
+    }
+    .hoverBox {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      width: 3rem;
+      height: 3rem;
+      background-color: #e1e1e1;
+      border: 1px solid #e1e1e1;
+      position: absolute;
+      border-radius: 100%;
+      right: 1rem;
+      top: 1rem;
+      transition: transform 0.2s;
+      cursor: pointer;
+      .closeModal {
+        padding: 0rem;
+        width: 1.4rem;
+      }
+    }
+    .hoverBox:hover {
+      transform: scale(1.1);
+    }
+
+    p {
+      @include fuenteSemiBold();
+      font-size: 1.3rem;
+      text-align: center;
+    }
     display: block;
     position: fixed;
     top: 0;
