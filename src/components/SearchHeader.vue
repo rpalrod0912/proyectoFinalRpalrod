@@ -70,7 +70,6 @@ export default {
   },
   methods: {
     closeMenu() {
-      debugger;
       const pageBody = document.querySelector("body");
       pageBody.classList.toggle("bodyStyle");
       document.querySelector("#logoWhite").classList.toggle("headerError");

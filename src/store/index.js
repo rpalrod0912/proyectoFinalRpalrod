@@ -7,12 +7,16 @@ export default createStore({
     currentMail: null,
     currentUser: null,
     currentCartLength: 0,
+    currentCart: null,
     currentName: null,
     currentLastName: null,
     currentToken: null,
   },
   plugins: [createPersistedState()],
   mutations: {
+    setCurrentCart(state, cart) {
+      state.currentCart = cart;
+    },
     setCurrentMail(state, mail) {
       state.currentMail = mail;
     },

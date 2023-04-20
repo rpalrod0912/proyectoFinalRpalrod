@@ -111,7 +111,6 @@ export default {
       this.logInFirebase();
     },
     async logInFirebase() {
-      debugger;
       const logInData = {
         mail: this.$route.query.email,
         pwd: this.password,
@@ -158,7 +157,6 @@ export default {
     },
     */
     async encontrarUsuario(email) {
-      debugger;
       const mail = email;
       const data = await axios
         .get(`http://localhost:8080/users/email/${mail}`)
@@ -169,7 +167,6 @@ export default {
       if (data !== "NOTFOUND") {
         this.$router.push("/");
       }
-      debugger;
     },
   },
   components: { ButtonComponent },

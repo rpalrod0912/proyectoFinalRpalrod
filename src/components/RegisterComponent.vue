@@ -192,12 +192,10 @@ export default {
   },
   methods: {
     async submitRegister() {
-      debugger;
       this.v$.$touch();
 
       this.v$.$validate();
       console.log(this.v$);
-      debugger;
       console.log(this.v$.$error);
       if (!this.v$.$error) {
         await this.registerFireBase();
@@ -212,7 +210,6 @@ export default {
       }
     },
     async registerFireBase() {
-      debugger;
       const registerData = {
         name: this.name,
         lastName: this.lastName,
@@ -230,7 +227,6 @@ export default {
         registerData.password
       )
         .then((userCredential) => {
-          debugger;
           this.exito = true;
           this.userFound = false;
           const user = userCredential;
@@ -257,7 +253,6 @@ export default {
           ("NO CREADO YA EXISTE");
         })
         .catch((error) => {
-          debugger;
           const errorCode = error.code;
           const errorMessage = error.message;
           if (errorMessage === "Firebase: Error (auth/email-already-in-use).") {
@@ -268,7 +263,6 @@ export default {
         });
     },
     async postForm(objetoUsuario) {
-      debugger;
       objetoUsuario;
       const data = await axios
         .post(`${API_URL}users`, objetoUsuario)

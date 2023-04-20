@@ -20,7 +20,15 @@
           class="labelCarrito"
           for="cartCheck"
         >
-          <div class="grupoFlex">
+          <div
+            v-if="carrito.cesta.length > 0 || carrito !== null"
+            class="grupoFlex"
+          >
+            <img src="../assets/bolso.png" />
+            <p>CARRITO (0)</p>
+          </div>
+
+          <div v-else class="grupoFlex">
             <img src="../assets/bolso.png" />
             <p>CARRITO (0)</p>
           </div>
@@ -41,7 +49,16 @@
           <img :src="this.deleteIcon" />
         </div>
       </div>
-      <div class="contenidoCarrito">
+
+      <div
+        v-if="carrito.cesta.length > 0 || carrito !== null"
+        class="contenidoCarrito"
+      >
+        <p v-for="(item, index) in this.carrito.cesta" :key="index">
+          {{ item.productName }}
+        </p>
+      </div>
+      <div v-else class="contenidoCarrito">
         <p class="textoP">TU CESTA ESTA VACÍA</p>
         <button @click="seeProducts()" class="seeProductsButton">
           VER PRODUCTOS
@@ -88,6 +105,14 @@
 export default {
   /*eslint-disable */
   created() {
+    if (this.carrito === null) {
+      this.$store.commit(
+        "setCurrentCart",
+        JSON.parse(localStorage.getItem("userProducts"))
+      );
+    }
+    debugger;
+    console.log(this.carrito);
     if (this.color === "Dark") {
       this.modo = this.bolsoOscuro;
       this.deleteIcon = this.deleteOscuro;
@@ -98,9 +123,8 @@ export default {
     this.checked = "#cartCheck";
   },
   mounted() {
-    debugger;
-
     this.toggleTab(this.checked);
+    console.log(this.carrito);
   },
   name: "CarritoMenu",
   props: {
@@ -112,7 +136,6 @@ export default {
     },
     menuAction(bool) {
       const pageBody = document.querySelector("body");
-      debugger;
       document.querySelector("#CarritoMenu__toggle").checked = bool;
       if (bool === true) {
         document
@@ -136,7 +159,6 @@ export default {
           */
     },
     toggleTab(selectorName) {
-      debugger;
       if (selectorName === "#cartCheck") {
         //document.querySelector("Checked").className = "labelCarrito";
         console.log(document.querySelector(selectorName));
@@ -164,6 +186,7 @@ export default {
   },
   data() {
     return {
+      carrito: this.$store.state.currentCart,
       modo: null,
       deleteIcon: null,
       checked: null,
@@ -174,6 +197,7 @@ export default {
       deleteOscuro: require("../assets/DeleteIcon.png"),
     };
   },
+  watch: {},
 };
 </script>
 <style lang="scss" scoped>

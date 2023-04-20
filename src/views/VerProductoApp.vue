@@ -91,7 +91,6 @@ export default {
     };
     this.productId = this.$route.query.prodNombre;
     await this.getProductData(this.productId);
-    debugger;
 
     this.productData = JSON.parse(JSON.stringify(this.datosProduct));
     console.log(this.productData);
@@ -120,11 +119,9 @@ export default {
         talla: this.tallaElegida,
         color: [],
       };
-      debugger;
 
       console.log(carrito);
       const productAlreadyInCart = carrito.cesta.findIndex((producto) => {
-        debugger;
         return producto.productName === datosPrd.productName;
       });
       if (productAlreadyInCart !== -1) {
@@ -138,9 +135,12 @@ export default {
         });
       }
       localStorage.setItem("userProducts", JSON.stringify(carrito));
+      this.$store.commit(
+        "setCurrentCart",
+        JSON.parse(localStorage.getItem("userProducts"))
+      );
     },
     añadirProd() {
-      debugger;
       if (!this.added) {
         console.log(document.querySelector("#popMenu__toggle").checked);
         this.added = true;
@@ -152,7 +152,6 @@ export default {
       }
     },
     async getProductData(id) {
-      debugger;
       console.log(id);
       this.carga = false;
       const data = await axios

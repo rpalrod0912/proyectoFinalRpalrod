@@ -34,7 +34,6 @@
 export default {
   /*eslint-disable */
   created() {
-    debugger;
     this.colorBoton = this.menuButtonColor;
     if (this.color === "Dark") {
       document.documentElement.style.setProperty("--baseColor", "black");
@@ -67,7 +66,6 @@ export default {
   },
   watch: {
     color: function (newVal, oldVal) {
-      debugger;
       if (newVal === "blanco") {
         document.documentElement.style.setProperty("--baseColor", "white");
         document.documentElement.style.setProperty("--secondColor", "black");

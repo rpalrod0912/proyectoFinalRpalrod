@@ -22,7 +22,6 @@ export default {
   name: "App",
   methods: {
     async getToken() {
-      debugger;
       const data = await axios
         .post(
           "http://localhost:8080/token",
@@ -35,7 +34,6 @@ export default {
           }
         )
         .then((res) => {
-          debugger;
           this.$store.commit("setCurrentToken", res.data);
         });
 

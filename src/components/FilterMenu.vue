@@ -99,7 +99,6 @@ import ButtonComponent from "./ButtonComponent.vue";
 export default {
   /*eslint-disable */
   async created() {
-    debugger;
     if (this.color === "Dark") {
       this.modo = this.UserOscuro;
       this.deleteIcon = this.deleteOscuro;
@@ -181,7 +180,6 @@ export default {
       console.log("ES AHORA", newVal, "ERA ANTES ", oldVal);
       if (newVal !== null && this.authentication === true) {
         this.cargando = true;
-        debugger;
         let datos = JSON.parse(JSON.stringify(this.userData));
         console.log(datos);
         console.log(datos.nombre);
@@ -212,15 +210,9 @@ export default {
   },
   methods: {
     changeSaleState(name) {
-      debugger;
-      console.log(this.salesCheck);
-      console.log(document.querySelector(name));
-      console.log(document.querySelector(name).checked);
       let elementOferta = document.querySelector(name);
-      console.log(elementOferta.checked);
       if (this.salesCheck) {
         this.salesCheck = false;
-        console.log(document.getElementById("saleCheck").checked);
         this.$emit("cambSale", false);
       } else {
         this.salesCheck = true;
@@ -237,8 +229,6 @@ export default {
       this.$emit("cambColor", color);
     },
     menuAction(bool) {
-      debugger;
-
       document.querySelector("#FilterMenu__toggle").checked = bool;
       if (bool === true) {
         /*

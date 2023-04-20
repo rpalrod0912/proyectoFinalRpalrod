@@ -96,7 +96,6 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 export default {
   /*eslint-disable */
   async created() {
-    debugger;
     if (this.color === "Dark") {
       this.modo = this.UserOscuro;
       this.deleteIcon = this.deleteOscuro;
@@ -137,7 +136,6 @@ export default {
       console.log("ES AHORA", newVal, "ERA ANTES ", oldVal);
       if (newVal !== null && this.authentication === true) {
         this.cargando = true;
-        debugger;
         let datos = JSON.parse(JSON.stringify(this.userData));
         console.log(datos);
         console.log(datos.nombre);
@@ -156,11 +154,9 @@ export default {
   },
   methods: {
     async continueLogin() {
-      debugger;
       console.log(auth);
       await fetchSignInMethodsForEmail(auth, this.mail)
         .then((signInMethods) => {
-          debugger;
           console.log(signInMethods);
           if (signInMethods.length) {
             // The email already exists in the Auth database. You can check the
@@ -200,8 +196,6 @@ export default {
         });
     },
     menuAction(bool) {
-      debugger;
-
       document.querySelector("#RightMenu__toggle").checked = bool;
       if (bool === true) {
         document

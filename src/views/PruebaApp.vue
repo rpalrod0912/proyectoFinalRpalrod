@@ -7,7 +7,6 @@ const token =
 axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
 export default {
   async created() {
-    debugger;
     await this.getToken();
     await this.getUsers();
   },
@@ -26,11 +25,9 @@ export default {
           console.log(res.data);
         })
         .catch((error) => error);
-      debugger;
       console.log(data);
     },
     async getToken() {
-      debugger;
       const data = await axios
         .post(
           "http://localhost:8080/token",
@@ -43,7 +40,6 @@ export default {
           }
         )
         .then((res) => {
-          debugger;
           this.token = res.data;
         });
       console.log(data);

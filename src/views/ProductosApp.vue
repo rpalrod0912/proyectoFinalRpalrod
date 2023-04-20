@@ -58,9 +58,7 @@ export default {
     };
     console.log(this.$);
     //METODO DE MI API ANTERIOR SOLO PARA PRUEBAS
-    debugger;
     if (this.$route.query.oferta === "MOSTRAR") {
-      debugger;
       await this.getPages("products/ofertas/paginas");
       await this.cargarPagina("products/ofertas/paginas/", this.pagina);
       this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
@@ -70,7 +68,6 @@ export default {
       this.$route.query.prodFiltrados === undefined
     ) {
       await this.getPages("products/paginas");
-      debugger;
       await this.cargarPagina("products/paginas/", this.pagina);
       this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
       this.carga = true;
@@ -101,13 +98,10 @@ export default {
 
   methods: {
     colorFilterState(val) {
-      debugger;
       this.tipoFiltro = "color";
       if (val === "Ninguno") {
         this.filterValue = false;
       } else {
-        debugger;
-
         if (this.tallaElegida && this.mostrarOfer) {
           console.log(this.tallaElegida);
           this.filterArray = this.imgArray.filter(
@@ -134,7 +128,6 @@ export default {
           );
           this.filterValue = true;
         } else {
-          debugger;
           this.filterValue = true;
           this.filterArray = this.imgArray.filter((objeto) =>
             objeto.color.includes(this.colorElegido.color)
@@ -150,7 +143,6 @@ export default {
       }
     },
     saleFilterState(val) {
-      debugger;
       this.tipoFiltro = "oferta";
       if (val) {
         if (this.colorElegido && this.tallaElegida) {
@@ -172,7 +164,6 @@ export default {
               objeto.talla.includes(this.tallaElegida) && objeto.oferta !== null
           );
         } else {
-          debugger;
           this.filterArray = this.imgArray.filter(
             (objeto) => objeto.oferta !== null
           );
@@ -192,7 +183,6 @@ export default {
     },
     sizeFilterState(tallaVal) {
       this.tipoFiltro = "tallas";
-      debugger;
 
       const tallasRopa = ["S", "M", "L", "XL"];
       if (tallaVal === "Ninguno") {
@@ -220,7 +210,6 @@ export default {
           );
           this.filterValue = true;
         } else {
-          debugger;
           this.filterArray = this.imgArray.filter((objeto) =>
             objeto.talla.includes(tallaVal)
           );
@@ -248,7 +237,6 @@ export default {
               objeto.talla.includes(tallaVal) && objeto.oferta !== null
           );
         } else {
-          debugger;
           console.log();
           this.filterArray = this.imgArray.filter((objeto) =>
             objeto.talla.includes(tallaVal)
@@ -266,27 +254,23 @@ export default {
       return this.ofertasArray;
     },
     changeParentColor(val) {
-      debugger;
       console.log(val);
       this.colorElegido = val;
       this.colorFilterState(val);
     },
     changeParentSale(val) {
-      debugger;
       console.log(val);
       this.mostrarOfer = val;
       console.log(this.mostrarOfer);
       this.saleFilterState(val);
     },
     changeParentTalla(val) {
-      debugger;
       console.log(val);
       this.tallaElegida = val;
       this.sizeFilterState(val);
     },
     async cargarProductosBusqueda(val) {
       this.carga = false;
-      debugger;
       let datos;
       const data = await axios
         .get(`${API_URL}products`)
@@ -314,7 +298,6 @@ export default {
         .then((res) => (this.datosProd = res.data));
     },
     async cargarPagina(endPoint, page) {
-      debugger;
       this.carga = false;
       console.log(`${API_URL}${endPoint}${page}`);
 
@@ -323,8 +306,6 @@ export default {
         .then((res) => (this.datosProd = res.data));
     },
     async getPages(endPoint) {
-      debugger;
-
       const data = await axios
         .get(`${API_URL}${endPoint}`)
         .then((res) => (this.numeroPaginas = res.data));

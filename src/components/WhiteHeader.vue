@@ -69,14 +69,12 @@ export default {
     }
     let self = this;
     auth.onAuthStateChanged(async function (user) {
-      debugger;
       if (user !== null) {
         self.email = user.email;
         self.$store.commit("setCurrentMail", user.email);
         self.authentication = true;
         self.id = user.uid;
         const datosUsuario = await self.fetchUserData(user.uid);
-        debugger;
 
         self.userData = JSON.parse(JSON.stringify(datosUsuario));
         console.log(self.userData);
@@ -138,7 +136,6 @@ export default {
       document.getElementById("carritoMenuId").classList.toggle("headerError");
     },
     async fetchUserData(id) {
-      debugger;
       let datosUsuario;
 
       const data = await axios

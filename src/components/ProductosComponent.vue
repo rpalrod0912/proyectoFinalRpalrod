@@ -41,7 +41,6 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 /*eslint-disable */
 export default {
   created() {
-    debugger;
     console.log(this.carga);
   },
   name: "ProductosComponent",
@@ -56,7 +55,6 @@ export default {
   components: { LoadingSpinner },
   methods: {
     seeProduct(nombre) {
-      debugger;
       this.$router.push({
         name: "product",
         query: { prodNombre: nombre },
