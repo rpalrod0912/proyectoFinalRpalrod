@@ -98,6 +98,7 @@ export default {
       mostrarOfer: null,
     };
   },
+
   methods: {
     colorFilterState(val) {
       debugger;

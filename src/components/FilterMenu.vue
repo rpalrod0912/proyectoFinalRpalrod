@@ -47,6 +47,7 @@
           :key="index"
         >
           <input
+            v-model="this.salesCheck"
             type="radio"
             :id="`tallaRadio${talla}`"
             name="tallaRadio"
@@ -60,20 +61,14 @@
       </div>
     </section>
     <section class="secColor">
-      <label for="tallaRadio">
+      <label for="saleCheck">
         <ButtonComponent
           @click="changeSaleState('#saleCheck')"
           class="saleButton"
           msj="¡OFERTAS!"
         ></ButtonComponent>
       </label>
-      <input
-        type="radio"
-        id="saleCheck"
-        name="saleCheck"
-        class="radioColor"
-        :value="talla"
-      />
+      <input type="checkbox" class="check" id="saleCheck" name="saleCheck" />
     </section>
   </ul>
 </template>
@@ -115,6 +110,7 @@ export default {
   },
   data() {
     return {
+      salesCheck: false,
       modo: null,
       deleteIcon: null,
       UserClaro: require("../assets/usuario.png"),
@@ -169,6 +165,11 @@ export default {
       ],
     };
   },
+  emits: {
+    cambTalla: null,
+    cambColor: null,
+    cambSale: null,
+  },
   name: "FilterMenu",
   props: {
     color: String,
@@ -199,12 +200,18 @@ export default {
   methods: {
     changeSaleState(name) {
       debugger;
-      const elementOferta = document.querySelector(name);
-      if (elementOferta.checked) {
-        elementOferta.checked = false;
+      console.log(this.salesCheck);
+      console.log(document.querySelector(name));
+      console.log(document.querySelector(name).checked);
+      let elementOferta = document.querySelector(name);
+      console.log(elementOferta.checked);
+      if (this.salesCheck) {
+        this.salesCheck = false;
+        console.log(document.getElementById("saleCheck").checked);
         this.$emit("cambSale", false);
       } else {
-        elementOferta.checked = true;
+        this.salesCheck = true;
+
         this.$emit("cambSale", true);
       }
     },
@@ -258,6 +265,9 @@ export default {
   background-color: #e92222;
   border: 1px solid #f34646;
 }
+button:focus {
+  background-color: blue;
+}
 .labelColorButton {
   display: inline-block;
   position: relative;
@@ -295,6 +305,9 @@ export default {
     left: 50%;
     border: 1px solid black;
   }
+  input:checked + button {
+    background-color: #e7e7e7;
+  }
 }
 .secColor {
   @include fuenteSemiBold;
@@ -304,6 +317,9 @@ export default {
 .secTallas {
   @include fuenteSemiBold;
   @include flexInputDpNone;
+}
+.check {
+  display: flex;
 }
 
 .btnFiltrado {
