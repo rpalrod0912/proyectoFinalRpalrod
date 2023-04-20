@@ -416,6 +416,11 @@ button:focus {
   }
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);
 }
+.scrollBarHidden {
+  ::-webkit-scrollbar {
+    width: 0 !important;
+  }
+}
 
 #checkedBusqueda {
   display: none;
