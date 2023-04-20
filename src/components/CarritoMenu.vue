@@ -43,7 +43,9 @@
       </div>
       <div class="contenidoCarrito">
         <p class="textoP">TU CESTA ESTA VACÍA</p>
-        <button class="seeProductsButton">VER PRODUCTOS</button>
+        <button @click="seeProducts()" class="seeProductsButton">
+          VER PRODUCTOS
+        </button>
       </div>
     </div>
     <div v-else-if="!checked">
@@ -73,7 +75,9 @@
       </div>
       <div class="contenidoCarrito">
         <p class="textoP">TU WISHLIST ESTA VACÍA</p>
-        <button class="seeProductsButton">VER PRODUCTOS</button>
+        <button @click="seeProducts()" class="seeProductsButton">
+          VER PRODUCTOS
+        </button>
       </div>
     </div>
 
@@ -103,6 +107,9 @@ export default {
     color: String,
   },
   methods: {
+    seeProducts() {
+      this.$router.push("/products");
+    },
     menuAction(bool) {
       const pageBody = document.querySelector("body");
       debugger;

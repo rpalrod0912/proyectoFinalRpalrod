@@ -59,12 +59,19 @@ export default {
     console.log(this.$);
     //METODO DE MI API ANTERIOR SOLO PARA PRUEBAS
     debugger;
-    if (
+    if (this.$route.query.oferta === "MOSTRAR") {
+      debugger;
+      await this.getPages("products/ofertas/paginas");
+      await this.cargarPagina("products/ofertas/paginas/", this.pagina);
+      this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
+      this.carga = true;
+    } else if (
       this.$route.query.prodFiltrados === null ||
       this.$route.query.prodFiltrados === undefined
     ) {
-      await this.getPages();
-      await this.cargarPagina(this.pagina);
+      await this.getPages("products/paginas");
+      debugger;
+      await this.cargarPagina("products/paginas/", this.pagina);
       this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
       this.carga = true;
     } else {
@@ -305,27 +312,36 @@ export default {
         .get(`${API_URL}products`)
         .then((res) => (this.datosProd = res.data));
     },
-    async cargarPagina(page) {
+    async cargarPagina(endPoint, page) {
       debugger;
       this.carga = false;
+      console.log(`${API_URL}${endPoint}${page}`);
+
       const data = await axios
-        .get(`${API_URL}products/paginas/${page}`)
+        .get(`${API_URL}${endPoint}${page}`)
         .then((res) => (this.datosProd = res.data));
     },
-    async getPages() {
+    async getPages(endPoint) {
       debugger;
 
       const data = await axios
-        .get(`${API_URL}products/paginas`)
+        .get(`${API_URL}${endPoint}`)
         .then((res) => (this.numeroPaginas = res.data));
       const cantidadPaginas = Object.keys(data).length;
       this.numeroPaginas = cantidadPaginas;
     },
   },
+  props: {
+    ofertas: String,
+  },
   watch: {
     pagina: async function (newVal, oldVal) {
       if (newVal !== oldVal) {
-        await this.cargarPagina(newVal);
+        if (this.$route.query.oferta === "MOSTRAR") {
+          await this.cargarPagina("products/ofertas/paginas/", newVal);
+        } else {
+          await this.cargarPagina("products/paginas/", newVal);
+        }
         this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
         this.carga = true;
         scrollTop();

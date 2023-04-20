@@ -18,6 +18,11 @@
         ¡PROMOCIONES HASTA EL 50 % DE DESCUENTO! ELIGE ENTRE MÁS DE 100
         PRODUCTOS SELECCIONADOS DE ESTA TEMPORADA
       </h1>
+      <ButtonComponent
+        @click="seeSaleProd()"
+        class="seeSales"
+        msj="VER OFERTAS"
+      ></ButtonComponent>
     </section>
     <section class="secIni2">
       <img class="imgSecDesktop" src="../assets/imSec2.png" />
@@ -46,6 +51,14 @@ export default {
       recienRegistrado: "NO",
     };
   },
+  methods: {
+    seeSaleProd() {
+      this.$router.push({
+        name: "products",
+        query: { oferta: "MOSTRAR" },
+      });
+    },
+  },
   name: "InicioApp",
   components: { WhiteHeader, AppFooter, ButtonComponent },
 };
@@ -55,6 +68,29 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap");
 * {
   margin: 0;
+}
+button {
+  cursor: pointer;
+}
+
+.seeSales:hover {
+  p {
+    color: white;
+  }
+  background-color: #302b27;
+  cursor: pointer;
+}
+
+.seeSales {
+  p {
+    background-color: transparent;
+    transition: 0.2s;
+
+    color: #302b27;
+  }
+  background-color: transparent;
+  border: 1px solid #302b27;
+  transition: 0.5s;
 }
 .vidSec1 {
   width: 100%;
@@ -89,6 +125,10 @@ main {
     //margin-top: 1.5rem;
 
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
     height: auto;
     background-color: #04724d;
     color: black;
