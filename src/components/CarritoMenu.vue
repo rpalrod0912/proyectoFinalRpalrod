@@ -51,12 +51,53 @@
       </div>
 
       <div
-        v-if="carrito.cesta.length > 0 || carrito !== null"
+        v-if="carrito.cesta.length > 0 && carrito !== null"
         class="contenidoCarrito"
       >
-        <p v-for="(item, index) in this.carrito.cesta" :key="index">
-          {{ item.productName }}
-        </p>
+        <div v-if="!carga">
+          <LoadingSpinner></LoadingSpinner>
+        </div>
+        <div v-else>
+          <div
+            class="cartProduct"
+            v-for="(item, index) in this.carrito.cesta"
+            :key="index"
+          >
+            <div class="imgContainer">
+              <img :src="this.productsData[index].imagen" />
+            </div>
+            <div class="options">
+              <section class="carrPSec1">
+                <p>
+                  {{ item.productName }}
+                </p>
+                <img src="../assets/trash-can.png" />
+              </section>
+              <section class="prodOptions">
+                <div class="optionContainer"></div>
+                <div class="optionContainer">
+                  {{ item.talla }}
+                </div>
+                <div class="optionContainer">
+                  {{ item.cantidad }}
+                </div>
+              </section>
+              <section class="precioProd">
+                <p class="precio" v-if="this.productsData[index].oferta">
+                  {{
+                    applySale(
+                      this.productsData[index].precio,
+                      this.productsData[index].oferta
+                    )
+                  }}
+                </p>
+                <p class="precio" v-else>
+                  {{ this.productsData[index].precio }}
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
       </div>
       <div v-else class="contenidoCarrito">
         <p class="textoP">TU CESTA ESTA VACÍA</p>
@@ -102,14 +143,29 @@
   </ul>
 </template>
 <script>
+import axios from "axios";
+import { API_URL } from "@/helpers/basicHelpers";
+import LoadingSpinner from "./LoadingSpinner.vue";
 export default {
   /*eslint-disable */
-  created() {
+  async created() {
     if (this.carrito === null) {
       this.$store.commit(
         "setCurrentCart",
         JSON.parse(localStorage.getItem("userProducts"))
       );
+    } else {
+      debugger;
+      if (this.carrito.cesta.length > 0) {
+        this.carga = false;
+        let dataArr = [];
+        for (let objeto of this.carrito.cesta) {
+          const prodData = await this.getProductData(objeto.productName);
+          dataArr.push(prodData);
+        }
+        this.productsData = dataArr;
+        this.carga = true;
+      }
     }
     debugger;
     console.log(this.carrito);
@@ -131,6 +187,18 @@ export default {
     color: String,
   },
   methods: {
+    applySale(precio, porcentaje) {
+      const resultado = Math.round(precio - (precio * porcentaje) / 100);
+      return resultado;
+    },
+    async getProductData(id) {
+      console.log(id);
+      this.carga = false;
+      const data = await axios
+        .get(`${API_URL}products/nombre/${id}`)
+        .then((res) => (this.datosProduct = res.data));
+      return data;
+    },
     seeProducts() {
       this.$router.push("/products");
     },
@@ -149,14 +217,13 @@ export default {
           .querySelector(".menu__btn").style.opacity = "1";
         pageBody.classList.remove("bodyStyle");
       }
-
       console.log("estilos");
       /*
-          if (document.getElementById("TopMenu__toggle").checked) {
-            alert("checked");
-          } else {box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);k it! Let me check it for you.");
-          }
-          */
+                if (document.getElementById("TopMenu__toggle").checked) {
+                  alert("checked");
+                } else {box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);k it! Let me check it for you.");
+                }
+                */
     },
     toggleTab(selectorName) {
       if (selectorName === "#cartCheck") {
@@ -165,22 +232,19 @@ export default {
         document.querySelector(selectorName).checked = true;
         this.checked = true;
         console.log(this.checked);
-
         document.querySelector("#likeCheck").checked = false;
         //document.querySelector("label[for=likeCheck]").className =
         ("labelUnchecked");
       } else if (selectorName === "#likeCheck") {
         /*document.querySelector("label[for=likeCheck]").className =
-          "labelCarrito";*/
+                  "labelCarrito";*/
         console.log(document.querySelector(selectorName));
         document.querySelector(selectorName).checked = true;
         this.checked = false;
         console.log(this.checked);
-
         document.querySelector("#cartCheck").checked = false;
-
         /*document.querySelector("label[for=cartCheck]").className =
-          "labelUnchecked";*/
+                  "labelUnchecked";*/
       }
     },
   },
@@ -195,13 +259,94 @@ export default {
       bolsoOscuro: require("../assets/bolso.png"),
       deleteClaro: require("../assets/DeleteIcon.png"),
       deleteOscuro: require("../assets/DeleteIcon.png"),
+      productsData: null,
+      carga: false,
     };
   },
-  watch: {},
+  watch: {
+    "$store.state.currentCart": {
+      //Para añadir reactividad al carrito debemos escuchar el objeto store
+      deep: true,
+      async handler(newVal) {
+        this.carga = false;
+        this.carrito = newVal;
+        let dataArr = [];
+        for (let objeto of this.carrito.cesta) {
+          const prodData = await this.getProductData(objeto.productName);
+          dataArr.push(prodData);
+        }
+        this.productsData = dataArr;
+        this.carga = true;
+      },
+    },
+  },
+  components: { LoadingSpinner },
 };
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
+
+.cartProduct {
+  display: flex;
+  position: relative;
+  right: 3rem;
+  align-items: center;
+  .imgContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 140px;
+    height: 200px;
+    background-color: beige;
+    border-radius: 18px;
+    margin: 2rem 1.2rem 2rem;
+    cursor: pointer;
+    img {
+      width: 10rem;
+      height: 6rem;
+    }
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+    .carrPSec1 {
+      display: flex;
+      p {
+        @include fuenteSemiBold;
+      }
+      img {
+        position: absolute;
+        right: -4rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+    .prodOptions {
+      display: flex;
+      //flex-wrap: wrap;
+      padding-top: 3em;
+      padding-bottom: 3rem;
+      .optionContainer {
+        @include fuenteSemiBold;
+        height: 1.5rem;
+        box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
+        width: 5rem;
+        border: 1.8px solid black;
+        margin: 0.2rem;
+      }
+    }
+    .precioProd {
+      @include fuenteSemiBold;
+      .precio {
+        position: absolute;
+        right: -4rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+  }
+}
 
 .grupoFlex {
   flex-direction: row;

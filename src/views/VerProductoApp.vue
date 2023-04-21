@@ -124,14 +124,23 @@ export default {
       const productAlreadyInCart = carrito.cesta.findIndex((producto) => {
         return producto.productName === datosPrd.productName;
       });
+      debugger;
+      console.log(datosPrd.talla);
       if (productAlreadyInCart !== -1) {
-        carrito.cesta[productAlreadyInCart].cantidad += 1;
-        carrito.cesta[productAlreadyInCart].talla.push(datosPrd.talla);
+        if (carrito.cesta[productAlreadyInCart].talla == datosPrd.talla) {
+          carrito.cesta[productAlreadyInCart].cantidad += 1;
+        } else {
+          carrito.cesta.push({
+            productName: this.productData.nombre,
+            cantidad: 1,
+            talla: datosPrd.talla,
+          });
+        }
       } else {
         carrito.cesta.push({
           productName: this.productData.nombre,
           cantidad: 1,
-          talla: [datosPrd.talla],
+          talla: datosPrd.talla,
         });
       }
       localStorage.setItem("userProducts", JSON.stringify(carrito));

@@ -140,6 +140,14 @@ main {
     }
     justify-content: center;
   }
+  @media (max-width: 400px) {
+    .secIniOfer {
+      h1 {
+        font-size: 1rem;
+        width: 18rem;
+      }
+    }
+  }
   .secIni2 {
     margin-top: 0.3em;
     img {

@@ -334,11 +334,16 @@ button:focus {
   display: flex;
   margin: 0 auto;
   margin-top: 12rem;
+  transition: 0.3s;
+  cursor: pointer;
   background-color: rgb(238, 237, 237);
   p {
     color: black;
   }
   border: 1px solid #e7e7e7;
+}
+.btnFiltrado:hover {
+  transform: scale(1.2);
 }
 
 .nextButtonSubmit {

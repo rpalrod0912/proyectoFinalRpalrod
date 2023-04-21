@@ -8,16 +8,23 @@
 /*eslint-disable */
 import axios from "axios";
 export default {
+  mounted() {
+    const carrito = localStorage.getItem("userProducts");
+
+    if (carrito === null) {
+      localStorage.setItem("userProducts", JSON.stringify({ cesta: [] }));
+      this.$store.commit(
+        "setCurrentCart",
+        JSON.parse(localStorage.getItem("userProducts"))
+      );
+    }
+  },
   async created() {
     await this.getToken();
     console.log(this.$store.state.currentToken);
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };
-    const carrito = localStorage.getItem("userProducts");
-    if (carrito === null) {
-      localStorage.setItem("userProducts", JSON.stringify({ cesta: [] }));
-    }
   },
   name: "App",
   methods: {
