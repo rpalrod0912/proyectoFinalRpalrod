@@ -90,9 +90,10 @@
                       this.productsData[index].oferta
                     )
                   }}
+                  €
                 </p>
                 <p class="precio" v-else>
-                  {{ this.productsData[index].precio }}
+                  {{ this.productsData[index].precio }} €
                 </p>
               </section>
             </div>
@@ -149,6 +150,9 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 export default {
   /*eslint-disable */
   async created() {
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${this.$store.state.currentToken}`,
+    };
     if (this.carrito === null) {
       this.$store.commit(
         "setCurrentCart",
@@ -341,8 +345,50 @@ export default {
       .precio {
         position: absolute;
         right: -4rem;
-        width: 1.5rem;
         height: 1.5rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 1175px) and (max-width: 1600px) {
+  .cartProduct {
+    right: 0.5rem;
+    .options {
+      .carrPSec1 {
+        img {
+          right: -1rem;
+        }
+      }
+      .precioProd {
+        .precio {
+          right: -1rem;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 755px) and (max-width: 1174px) {
+  .cartProduct {
+    right: 0.5rem;
+    .options {
+      .carrPSec1 {
+        p {
+          width: 58%;
+        }
+        img {
+          right: -1rem;
+        }
+      }
+      .prodOptions {
+        flex-wrap: wrap;
+        padding-top: 1em;
+        padding-bottom: 0.3rem;
+      }
+      .precioProd {
+        .precio {
+          right: -1rem;
+        }
       }
     }
   }
@@ -523,7 +569,7 @@ export default {
   }
 }
 
-@media (min-width: 300px) and (max-width: 599px) {
+@media (max-width: 754px) {
   .itemsBox {
     margin-top: 2rem;
     display: flex;
