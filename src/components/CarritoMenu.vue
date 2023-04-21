@@ -6,8 +6,8 @@
     name="checkBusqueda"
   />
 
-  <label @click="menuAction(true)" for="checkBusqueda">
-    <img :src="this.modo" />
+  <label class="headerHoverLabel" @click="menuAction(true)" for="checkBusqueda">
+    <img class="headerHoverLabel" :src="this.modo" />
   </label>
 
   <ul class="CarritoMenu__box">
@@ -327,6 +327,7 @@ export default {
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 
+@include headerIconHover;
 .colorBoton {
   @include loginButton("green", "white", "2rem");
   height: 1rem;

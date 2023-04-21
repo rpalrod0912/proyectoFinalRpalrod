@@ -69,6 +69,7 @@
           msj="¡OFERTAS!"
         ></ButtonComponent>
       </span>
+      <div class="greyContainer"></div>
       <input type="checkbox" class="check" id="saleCheck" name="saleCheck" />
     </section>
   </ul>

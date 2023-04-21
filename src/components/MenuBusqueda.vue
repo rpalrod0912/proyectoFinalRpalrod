@@ -6,8 +6,8 @@
     name="checkBusqueda"
   />
 
-  <label @click="menuAction(true)" for="checkBusqueda">
-    <img class="searchBar searchMenu" :src="this.modo" />
+  <label class="headerHoverLabel" @click="menuAction(true)" for="checkBusqueda">
+    <img class="searchBar searchMenu headerHoverLabel" :src="this.modo" />
 
     <img
       class="searchIcon"
@@ -148,6 +148,8 @@ export default {
 </script>
 <style lang="scss">
 @import "../helpers/mixings.scss";
+
+@include headerIconHover;
 
 .bodyStyle {
   overflow: hidden;

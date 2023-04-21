@@ -6,8 +6,8 @@
     name="checkBusqueda"
   />
 
-  <label @click="menuAction(true)" for="checkBusqueda">
-    <img :src="this.modo" />
+  <label class="headerHoverLabel" @click="menuAction(true)" for="checkBusqueda">
+    <img class="headerHoverLabel" :src="this.modo" />
   </label>
 
   <ul v-if="!this.authentication" class="RightMenu__box">
@@ -228,6 +228,8 @@ export default {
 </script>
 <style lang="scss">
 @import "../helpers/mixings.scss";
+
+@include headerIconHover;
 
 .nextButtonSubmit {
   @include loginButton("black", "white", "2rem");

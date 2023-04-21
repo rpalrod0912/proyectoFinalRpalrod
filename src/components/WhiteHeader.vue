@@ -14,7 +14,14 @@
         ></MenuBusqueda>
       </li>
     </ul>
-    <img @click="toHome()" id="logoWhite" class="logo" :src="this.logo" />
+    <img
+      @mouseover="checkLogo()"
+      @mouseout="checkLogo()"
+      @click="toHome()"
+      id="logoWhite"
+      class="logo headerHoverLabel"
+      :src="this.logo"
+    />
     <ul class="userOptions">
       <li>
         <div class="headerWithoutMedia">
@@ -127,6 +134,18 @@ export default {
     menuButtonColor: "String",
   },
   methods: {
+    checkLogo() {
+      debugger;
+      console.log(this.tipoHeader);
+      console.log(this.tipo);
+      if (this.tipo === "blanco") {
+        if (this.logo === this.iconos.logoOscuro) {
+          this.logo = this.iconos.logoClaro;
+        } else {
+          this.logo = this.iconos.logoOscuro;
+        }
+      }
+    },
     toHome() {
       this.$router.push("/");
     },
@@ -148,6 +167,10 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "../helpers/mixings.scss";
+
+@include headerIconHover;
+
 header {
   height: 10rem;
   justify-content: space-between;

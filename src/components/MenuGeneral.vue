@@ -6,14 +6,18 @@
 
       <label
         v-if="this.colorBoton === 'Dark'"
-        class="menu__btn blackSpan"
+        class="menu__btn blackSpan headerHoverLabel"
         for="menu__toggle"
       >
-        <span class="blackSpan"></span>
+        <span class="blackSpan headerHoverLabel"></span>
       </label>
 
-      <label v-else class="menu__btn whiteSpan" for="menu__toggle">
-        <span></span>
+      <label
+        v-else
+        class="menu__btn whiteSpan headerHoverLabel"
+        for="menu__toggle"
+      >
+        <span class="headerHoverLabel"></span>
       </label>
 
       <ul class="menu__box">
@@ -76,6 +80,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
+
+@include headerIconHover;
 
 $baseColor: white;
 $secondColor: black;

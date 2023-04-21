@@ -418,6 +418,17 @@
   }
 }
 
+@mixin headerIconHover {
+  .headerHoverLabel {
+    transition: transform 0.2s;
+  }
+
+  .headerHoverLabel:hover {
+    transform: scale(1.12);
+    cursor: pointer;
+  }
+}
+
 @mixin estiloMenuDerecho($id, $id2, $id3) {
   #{$id} {
     z-index: 1;
@@ -739,7 +750,7 @@
       height: 300rem;
       z-index: 1;
       bottom: 0%;
-      opacity: 0.6;
+      opacity: 0;
       transition-duration: 0.25s;
     }
   }
