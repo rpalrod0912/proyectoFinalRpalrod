@@ -2,6 +2,7 @@
   <main>
     <div class="contenedorImagenes" v-if="this.carga">
       <div
+        class="prodContainer"
         @click="this.seeProduct(producto.nombre)"
         v-for="(producto, index) in this.imgArray"
         :key="index"
@@ -107,6 +108,7 @@ main {
   align-items: flex-start;
   justify-content: center;
 }
+
 //Para monitores Ultrawide como el mio, no es para el despliegue final
 
 @media (min-width: 1921px) {
@@ -119,24 +121,34 @@ main {
 .redH2 {
   color: #d74242;
 }
-.productDiv {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 320px;
-  height: 488px;
-  background-color: beige;
-  border-radius: 18px;
-  margin: 3rem 3rem 1rem;
-  cursor: pointer;
+.prodContainer {
+  transition: 0.5s;
 
-  img {
-    width: 15rem;
+  .productDiv {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 320px;
+    height: 488px;
+    transition: 0.5s;
+    background-color: beige;
+    border-radius: 18px;
+    margin: 3rem 3rem 1rem;
+    cursor: pointer;
+    img {
+      width: 15rem;
+    }
+    .productoInfo1 {
+      position: relative;
+      right: 29vw;
+    }
   }
-  .productoInfo1 {
-    position: relative;
-    right: 29vw;
+}
+.prodContainer:hover {
+  transform: scale(1.08);
+  .productDiv {
+    box-shadow: 10px 10px #5c5c5c;
   }
 }
 @media (min-width: 300px) and (max-width: 399px) {
