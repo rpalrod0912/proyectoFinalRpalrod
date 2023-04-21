@@ -88,16 +88,27 @@
                     applySale(
                       this.productsData[index].precio,
                       this.productsData[index].oferta
-                    )
+                    ) * item.cantidad
                   }}
                   €
                 </p>
                 <p class="precio" v-else>
-                  {{ this.productsData[index].precio }} €
+                  {{ this.productsData[index].precio * item.cantidad }} €
                 </p>
               </section>
             </div>
           </div>
+          <section class="totalPrice">
+            <div class="total">
+              <p>TOTAL</p>
+              <p>{{ this.calcularPrecioCarrito() }} €</p>
+            </div>
+            <p class="precio">Envío Incluido</p>
+          </section>
+          <ButtonComponent
+            class="colorBoton mgBottom"
+            msj="TRAMITAR PEDIDO"
+          ></ButtonComponent>
         </div>
       </div>
       <div v-else class="contenidoCarrito">
@@ -147,6 +158,7 @@
 import axios from "axios";
 import { API_URL } from "@/helpers/basicHelpers";
 import LoadingSpinner from "./LoadingSpinner.vue";
+import ButtonComponent from "./ButtonComponent.vue";
 export default {
   /*eslint-disable */
   async created() {
@@ -191,6 +203,22 @@ export default {
     color: String,
   },
   methods: {
+    calcularPrecioCarrito() {
+      debugger;
+      let price = 0;
+      for (let i = 0; i < this.carrito.cesta.length; i++) {
+        if (this.productsData[i].oferta !== null) {
+          price +=
+            this.applySale(
+              this.productsData[i].precio,
+              this.productsData[i].oferta
+            ) * this.carrito.cesta[i].cantidad;
+        } else {
+          price += this.productsData[i].precio * this.carrito.cesta[i].cantidad;
+        }
+      }
+      return price;
+    },
     applySale(precio, porcentaje) {
       const resultado = Math.round(precio - (precio * porcentaje) / 100);
       return resultado;
@@ -210,12 +238,16 @@ export default {
       const pageBody = document.querySelector("body");
       document.querySelector("#CarritoMenu__toggle").checked = bool;
       if (bool === true) {
+        this.isOpened = true;
+
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "0";
         pageBody.classList.add("bodyStyle");
       }
       if (bool === false) {
+        this.isOpened = false;
+
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "1";
@@ -245,6 +277,7 @@ export default {
         console.log(document.querySelector(selectorName));
         document.querySelector(selectorName).checked = true;
         this.checked = false;
+
         console.log(this.checked);
         document.querySelector("#cartCheck").checked = false;
         /*document.querySelector("label[for=cartCheck]").className =
@@ -265,6 +298,7 @@ export default {
       deleteOscuro: require("../assets/DeleteIcon.png"),
       productsData: null,
       carga: false,
+      isOpened: false,
     };
   },
   watch: {
@@ -283,12 +317,51 @@ export default {
         this.carga = true;
       },
     },
+    isOpened: function (newVal, oldVal) {
+      this.$store.commit("setCurrentFilterMenu", newVal);
+    },
   },
-  components: { LoadingSpinner },
+  components: { LoadingSpinner, ButtonComponent },
 };
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
+
+.colorBoton {
+  @include loginButton("green", "white", "2rem");
+  height: 1rem;
+  width: 15rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.1s;
+}
+.colorBoton:hover {
+  transform: scale(1.1);
+}
+.totalPrice {
+  .total {
+    @include fuenteBold;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .precio {
+    @include fuenteSemiBold;
+    color: #95a3a4;
+    font-size: 1.1rem;
+    padding-top: 0.5rem;
+    display: flex;
+    padding-bottom: 0.5rem;
+  }
+}
+.mgBottom {
+  margin-bottom: 2rem;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 2rem;
+  position: relative;
+  top: -1rem;
+}
 
 .cartProduct {
   display: flex;

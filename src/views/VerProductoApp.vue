@@ -104,6 +104,7 @@ export default {
       carga: false,
       productData: null,
       datosProduct: null,
+      carritoIsOpened: this.$store.state.currentFilterMenu,
     };
   },
   components: { WhiteHeader, LoadingSpinner, AppFooter, ButtonComponent },
@@ -169,13 +170,30 @@ export default {
       return data;
     },
   },
-  watch: {},
+  watch: {
+    "$store.state.currentFilterMenu": {
+      deep: true,
+      handler(newVal) {
+        debugger;
+
+        if (newVal) {
+          document.querySelector(".dropdown").style.display = "none";
+        }
+        if (!newVal) {
+          document.querySelector(".dropdown").style.display = "flex";
+        }
+      },
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 //Ul Basado de https://codepen.io/ozer/pen/rRvogO
 
+.hide {
+  display: none;
+}
 .outsideClick {
   position: absolute;
   width: 100%;
@@ -197,10 +215,8 @@ body {
     height: 1rem;
     width: 15rem;
     cursor: pointer;
-    position: relative;
     overflow: hidden;
     transition: transform 0.1s;
-    z-index: 1;
   }
   .colorBoton:hover {
     transform: scale(1.1);

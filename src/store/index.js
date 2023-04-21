@@ -11,11 +11,15 @@ export default createStore({
     currentName: null,
     currentLastName: null,
     currentToken: null,
+    currentFilterMenu: null,
   },
   plugins: [createPersistedState()],
   mutations: {
     setCurrentCart(state, cart) {
       state.currentCart = cart;
+    },
+    setCurrentFilterMenu(state, filterMenu) {
+      state.currentFilterMenu = filterMenu;
     },
     setCurrentMail(state, mail) {
       state.currentMail = mail;
