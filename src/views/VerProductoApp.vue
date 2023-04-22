@@ -35,11 +35,14 @@
               </div>
             </label>
           </div>
-          <ButtonComponent
-            @click="añadirProd()"
-            class="colorBoton"
-            msj="AÑADIR A LA CESTA"
-          ></ButtonComponent>
+          <div class="productActions">
+            <ButtonComponent
+              @click="añadirProd()"
+              class="colorBoton"
+              msj="AÑADIR A LA CESTA"
+            ></ButtonComponent>
+            <LikeButton :productName="this.productData.nombre"></LikeButton>
+          </div>
         </div>
         <input type="checkbox" v-model="this.added" id="popMenu__toggle" />
         <ul id="menuBox" class="popMenu__box">
@@ -80,6 +83,7 @@ import axios from "axios";
 
 import WhiteHeader from "@/components/WhiteHeader.vue";
 import { API_URL, scrollTop } from "@/helpers/basicHelpers";
+import LikeButton from "@/components/LikeButton.vue";
 
 export default {
   name: "VerProductoApp",
@@ -107,7 +111,13 @@ export default {
       carritoIsOpened: this.$store.state.currentFilterMenu,
     };
   },
-  components: { WhiteHeader, LoadingSpinner, AppFooter, ButtonComponent },
+  components: {
+    WhiteHeader,
+    LoadingSpinner,
+    AppFooter,
+    ButtonComponent,
+    LikeButton,
+  },
   methods: {
     añadirCarro() {
       let carrito = JSON.parse(localStorage.getItem("userProducts"));
@@ -189,10 +199,17 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
-//Ul Basado de https://codepen.io/ozer/pen/rRvogO
 
 .hide {
   display: none;
+}
+
+.productActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
+  left: -0.5rem;
 }
 .outsideClick {
   position: absolute;
@@ -217,6 +234,8 @@ body {
     cursor: pointer;
     overflow: hidden;
     transition: transform 0.1s;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
   }
   .colorBoton:hover {
     transform: scale(1.1);

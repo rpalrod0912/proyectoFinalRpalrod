@@ -12,9 +12,13 @@ export default createStore({
     currentLastName: null,
     currentToken: null,
     currentFilterMenu: null,
+    currentWishList: null,
   },
   plugins: [createPersistedState()],
   mutations: {
+    setCurrentWishList(state, wishList) {
+      state.currentWishList = wishList;
+    },
     setCurrentCart(state, cart) {
       state.currentCart = cart;
     },

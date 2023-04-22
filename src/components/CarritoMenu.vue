@@ -25,7 +25,7 @@
             class="grupoFlex"
           >
             <img src="../assets/bolso.png" />
-            <p>CARRITO (0)</p>
+            <p>CARRITO ({{ carrito.cesta.length }})</p>
           </div>
 
           <div v-else class="grupoFlex">
@@ -71,7 +71,10 @@
                 <p>
                   {{ item.productName }}
                 </p>
-                <img src="../assets/trash-can.png" />
+                <img
+                  @click="this.deleteItem(index)"
+                  src="../assets/trash-can.png"
+                />
               </section>
               <section class="prodOptions">
                 <div class="optionContainer"></div>
@@ -203,6 +206,11 @@ export default {
     color: String,
   },
   methods: {
+    deleteItem(index) {
+      debugger;
+      this.carrito.cesta.splice(index, 1);
+      this.$store.commit("setCurrentCart", this.carrito);
+    },
     calcularPrecioCarrito() {
       debugger;
       let price = 0;
