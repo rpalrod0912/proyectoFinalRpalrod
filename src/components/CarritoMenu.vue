@@ -21,7 +21,7 @@
           for="cartCheck"
         >
           <div
-            v-if="carrito.cesta.length > 0 || carrito !== null"
+            v-if="this.carrito.cesta.length > 0 || this.carrito !== null"
             class="grupoFlex"
           >
             <img src="../assets/bolso.png" />
@@ -43,7 +43,10 @@
           for="likeCheck"
         >
           <img src="../assets/likeWhite.png" />
-          <p>WISHLIST (0)</p>
+          <p v-if="wishList.wishList.length > 0 || wishList !== null">
+            WISHLIST ({{ wishList.wishList.length }})
+          </p>
+          <p v-else>WISHLIST (0)</p>
         </label>
         <div class="closeDiv" @click="menuAction(false)">
           <img :src="this.deleteIcon" />
@@ -131,12 +134,22 @@
           for="cartCheck"
         >
           <img src="../assets/bolso.png" />
-          <p>CARRITO (0)</p>
+          <p v-if="this.carrito.cesta.length > 0 || carrito !== null">
+            CARRITO ({{ carrito.cesta.length }})
+          </p>
+          <p v-else>CARRITO(0)</p>
         </label>
         <input type="checkbox" name="likeCheck" id="likeCheck" />
 
         <label class="labelCarrito" for="likeCheck">
-          <div class="grupoFlex">
+          <div
+            v-if="wishList.wishList.length > 0 || wishList !== null"
+            class="grupoFlex"
+          >
+            <img src="../assets/likeWhite.png" />
+            <p>WISHLIST ({{ wishList.wishList.length }})</p>
+          </div>
+          <div v-else class="grupoFlex">
             <img src="../assets/likeWhite.png" />
             <p>WISHLIST (0)</p>
           </div>
@@ -146,14 +159,87 @@
           <img :src="this.deleteIcon" />
         </div>
       </div>
-      <div class="contenidoCarrito">
-        <p class="textoP">TU WISHLIST ESTA VACÍA</p>
-        <button @click="seeProducts()" class="seeProductsButton">
-          VER PRODUCTOS
-        </button>
+      <div
+        v-if="wishList.wishList.length > 0 && wishList !== null"
+        class="contenidoCarrito"
+      >
+        <div v-if="!carga">
+          <LoadingSpinner></LoadingSpinner>
+        </div>
+        <div v-else>
+          <div
+            class="cartProduct"
+            v-for="(item, index) in this.wishList.wishList"
+            :key="index"
+          >
+            <div class="imgContainer">
+              <img :src="this.wishListData[index].imagen" />
+            </div>
+            <div class="options">
+              <section class="carrPSec1">
+                <p>
+                  {{ this.wishListData[index].nombre }}
+                </p>
+                <img
+                  @click="this.deleteItem(index)"
+                  src="../assets/trash-can.png"
+                />
+              </section>
+            </div>
+            <!--
+<div class="imgContainer">
+              <img :src="this.wishListData[index].imagen" />
+            </div>
+            <div class="options">
+              <section class="carrPSec1">
+                <p>
+                  {{ item.productName }}
+                </p>
+                <img
+                  @click="this.deleteItem(index)"
+                  src="../assets/trash-can.png"
+                />
+              </section>
+              <section class="prodOptions">
+                <div class="optionContainer"></div>
+                <div class="optionContainer">
+                  {{ item.talla }}
+                </div>
+                <div class="optionContainer">
+                  {{ item.cantidad }}
+                </div>
+              </section>
+              <section class="precioProd">
+                <p class="precio" v-if="this.wishListData[index].oferta">
+                  {{
+                    applySale(
+                      this.wishListData[index].precio,
+                      this.wishListData[index].oferta
+                    ) * item.cantidad
+                  }}
+                  €
+                </p>
+                <p class="precio" v-else>
+                  {{ this.productsData[index].precio * item.cantidad }} €
+                </p>
+              </section>
+            </div>
+          --></div>
+
+          <ButtonComponent
+            class="colorBoton mgBottom"
+            msj="VER MAS PRODUCTOS"
+          ></ButtonComponent>
+        </div>
       </div>
     </div>
 
+    <div v-else class="contenidoCarrito">
+      <p class="textoP">TU WISHLIST ESTA VACÍA</p>
+      <button @click="seeProducts()" class="seeProductsButton">
+        VER PRODUCTOS
+      </button>
+    </div>
     <div @click="menuAction(false)" class="greyContainer"></div>
   </ul>
 </template>
@@ -168,23 +254,45 @@ export default {
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };
-    if (this.carrito === null) {
-      this.$store.commit(
-        "setCurrentCart",
-        JSON.parse(localStorage.getItem("userProducts"))
-      );
+    if (this.carrito === null || this.wishList === null) {
+      if (this.carrito === null) {
+        this.$store.commit(
+          "setCurrentCart",
+          JSON.parse(localStorage.getItem("userProducts"))
+        );
+      }
+      if (this.wishList === null) {
+        this.$store.commit(
+          "setCurrentWishList",
+          JSON.parse(localStorage.getItem("userLikes"))
+        );
+      }
     } else {
       debugger;
+      this.carga = false;
       if (this.carrito.cesta.length > 0) {
-        this.carga = false;
         let dataArr = [];
         for (let objeto of this.carrito.cesta) {
           const prodData = await this.getProductData(objeto.productName);
           dataArr.push(prodData);
         }
         this.productsData = dataArr;
-        this.carga = true;
       }
+      console.log(this.wishList);
+
+      if (this.wishList.wishList.length > 0) {
+        this.carga = false;
+        let wishListArr = [];
+        debugger;
+
+        for (let name of this.wishList.wishList) {
+          console.log(name);
+          const wishListItemData = await this.getProductData(name);
+          wishListArr.push(wishListItemData);
+        }
+        this.wishListData = wishListArr;
+      }
+      this.carga = true;
     }
     debugger;
     console.log(this.carrito);
@@ -208,8 +316,13 @@ export default {
   methods: {
     deleteItem(index) {
       debugger;
+      console.log(this.carrito.cesta);
       this.carrito.cesta.splice(index, 1);
+      console.log(this.carrito.cesta);
+      console.log(this.$store.state.currentCart);
+      localStorage.setItem("userProducts", JSON.stringify(this.carrito));
       this.$store.commit("setCurrentCart", this.carrito);
+      console.log(this.$store.state.currentCart);
     },
     calcularPrecioCarrito() {
       debugger;
@@ -296,6 +409,7 @@ export default {
   data() {
     return {
       carrito: this.$store.state.currentCart,
+      wishList: this.$store.state.currentWishList,
       modo: null,
       deleteIcon: null,
       checked: null,
@@ -305,6 +419,7 @@ export default {
       deleteClaro: require("../assets/DeleteIcon.png"),
       deleteOscuro: require("../assets/DeleteIcon.png"),
       productsData: null,
+      wishListData: null,
       carga: false,
       isOpened: false,
     };
@@ -322,6 +437,20 @@ export default {
           dataArr.push(prodData);
         }
         this.productsData = dataArr;
+        this.carga = true;
+      },
+    },
+    "$store.state.currentWishList": {
+      deep: true,
+      async handler(newVal) {
+        this.carga = false;
+        this.wishList = newVal;
+        let dataArr = [];
+        for (let name of this.wishList.wishList) {
+          const prodData = await this.getProductData(name);
+          dataArr.push(prodData);
+        }
+        this.wishListData = dataArr;
         this.carga = true;
       },
     },
