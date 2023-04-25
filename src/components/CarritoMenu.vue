@@ -250,22 +250,55 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 import ButtonComponent from "./ButtonComponent.vue";
 export default {
   /*eslint-disable */
-  async created() {
+  async mounted() {
+    if (this.$store.state.currentToken === null) {
+      await this.getToken();
+    }
+    debugger;
+
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };
+  },
+  beforeCreate() {
+    const carrito = localStorage.getItem("userProducts");
+    const wishList = localStorage.getItem("userLikes");
+    if (carrito === null) {
+      localStorage.setItem("userProducts", JSON.stringify({ cesta: [] }));
+      this.$store.commit(
+        "setCurrentCart",
+        JSON.parse(localStorage.getItem("userProducts"))
+      );
+    }
+    if (wishList === null) {
+      localStorage.setItem("userLikes", JSON.stringify({ wishList: [] }));
+      this.$store.commit(
+        "setCurrentWishList",
+        JSON.parse(localStorage.getItem("userLikes"))
+      );
+    }
+  },
+  async created() {
+    debugger;
+
     if (this.carrito === null || this.wishList === null) {
       if (this.carrito === null) {
         this.$store.commit(
           "setCurrentCart",
           JSON.parse(localStorage.getItem("userProducts"))
         );
+        if (this.$store.state.currentCart === null) {
+          localStorage.setItem("userProducts", JSON.stringify({ cesta: [] }));
+        }
       }
       if (this.wishList === null) {
         this.$store.commit(
           "setCurrentWishList",
           JSON.parse(localStorage.getItem("userLikes"))
         );
+        if (this.$store.state.currentWishList === null) {
+          localStorage.setItem("userLikes", JSON.stringify({ wishList: [] }));
+        }
       }
     } else {
       debugger;
@@ -314,6 +347,23 @@ export default {
     color: String,
   },
   methods: {
+    async getToken() {
+      const data = await axios
+        .post(
+          "http://localhost:8080/token",
+          {},
+          {
+            auth: {
+              username: "holajavi@gmail.com",
+              password: "suspenso_01",
+            },
+          }
+        )
+        .then((res) => {
+          debugger;
+          this.$store.commit("setCurrentToken", res.data);
+        });
+    },
     deleteItem(index) {
       debugger;
       console.log(this.carrito.cesta);
@@ -443,6 +493,7 @@ export default {
     "$store.state.currentWishList": {
       deep: true,
       async handler(newVal) {
+        debugger;
         this.carga = false;
         this.wishList = newVal;
         let dataArr = [];
@@ -458,6 +509,7 @@ export default {
       this.$store.commit("setCurrentFilterMenu", newVal);
     },
   },
+
   components: { LoadingSpinner, ButtonComponent },
 };
 </script>

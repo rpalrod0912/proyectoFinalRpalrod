@@ -22,11 +22,11 @@
 
       <ul class="menu__box">
         <div class="itemsBox">
-          <li><a class="menu__item" href="#">Home</a></li>
-          <li><a class="menu__item" href="#">About</a></li>
-          <li><a class="menu__item" href="#">Team</a></li>
-          <li><a class="menu__item" href="#">Contact</a></li>
-          <li><a class="menu__item" href="#">Twitter</a></li>
+          <li><a class="menu__item" href="#">Inicio</a></li>
+          <li><a class="menu__item" href="#">Sobre Nosotros</a></li>
+          <li><a class="menu__item" href="#">Contacto</a></li>
+          <li><a class="menu__item" href="#">Productos</a></li>
+          <li><a class="menu__item" href="#">Método de Pago</a></li>
           <div @click="menuAction(false)" class="greyContainer"></div>
         </div>
       </ul>
