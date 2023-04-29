@@ -4,16 +4,21 @@
     <section class="pasarelaOptions">
       <h1>DETALLES DEL PEDIDO</h1>
       <ul class="options">
-        <li>
+        <li class="optionBox">
+          <img src="../assets/delivery.png" />
           <h1>Envío Standard</h1>
         </li>
-        <li>
+        <li class="optionBox">
+          <img src="../assets/tarjeta.png" />
           <h1>Método de Pago</h1>
         </li>
-        <li>
+        <li class="optionBox">
+          <img src="../assets/gift.png" />
           <h1>Datos del Regalo</h1>
         </li>
         <ButtonComponent
+          async
+          @click="this.tramitarPedido()"
           class="colorBoton mgBottom"
           msj="TRAMITAR PEDIDO"
         ></ButtonComponent>
@@ -94,6 +99,8 @@ export default {
       carga: false,
       carrito: this.$store.state.currentCart,
       productsData: null,
+      productsId: null,
+      producstQuantity: null,
     };
   },
   async created() {
@@ -118,17 +125,42 @@ export default {
       this.carga = false;
       if (this.carrito.cesta.length > 0) {
         let dataArr = [];
+        let productsId = [];
+        let producstQuantity = [];
         for (let objeto of this.carrito.cesta) {
           const prodData = await this.getProductData(objeto.productName);
           dataArr.push(prodData);
+          productsId.push(prodData.idProduct);
+          producstQuantity.push(objeto.cantidad);
         }
         this.productsData = dataArr;
+        this.productsId = productsId;
+        this.producstQuantity = producstQuantity;
       }
 
       this.carga = true;
     }
   },
   methods: {
+    async tramitarPedido() {
+      console.log("TRAMITADO");
+      const data = await axios
+        .get(`${API_URL}users/email/${this.$store.state.currentMail}`)
+        .then((res) => res.data)
+        .catch((error) => error);
+      const orderDto = {
+        userid: data.idUser,
+        products: this.productsId,
+        quantity: this.producstQuantity,
+      };
+      debugger;
+      console.log(orderDto);
+      const postOrder = await axios
+        .post(`${API_URL}orders`, orderDto)
+        .then((res) => console.log(res));
+      console.log(data.idUser);
+    },
+
     applySale(precio, porcentaje) {
       const resultado = Math.round(precio - (precio * porcentaje) / 100);
       return resultado;
@@ -186,6 +218,18 @@ export default {
   @include fuenteSemiBold;
   ul {
     li {
+      @include fuenteRegular;
+      display: flex;
+      img {
+        width: 2.5rem;
+      }
+      padding: 2rem;
+      margin: 1rem;
+      width: 30rem;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #dadada;
+      border-radius: 10px;
       list-style: none;
     }
   }
@@ -205,9 +249,12 @@ export default {
   @include fuenteSemiBold;
   background-color: #f9f9f9;
   width: 30%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   h1 {
     display: flex;
     justify-content: center;
+  }
+  .optionBox {
   }
   .cartProduct {
     right: 0rem;
