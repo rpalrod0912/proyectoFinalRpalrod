@@ -56,15 +56,38 @@
           HOLA {{ userName.toUpperCase() }}
           {{ userLastName.toUpperCase() }}
         </h1>
-        <img @click="menuAction(false)" :src="this.deleteIcon" />
+        <img
+          class="authCloseMenu"
+          @click="menuAction(false)"
+          :src="this.deleteIcon"
+        />
       </div>
-
-      <input
-        @click="logOut"
-        class="nextButtonSubmit"
-        type="button"
-        value="CERRAR SESIÓN"
-      />
+      <div class="menuOptions">
+        <ul>
+          <li class="usOption">
+            <h2>Mis Compras</h2>
+            <img src="../assets/Caja.png" />
+          </li>
+          <li>
+            <h2>Datos Personales</h2>
+            <img src="../assets/huella.png" />
+          </li>
+          <li>
+            <h2>Métodos de pago</h2>
+            <img src="../assets/tarjeta.png" />
+          </li>
+          <li>
+            <h2>Política de Privacidad</h2>
+            <img src="../assets/alertaPng.png" />
+          </li>
+        </ul>
+        <input
+          @click="logOut"
+          class="nextButtonSubmit"
+          type="button"
+          value="CERRAR SESIÓN"
+        />
+      </div>
     </div>
     <LoadingSpinner v-else></LoadingSpinner>
 
@@ -231,6 +254,30 @@ export default {
 
 @include headerIconHover;
 
+.menuOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  ul {
+    position: relative;
+    left: -2rem;
+    display: flex;
+    flex-direction: column;
+    li {
+      display: flex;
+      h2 {
+        @include fuenteSemiBold;
+        color: #949494;
+      }
+      img {
+        position: absolute;
+        left: 22rem;
+        width: 2.8rem;
+      }
+    }
+  }
+}
+
 .nextButtonSubmit {
   @include loginButton("black", "white", "2rem");
   padding-top: 0rem;
@@ -294,6 +341,9 @@ export default {
     left: 10%;
     bottom: 1%;
   }
+  .authCloseMenu {
+    left: -1rem;
+  }
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);
 }
 
@@ -347,20 +397,40 @@ export default {
 }
 @media (min-width: 900px) and (max-width: 1430px) {
   .RightMenu__box {
-    width: 31%;
+    width: 40%;
   }
   #RightMenu__toggle:checked ~ .RightMenu__box .greyContainer {
     left: 0% !important;
-    width: 69%;
+    width: 60%;
   }
 }
 @media (min-width: 600px) and (max-width: 899px) {
   .RightMenu__box {
-    width: 50%;
+    width: 100%;
   }
 
   #RightMenu__toggle:checked ~ .RightMenu__box .greyContainer {
-    left: -10% !important;
+    left: -4% !important;
+    width: 0%;
+  }
+  .contenidoLogin {
+    label {
+      text-align: center;
+    }
+  }
+}
+
+@media (min-width: 400px) and (max-width: 634px) {
+  .menuOptions {
+    ul {
+      li {
+        margin: 1rem;
+        img {
+          width: 2.1rem;
+          height: 2.1rem;
+        }
+      }
+    }
   }
 }
 
@@ -375,6 +445,30 @@ export default {
       position: relative;
       right: auto;
       margin: 1rem;
+    }
+  }
+  .TopMenu__item {
+    font-size: 1rem;
+  }
+  .nextButtonSubmit {
+    font-size: 1rem;
+  }
+  .menuOptions {
+    ul {
+      li {
+        margin: 1rem;
+        right: 2rem;
+        font-size: 0.7rem;
+        img {
+          left: 14rem;
+          width: 1.8rem;
+        }
+      }
+    }
+  }
+  .contenidoLogin {
+    label {
+      text-align: center;
     }
   }
 

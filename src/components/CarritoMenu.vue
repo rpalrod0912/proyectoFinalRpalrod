@@ -248,6 +248,7 @@ import axios from "axios";
 import { API_URL } from "@/helpers/basicHelpers";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import ButtonComponent from "./ButtonComponent.vue";
+
 export default {
   /*eslint-disable */
   async mounted() {
@@ -255,10 +256,6 @@ export default {
       await this.getToken();
     }
     debugger;
-
-    axios.defaults.headers.common = {
-      Authorization: `Bearer ${this.$store.state.currentToken}`,
-    };
   },
   beforeCreate() {
     const carrito = localStorage.getItem("userProducts");
@@ -280,6 +277,9 @@ export default {
   },
   async created() {
     debugger;
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${this.$store.state.currentToken}`,
+    };
 
     if (this.carrito === null || this.wishList === null) {
       if (this.carrito === null) {
@@ -513,7 +513,7 @@ export default {
   components: { LoadingSpinner, ButtonComponent },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../helpers/mixings.scss";
 
 @include headerIconHover;

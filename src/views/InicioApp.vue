@@ -135,7 +135,8 @@ main {
     font-family: "Noto Sans", sans-serif;
     h1 {
       text-align: center;
-      width: 35rem;
+
+      //width: 35rem;
       padding: 2rem;
     }
     justify-content: center;
