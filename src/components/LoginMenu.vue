@@ -64,7 +64,7 @@
       </div>
       <div class="menuOptions">
         <ul>
-          <li class="usOption">
+          <li @click="this.$router.push('/pedidos')" class="usOption">
             <h2>Mis Compras</h2>
             <img src="../assets/Caja.png" />
           </li>
@@ -264,6 +264,7 @@ export default {
     display: flex;
     flex-direction: column;
     li {
+      cursor: pointer;
       display: flex;
       h2 {
         @include fuenteSemiBold;

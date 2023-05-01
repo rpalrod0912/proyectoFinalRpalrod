@@ -247,6 +247,8 @@
   input[type="password"],
   input[type="password"]:focus,
   input[type="text"],
+  input[type="email"],
+  input[type="email"]:focus,
   input[type="password"]:focus {
     position: relative;
     height: 2.5rem;

@@ -1,12 +1,19 @@
 <template>
   <header id="headerId">
+    <img
+      @click="$router.go(-1)"
+      v-if="tipo === 'backHeader'"
+      class="menu hoverArrow"
+      src="../assets/back.png"
+    />
     <MenuGeneral
       :color="this.tipoHeader"
       id="menuGeneral"
       @click="check"
       class="menu"
+      v-if="tipo !== 'backHeader'"
     ></MenuGeneral>
-    <ul class="headerMedia">
+    <ul v-if="tipo !== 'backHeader'" class="headerMedia">
       <li>
         <MenuBusqueda
           @click="closeMenu"
@@ -15,6 +22,16 @@
       </li>
     </ul>
     <img
+      v-if="tipo === 'backHeader'"
+      @mouseover="checkLogo()"
+      @mouseout="checkLogo()"
+      @click="toHome()"
+      id="logoWhite"
+      class="backHeaderLogo headerHoverLabel"
+      src="../assets/LogoOscuroSinFondo.png"
+    />
+    <img
+      v-else
       @mouseover="checkLogo()"
       @mouseout="checkLogo()"
       @click="toHome()"
@@ -22,7 +39,7 @@
       class="logo headerHoverLabel"
       :src="this.logo"
     />
-    <ul class="userOptions">
+    <ul v-if="tipo !== 'backHeader'" class="userOptions">
       <li>
         <div class="headerWithoutMedia">
           <MenuBusqueda :color="this.tipoHeader"></MenuBusqueda>
@@ -36,7 +53,10 @@
         ></LoginMenu>
       </li>
       <li id="carritoMenuId">
-        <CarritoMenu :color="this.tipoHeader"></CarritoMenu>
+        <CarritoMenu
+          :authentication="this.authentication"
+          :color="this.tipoHeader"
+        ></CarritoMenu>
       </li>
     </ul>
   </header>
@@ -182,6 +202,13 @@ header {
     height: 2.5rem;
   }
   width: 100%;
+  .hoverArrow {
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .hoverArrow:hover {
+    transform: scale(1.12);
+  }
   .menu {
     margin-left: 2rem;
   }
@@ -202,6 +229,13 @@ header {
   background-color: transparent;
 
   display: flex;
+  .backHeaderLogo {
+    position: absolute;
+    right: 64rem;
+    width: 14rem;
+    height: 2rem;
+    cursor: pointer;
+  }
 
   .logo {
     //position: fixed;

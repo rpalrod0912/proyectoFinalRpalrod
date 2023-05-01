@@ -200,10 +200,14 @@ export default {
       if (!this.v$.$error) {
         await this.registerFireBase();
         if (this.exito === true) {
-          this.$router.push({
-            name: "Inicio",
-            query: { recienRegistrado: "SI" },
-          });
+          this.$router
+            .push({
+              name: "Inicio",
+              query: { recienRegistrado: "SI" },
+            })
+            .then(() => {
+              this.$router.go();
+            });
         }
       } else {
         alert("FORM FAILED VALIDAT");

@@ -112,6 +112,7 @@
             <p class="precio">Envío Incluido</p>
           </section>
           <ButtonComponent
+            @click="this.tramitarPedido()"
             class="colorBoton mgBottom"
             msj="TRAMITAR PEDIDO"
           ></ButtonComponent>
@@ -345,8 +346,16 @@ export default {
   name: "CarritoMenu",
   props: {
     color: String,
+    authentication: Boolean,
   },
   methods: {
+    tramitarPedido() {
+      if (this.authentication === false) {
+        this.$router.push("/cartLogin");
+      } else {
+        this.$router.push("/pago");
+      }
+    },
     async getToken() {
       const data = await axios
         .post(
@@ -475,6 +484,12 @@ export default {
     };
   },
   watch: {
+    authentication: function (newVal, oldVal) {
+      console.log("ES AHORA", newVal, "ERA ANTES ", oldVal);
+      if (newVal === true) {
+        console.log("LOGEADO");
+      }
+    },
     "$store.state.currentCart": {
       //Para añadir reactividad al carrito debemos escuchar el objeto store
       deep: true,

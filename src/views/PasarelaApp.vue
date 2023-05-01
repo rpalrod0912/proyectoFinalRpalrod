@@ -1,5 +1,5 @@
 <template>
-  <WhiteHeader class="headerPasarela" tipo="Dark"></WhiteHeader>
+  <WhiteHeader class="headerPasarela" tipo="backHeader"></WhiteHeader>
   <div class="pasarelaMain">
     <section class="pasarelaOptions">
       <h1>DETALLES DEL PEDIDO</h1>
@@ -211,9 +211,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
-.headerPasarela {
-  display: none;
-}
+
 .pasarelaOptions {
   @include fuenteSemiBold;
   ul {

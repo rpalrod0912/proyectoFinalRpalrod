@@ -1,5 +1,3 @@
-import WhiteHeader from '@/components/WhiteHeader.vue';
-
 <template>
   <WhiteHeader tipo="Dark"></WhiteHeader>
   <main>

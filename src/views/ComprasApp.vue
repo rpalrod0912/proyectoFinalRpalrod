@@ -1,7 +1,7 @@
 <template>
-  <WhiteHeader tipo="Dark"></WhiteHeader>
+  <WhiteHeader class="headerPasarela" tipo="backHeader"></WhiteHeader>
   <section v-if="carga" class="comprasMain">
-    <ul class="orderUl">
+    <ul v-if="this.userOrders.length > 0" class="orderUl">
       <li
         class="orderProduct"
         v-for="(item, index) in this.userOrders"
@@ -28,6 +28,9 @@
           class="separadorBlack"
         ></div>
       </li>
+    </ul>
+    <ul class="orderUl" v-else>
+      <h1>TODAVÍA NO TIENES NINGÚN PEDIDO</h1>
     </ul>
     <div class="userOrderMenu">
       <div class="cabeceraMenu">
@@ -138,6 +141,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
+
+.orderUl {
+  h1 {
+    @include fuenteSemiBold;
+  }
+}
 .userOrderMenu {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   background-color: #f9f9f9;
