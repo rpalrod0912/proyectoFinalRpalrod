@@ -29,7 +29,7 @@
       <div v-if="!carga">
         <LoadingSpinner></LoadingSpinner>
       </div>
-      <div v-else>
+      <div class="cartInfoProducts" v-else>
         <div
           class="cartProduct"
           v-for="(item, index) in this.carrito.cesta"
@@ -82,6 +82,73 @@
         </section>
       </div>
     </div>
+    <div class="bottomMenu">
+      <input
+        @click="menuAction(true)"
+        id="bottomMenu__toggle"
+        type="checkbox"
+        name="checkBusqueda"
+      />
+      <label
+        class="headerHoverLabel"
+        @click="menuAction(true)"
+        for="checkBusqueda"
+      >
+        <img
+          @click="menuAction(true)"
+          class="openIcon headerHoverLabel"
+          src="../assets/upIcon.png"
+        />
+      </label>
+      <div class="bottomMenu__box cartInfoProducts" v-if="carga">
+        <div
+          class="cartProduct"
+          v-for="(item, index) in this.carrito.cesta"
+          :key="index"
+        >
+          <div class="imgContainer">
+            <img :src="this.productsData[index].imagen" />
+          </div>
+          <div class="options">
+            <section class="carrPSec1">
+              <p>
+                {{ item.productName }}
+              </p>
+              <img
+                @click="this.deleteItem(index)"
+                src="../assets/trash-can.png"
+              />
+            </section>
+            <section class="prodOptions">
+              <div class="optionContainer"></div>
+              <div class="optionContainer">
+                {{ item.talla }}
+              </div>
+              <div class="optionContainer">
+                {{ item.cantidad }}
+              </div>
+            </section>
+            <section class="precioProd">
+              <p class="precio" v-if="this.productsData[index].oferta">
+                {{
+                  applySale(
+                    this.productsData[index].precio,
+                    this.productsData[index].oferta
+                  ) * item.cantidad
+                }}
+                €
+              </p>
+              <p class="precio" v-else>
+                {{ this.productsData[index].precio * item.cantidad }} €
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -104,6 +171,9 @@ export default {
     };
   },
   async created() {
+    if (document.querySelector("body").classList.contains("bodyStyle")) {
+      document.querySelector("body").classList.toggle("bodyStyle");
+    }
     if (this.$store.state.currentToken === null) {
       await this.getToken();
     }
@@ -142,6 +212,16 @@ export default {
     }
   },
   methods: {
+    menuAction(bool) {
+      document.querySelector("#bottomMenu__toggle").checked = bool;
+      if (bool === true) {
+        //document.getElementById("headerId").style.display = "none";
+      }
+      if (bool === false) {
+        //document.getElementById("headerId").style.display = "flex";
+      }
+      console.log("estilos");
+    },
     async tramitarPedido() {
       console.log("TRAMITADO");
       const data = await axios
@@ -212,6 +292,22 @@ export default {
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 
+@include estiloMenuCompra(
+  "#bottomMenu__toggle",
+  ".menu__btn",
+  ".bottomMenu__box"
+);
+.bottomMenu {
+  position: fixed;
+  bottom: 0rem;
+  width: 100%;
+  height: 5rem;
+  /* background-color: black; */
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  .openIcon {
+    width: 2rem;
+  }
+}
 .pasarelaOptions {
   @include fuenteSemiBold;
   ul {
@@ -243,10 +339,18 @@ export default {
   display: flex;
   min-height: 100vh;
 }
+
 .cartInfo {
   @include fuenteSemiBold;
   background-color: #f9f9f9;
   width: 30%;
+  height: 100%;
+  overflow: scroll;
+  position: fixed;
+  right: 0rem;
+  cartInfoProducts {
+    overflow: scroll;
+  }
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   h1 {
     display: flex;
@@ -260,20 +364,50 @@ export default {
   .options {
     img,
     p {
-      right: 0rem;
+      right: 1rem;
     }
     .precioProd {
       .precio {
-        right: 0rem;
+        right: 1rem;
       }
     }
     right: 0rem;
     .prodOptions {
+      flex-wrap: wrap;
+
       .optionContainer {
         display: flex;
         justify-content: center;
       }
     }
+  }
+}
+@media (min-width: 843px) and (max-width: 1123px) {
+  .pasarelaOptions {
+    width: 60%;
+    ul {
+      li {
+        width: 83%;
+      }
+    }
+  }
+  .cartInfo {
+    width: 40%;
+  }
+}
+
+@media (min-width: 844px) {
+  .bottomMenu {
+    display: none;
+  }
+}
+
+@media (max-width: 843px) {
+  .pasarelaOptions {
+    width: 100%;
+  }
+  .cartInfo {
+    display: none;
   }
 }
 .options {

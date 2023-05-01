@@ -1001,6 +1001,105 @@
   }
 }
 
+@mixin estiloMenuCompra($id, $id2, $id3) {
+  #{$id} {
+    z-index: 1;
+    width: 1rem;
+    position: relative;
+    right: -1rem;
+    opacity: 0;
+  }
+  #{$id}:checked + .menu__btn > span {
+    transform: rotate(45deg);
+  }
+  #{$id}:checked + .menu__btn > span::before {
+    top: 0;
+    transform: rotate(0deg);
+    background-color: black;
+  }
+  #{$id}:checked + .menu__btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+    background-color: black;
+    .greyContainer {
+      visibility: visible;
+    }
+  }
+  #{$id}:checked ~ .bottomMenu__box {
+    right: 0rem;
+    bottom: 0rem;
+    padding: 0rem;
+    border-left: 1px solid #bfbfbf;
+
+    .greyContainer {
+      left: 0% !important;
+    }
+  }
+
+  #{$id2} {
+    position: fixed;
+
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  #{$id2} > span,
+  #{$id2} > span::before,
+  #{$id2} > span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    transition-duration: 0.25s;
+  }
+  #{$id2} > span::before {
+    content: "";
+    top: -8px;
+  }
+  #{$id2} > span::after {
+    content: "";
+    top: 8px;
+  }
+  #{$id3} {
+    display: block;
+    position: fixed;
+    bottom: -1000%;
+    //right: -100%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 80px 0;
+    list-style: none;
+    background-color: white;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+    transition-duration: 0.25s;
+    opacity: 1;
+    overflow: scroll;
+    //Desaparecer scroll cont en ie edge y ff
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    .greyContainer {
+      left: auto;
+      background-color: black;
+      position: fixed;
+      left: -100%;
+      width: 75%;
+      height: 300rem;
+      z-index: 1;
+      bottom: 0%;
+      opacity: 0;
+      transition-duration: 0.25s;
+    }
+  }
+  //Para chrome
+  #{$id3}::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+}
+
 @mixin carritoMenuDerecho($id, $id2, $id3) {
   #{$id} {
     z-index: 1;

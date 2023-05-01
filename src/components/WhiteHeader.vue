@@ -3,7 +3,7 @@
     <img
       @click="$router.go(-1)"
       v-if="tipo === 'backHeader'"
-      class="menu hoverArrow"
+      class="hoverArrow"
       src="../assets/back.png"
     />
     <MenuGeneral
@@ -59,6 +59,7 @@
         ></CarritoMenu>
       </li>
     </ul>
+    <div v-if="tipo === 'backHeader'" class="invisibleDiv"></div>
   </header>
 </template>
 <script>
@@ -203,6 +204,8 @@ header {
   }
   width: 100%;
   .hoverArrow {
+    margin-left: 2rem;
+
     transition: 0.3s;
     cursor: pointer;
   }
@@ -230,11 +233,30 @@ header {
 
   display: flex;
   .backHeaderLogo {
-    position: absolute;
+    margin-left: 15rem;
+    position: sticky;
     right: 64rem;
     width: 14rem;
     height: 2rem;
     cursor: pointer;
+  }
+  .invisibleDiv {
+    display: none;
+  }
+
+  @media (max-width: 657px) {
+    .backHeaderLogo {
+      width: 8rem;
+      height: 1.2rem;
+      margin-left: 3rem;
+      position: unset;
+    }
+    .invisibleDiv {
+      display: flex;
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-right: 2rem;
+    }
   }
 
   .logo {

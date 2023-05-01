@@ -82,6 +82,9 @@ import LoadingSpinner from "@/components/LoadingSpinner.vue";
 /*eslint-disable */
 export default {
   async created() {
+    if (document.querySelector("body").classList.contains("bodyStyle")) {
+      document.querySelector("body").classList.toggle("bodyStyle");
+    }
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };
@@ -151,6 +154,9 @@ export default {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   background-color: #f9f9f9;
   width: 30%;
+  height: 100%;
+  right: 0rem;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -162,6 +168,89 @@ export default {
     margin: 0 auto;
     margin-top: 1.3rem;
     margin-bottom: 1.3rem;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1400px) {
+  .comprasMain {
+    .orderUl {
+      width: 60%;
+      .orderProduct .options .orderPrice {
+        padding-left: 8rem;
+      }
+    }
+  }
+
+  .userOrderMenu {
+    width: 35%;
+    font-size: 0.8rem;
+    .menuOptions ul {
+      left: -4rem;
+    }
+    .menuOptions li img {
+      left: 18rem;
+    }
+    .nextButtonSubmit {
+      width: 16rem;
+    }
+  }
+}
+
+@media (min-width: 686px) and (max-width: 899px) {
+  .userOrderMenu {
+    display: none;
+  }
+  .comprasMain {
+    .orderUl {
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: 580px) and (max-width: 685px) {
+  .userOrderMenu {
+    display: none;
+  }
+  .comprasMain {
+    justify-content: center;
+    .orderUl {
+      width: 80%;
+      .orderProduct .options .orderPrice {
+        padding-left: 4rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 579px) {
+  .userOrderMenu {
+    display: none;
+  }
+
+  .comprasMain {
+    justify-content: center;
+    .orderUl {
+      width: 80%;
+      .orderProduct {
+        .options {
+          flex-direction: column;
+          align-items: center;
+          .carrPSec1 {
+            align-items: center;
+          }
+        }
+        .orderPrice {
+          padding-left: 0rem;
+        }
+        .orderDiv {
+          align-items: center;
+          flex-direction: column;
+        }
+        .separadorBlack {
+          width: 15rem;
+        }
+      }
+    }
   }
 }
 .menuOptions ul li h2 {
