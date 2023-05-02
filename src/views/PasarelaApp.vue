@@ -101,6 +101,16 @@
         />
       </label>
       <div class="bottomMenu__box cartInfoProducts" v-if="carga">
+        <div class="fixedCabecera">
+          <div class="cabecera">
+            <h1>TU CARRITO</h1>
+            <img
+              @click="menuAction(false)"
+              class="closeIcon"
+              src="../assets/upIcon.png"
+            />
+          </div>
+        </div>
         <div
           class="cartProduct"
           v-for="(item, index) in this.carrito.cesta"
@@ -306,6 +316,53 @@ export default {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   .openIcon {
     width: 2rem;
+  }
+  .bottomMenu__box {
+    .fixedCabecera {
+      z-index: 2;
+      position: absolute;
+
+      .cabecera {
+        height: 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        //left: 37%;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        background-color: #f9f9f9;
+        width: 100%;
+        h1 {
+          @include fuenteSemiBold;
+        }
+        img {
+          width: 2rem;
+          rotate: 180deg;
+          right: 1rem;
+          position: fixed;
+        }
+      }
+    }
+    .cartProduct {
+      right: 0rem;
+      .options {
+        .prodOptions {
+          flex-wrap: wrap;
+          .optionContainer {
+            display: flex;
+            justify-content: center;
+          }
+        }
+        .precioProd {
+          .precio {
+            right: 1rem;
+          }
+        }
+        .carrPSec1 img {
+          right: 1rem;
+        }
+      }
+    }
   }
 }
 .pasarelaOptions {

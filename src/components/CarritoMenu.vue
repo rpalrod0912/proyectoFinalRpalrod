@@ -372,6 +372,10 @@ export default {
           debugger;
           this.$store.commit("setCurrentToken", res.data);
         });
+      debugger;
+      console.log(data);
+      this.token = data;
+      console.log(this.token);
     },
     deleteItem(index) {
       debugger;
@@ -481,6 +485,7 @@ export default {
       wishListData: null,
       carga: false,
       isOpened: false,
+      token: null,
     };
   },
   watch: {
