@@ -100,6 +100,11 @@
           src="../assets/upIcon.png"
         />
       </label>
+      <div class="cartImg">
+        <div v-for="(item, index) in this.carrito.cesta" :key="index">
+          <img :src="this.productsData[index].imagen" />
+        </div>
+      </div>
       <div class="bottomMenu__box cartInfoProducts" v-if="carga">
         <div class="fixedCabecera">
           <div class="cabecera">
@@ -302,6 +307,30 @@ export default {
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 
+header {
+  z-index: 0;
+  width: 100%;
+}
+.cartImg {
+  display: flex;
+
+  div {
+    background-color: beige;
+    width: 4rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 1.4rem;
+    height: 4rem;
+    display: flex;
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  img {
+    height: 50%;
+  }
+}
+
 @include estiloMenuCompra(
   "#bottomMenu__toggle",
   ".menu__btn",
@@ -311,7 +340,13 @@ export default {
   position: fixed;
   bottom: 0rem;
   width: 100%;
-  height: 5rem;
+  height: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
   /* background-color: black; */
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   .openIcon {
@@ -465,6 +500,15 @@ export default {
   }
   .cartInfo {
     display: none;
+  }
+}
+@media (max-width: 581px) {
+  .pasarelaOptions {
+    ul {
+      li {
+        width: 16rem;
+      }
+    }
   }
 }
 .options {
