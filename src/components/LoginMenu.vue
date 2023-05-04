@@ -69,7 +69,9 @@
             <img src="../assets/Caja.png" />
           </li>
           <li>
-            <h2>Datos Personales</h2>
+            <h2 @click="this.$router.push('/tuinformacion')">
+              Datos Personales
+            </h2>
             <img src="../assets/huella.png" />
           </li>
           <li>

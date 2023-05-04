@@ -252,12 +252,7 @@ import ButtonComponent from "./ButtonComponent.vue";
 
 export default {
   /*eslint-disable */
-  async mounted() {
-    if (this.$store.state.currentToken === null) {
-      await this.getToken();
-    }
-    debugger;
-  },
+
   beforeCreate() {
     const carrito = localStorage.getItem("userProducts");
     const wishList = localStorage.getItem("userLikes");
@@ -277,9 +272,22 @@ export default {
     }
   },
   async created() {
+    if (this.color === "Dark") {
+      this.modo = this.bolsoOscuro;
+      this.deleteIcon = this.deleteOscuro;
+    } else {
+      this.modo = this.bolsoClaro;
+      this.deleteIcon = this.deleteClaro;
+    }
     debugger;
+    if (this.$store.state.currentToken === null) {
+      await this.getToken();
+    }
+    console.log(this.token);
+    await this.getToken();
+
     axios.defaults.headers.common = {
-      Authorization: `Bearer ${this.$store.state.currentToken}`,
+      Authorization: `Bearer ${this.token}`,
     };
 
     if (this.carrito === null || this.wishList === null) {
@@ -330,13 +338,7 @@ export default {
     }
     debugger;
     console.log(this.carrito);
-    if (this.color === "Dark") {
-      this.modo = this.bolsoOscuro;
-      this.deleteIcon = this.deleteOscuro;
-    } else {
-      this.modo = this.bolsoClaro;
-      this.deleteIcon = this.deleteClaro;
-    }
+
     this.checked = "#cartCheck";
   },
   mounted() {
@@ -370,11 +372,11 @@ export default {
         )
         .then((res) => {
           debugger;
+          this.token = res.data;
           this.$store.commit("setCurrentToken", res.data);
         });
       debugger;
       console.log(data);
-      this.token = data;
       console.log(this.token);
     },
     deleteItem(index) {

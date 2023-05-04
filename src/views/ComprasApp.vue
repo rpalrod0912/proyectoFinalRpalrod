@@ -32,43 +32,10 @@
     <ul class="orderUl" v-else>
       <h1>TODAVÍA NO TIENES NINGÚN PEDIDO</h1>
     </ul>
-    <div class="userOrderMenu">
-      <div class="cabeceraMenu">
-        <h1 class="TopMenu__item textoGruesoh1">
-          HOLA {{ userData.nombre.toUpperCase() }}
-          {{ userData.apellidos.toUpperCase() }}
-        </h1>
-      </div>
-      <div class="separadorBlack"></div>
-      <div class="menuOptions">
-        <ul>
-          <li class="usOption">
-            <h2>Mis Compras</h2>
-            <img src="../assets/Caja.png" />
-          </li>
-          <li>
-            <h2>Datos Personales</h2>
-            <img src="../assets/huella.png" />
-          </li>
-          <li>
-            <h2>Métodos de pago</h2>
-            <img src="../assets/tarjeta.png" />
-          </li>
-          <li>
-            <h2>Política de Privacidad</h2>
-            <img src="../assets/alertaPng.png" />
-          </li>
-        </ul>
-        <div class="separadorBlack"></div>
-
-        <input
-          @click="logOut"
-          class="nextButtonSubmit"
-          type="button"
-          value="CERRAR SESIÓN"
-        />
-      </div>
-    </div>
+    <RightDesktopMenu
+      selectedOption="firstOption"
+      :userData="this.userData"
+    ></RightDesktopMenu>
   </section>
   <section v-else>
     <LoadingSpinner></LoadingSpinner>
@@ -79,6 +46,7 @@ import WhiteHeader from "@/components/WhiteHeader.vue";
 import axios from "axios";
 import { API_URL } from "@/helpers/basicHelpers";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import RightDesktopMenu from "@/components/RightDesktopMenu.vue";
 /*eslint-disable */
 export default {
   async created() {
@@ -108,6 +76,7 @@ export default {
   components: {
     WhiteHeader,
     LoadingSpinner,
+    RightDesktopMenu,
   },
   methods: {
     async getUserOrders() {
@@ -150,26 +119,6 @@ export default {
     @include fuenteSemiBold;
   }
 }
-.userOrderMenu {
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  background-color: #f9f9f9;
-  width: 30%;
-  height: 100%;
-  right: 0rem;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  .cabeceraMenu {
-    box-shadow: none;
-  }
-  .separadorBlack {
-    width: 70%;
-    margin: 0 auto;
-    margin-top: 1.3rem;
-    margin-bottom: 1.3rem;
-  }
-}
 
 @media (min-width: 900px) and (max-width: 1400px) {
   .comprasMain {
@@ -180,26 +129,9 @@ export default {
       }
     }
   }
-
-  .userOrderMenu {
-    width: 35%;
-    font-size: 0.8rem;
-    .menuOptions ul {
-      left: -4rem;
-    }
-    .menuOptions li img {
-      left: 18rem;
-    }
-    .nextButtonSubmit {
-      width: 16rem;
-    }
-  }
 }
 
 @media (min-width: 686px) and (max-width: 899px) {
-  .userOrderMenu {
-    display: none;
-  }
   .comprasMain {
     .orderUl {
       width: 100%;
@@ -208,9 +140,6 @@ export default {
 }
 
 @media (min-width: 580px) and (max-width: 685px) {
-  .userOrderMenu {
-    display: none;
-  }
   .comprasMain {
     justify-content: center;
     .orderUl {
@@ -223,10 +152,6 @@ export default {
 }
 
 @media (max-width: 579px) {
-  .userOrderMenu {
-    display: none;
-  }
-
   .comprasMain {
     justify-content: center;
     .orderUl {
@@ -253,13 +178,7 @@ export default {
     }
   }
 }
-.menuOptions ul li h2 {
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 600;
-  color: #949494;
-  margin: 1rem;
-}
+
 .comprasMain {
   display: flex;
   min-height: 100vh;

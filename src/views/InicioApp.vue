@@ -92,6 +92,11 @@ button {
   border: 1px solid #302b27;
   transition: 0.5s;
 }
+@media (max-width: 400px) {
+  .seeSales {
+    width: 80%;
+  }
+}
 .vidSec1 {
   width: 100%;
 }
@@ -145,7 +150,7 @@ main {
     .secIniOfer {
       h1 {
         font-size: 1rem;
-        width: 18rem;
+        width: 62%;
       }
     }
   }

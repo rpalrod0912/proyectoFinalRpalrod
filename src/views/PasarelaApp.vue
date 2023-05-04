@@ -340,7 +340,7 @@ header {
   position: fixed;
   bottom: 0rem;
   width: 100%;
-  height: 6rem;
+  height: 7rem;
   display: flex;
   flex-direction: column;
   align-items: center;
