@@ -2,6 +2,7 @@
   <WhiteHeader class="headerPasarela" tipo="backHeader"></WhiteHeader>
   <section v-if="carga">
     <UserInformation
+      :userData="this.userData"
       v-if="this.modo === 'datosUsuario'"
       class="selectedMenu"
     ></UserInformation>
@@ -68,8 +69,16 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+@import "../helpers/mixings.scss";
+
 .selectedMenu {
+  @include fuenteSemiBold;
+
+  width: 70%;
   padding-top: 10rem;
+}
+section {
+  display: flex;
 }
 </style>
