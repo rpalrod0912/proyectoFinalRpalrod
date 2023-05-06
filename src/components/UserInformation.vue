@@ -19,8 +19,9 @@
             name="nombre"
             type="text"
             required
+            id="nameDataInput"
           />
-          <p>Nombre</p>
+          <p @click="focusInput('nameDataInput')">Nombre</p>
         </label>
         <label class="labelUpdateData" for="apellidos">
           <input
@@ -28,25 +29,27 @@
             v-model="this.apellidos"
             name="apellidos"
             type="text"
+            id="apellidosDataInput"
             required
           />
-          <p>Apellidos</p>
+          <p @click="focusInput('apellidosDataInput')">Apellidos</p>
         </label>
       </div>
       <div class="updateSec2">
         <label class="dateInput labelUpdateData" for="fechaNac">
           <input class="inputUpdateData" name="fechaNac" type="date" required />
-          <p class="dateP">Fecha de Nacimiento</p>
+          <h1 class="dateP">Fecha de Nacimiento</h1>
         </label>
         <label class="labelUpdateData" for="telefonoMovil">
           <input
             class="inputUpdateData"
             v-model="this.phone"
             name="telefonoMovil"
+            id="phoneDataInput"
             type="text"
             required
           />
-          <p>Numero móvil</p>
+          <p @click="focusInput('phoneDataInput')">Numero móvil</p>
         </label>
       </div>
       <h2>DIRECCIÓN DE FACTURACIÓN</h2>
@@ -55,51 +58,75 @@
           <input
             class="inputUpdateData"
             name="direccion"
+            id="direccionDataInput"
             type="text"
             required
           />
-          <p>Dirección domicilo</p>
+          <p @click="focusInput('direccionDataInput')">Dirección domicilo</p>
         </label>
 
         <label class="labelUpdateData" for="moreInfo">
-          <input class="inputUpdateData" name="moreInfo" type="text" required />
-          <p>Mas información...</p>
+          <input
+            class="inputUpdateData"
+            id="moreInfoDataInput"
+            name="moreInfo"
+            type="text"
+            required
+          />
+          <p @click="focusInput('moreInfoDataInput')">Mas información...</p>
         </label>
       </div>
       <div class="updateSec4">
         <label class="labelUpdateData" for="provincia">
           <input
             class="inputUpdateData"
+            id="codpostalDataInput"
             name="codigoPostal"
             type="text"
             required
           />
-          <p>Código Postal</p>
+          <p @click="focusInput('codpostalDataInput')">Código Postal</p>
         </label>
         <label class="labelUpdateData" for="ciudad">
-          <input class="inputUpdateData" name="ciudad" type="text" required />
-          <p>Ciudad</p>
+          <input
+            class="inputUpdateData"
+            id="ciudadDataInput"
+            name="ciudad"
+            type="text"
+            required
+          />
+          <p @click="focusInput('ciudadDataInput')">Ciudad</p>
         </label>
       </div>
       <div class="updateSec5">
         <label class="labelUpdateData" for="provincia">
           <input
+            id="provinciaDataInput"
             class="inputUpdateData"
             name="provincia"
             type="text"
             required
           />
-          <p>Provincia</p>
+          <p @click="focusInput('provinciaDataInput')">Provincia</p>
         </label>
         <label class="labelUpdateData" for="mercado">
-          <input class="inputUpdateData" name="mercado" type="text" required />
-          <p>Mercado</p>
+          <input
+            class="inputUpdateData"
+            id="mercadoDataInput"
+            name="mercado"
+            type="text"
+            required
+          />
+          <p @click="focusInput('mercadoDataInput')">Mercado</p>
         </label>
       </div>
+      <ButtonComponent class="saveDataButton" msj="GUARDAR"></ButtonComponent>
     </form>
   </div>
 </template>
 <script>
+import ButtonComponent from "./ButtonComponent.vue";
+
 export default {
   name: "UserInformation",
   data() {
@@ -112,83 +139,24 @@ export default {
   props: {
     userData: Object,
   },
+  methods: {
+    focusInput(id) {
+      const elemento = document.querySelector(`#${id}`);
+      if (document.activeElement !== elemento) {
+        elemento.focus();
+      }
+    },
+  },
+  components: { ButtonComponent },
 };
 </script>
 <style lang="scss" scoped>
+@import "../helpers/mixings.scss";
+
 .selectedMenu .updateData .dateInput {
   p {
     bottom: 5.3em;
   }
 }
-.dateP {
-  bottom: 5.3em;
-}
-.updateData {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  h1,
-  h2,
-  input[type="text"],
-  input[type="date"],
-  input[type="radio"] {
-    padding: 1.2rem;
-  }
-
-  .labelUpdateData {
-    p {
-      position: relative;
-      bottom: 5.3em;
-      left: 1.5em;
-      transition: 0.3s;
-      font-size: 0.8rem;
-    }
-    .inputUpdateData {
-      margin: 0.4rem;
-      background-color: #f9f9f9;
-      border: none;
-      /* height: 1rem; */
-      padding-top: 1.7rem;
-      border-bottom: 1px solid #c8c8c8;
-      transition: 0.07s;
-      font-size: 0.9rem;
-      border-radius: 4px;
-    }
-    .inputUpdateData:not(:focus):invalid ~ p {
-      bottom: 3rem;
-      font-size: 1rem;
-    }
-    .inputUpdateData:invalid:focus {
-      border-bottom: 2px solid red;
-    }
-
-    .inputUpdateData:focus {
-      outline: none;
-      border-bottom: 2px solid green;
-    }
-  }
-
-  .genderDiv {
-    label,
-    input[type="radio"] {
-      padding: 0.3rem;
-    }
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .updateSec2 {
-    align-items: flex-end;
-    input[type="date"] {
-      padding-left: 5rem;
-    }
-  }
-  div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    .labelUpdateData {
-    }
-  }
-}
+@include updateDataForm;
 </style>
