@@ -2,6 +2,124 @@
 
 //Boton usado de codepen:https://codepen.io/robeen/pen/PbvJjy
 
+@mixin updatePasswordForm {
+  .updateData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1,
+    h2,
+    input[type="text"],
+    input[type="password"],
+    input[type="date"],
+    input[type="radio"] {
+      padding: 1.2rem;
+    }
+
+    .labelUpdateData {
+      margin: 1rem;
+      background-color: #f9f9f9;
+      border: none;
+      max-width: 100%;
+      /* height: 1rem; */
+      display: flex;
+      padding-top: 1.7rem;
+      border-bottom: 3px solid #c8c8c8;
+      transition: 0.07s;
+      justify-content: center;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      img {
+        width: 3rem;
+        position: relative;
+        right: 0rem;
+        height: 3rem;
+        transition: 0.4s;
+        bottom: 0rem;
+        opacity: 1;
+      }
+
+      p {
+        position: relative;
+        bottom: 1.6em;
+        left: -16.5em;
+        transition: 0.3s;
+        font-size: 0.8rem;
+      }
+      h1 {
+        position: relative;
+        bottom: 7em;
+        left: 1.5em;
+        height: 0.1rem;
+        font-size: 0.8rem;
+      }
+      .inputUpdateData {
+        margin: 0.4rem;
+        background-color: #f9f9f9;
+        border: none;
+        z-index: 0;
+        /* height: 1rem; */
+        /* padding-top: 1.7rem; */
+        /* border-bottom: 1px solid #c8c8c8; */
+        transition: 0.07s;
+        font-size: 0.9rem;
+        /* border-radius: 4px;*/
+      }
+      .inputUpdateData:not(:focus):invalid ~ p {
+        bottom: -1rem;
+        width: 100%;
+        left: -8rem;
+        /* right: 18.2rem; */
+        font-size: 1.1rem;
+        z-index: 1;
+      }
+
+      .inputUpdateData:not(:focus):invalid ~ img {
+        opacity: 0;
+      }
+      .inputUpdateData:invalid:focus {
+        border-bottom: 2px solid red;
+      }
+      .inputUpdateData:invalid:focus ~ div {
+        width: 100%;
+      }
+      .inputUpdateData:invalid:focus-within .labelUpdateData {
+        border-bottom: 2px solid red;
+      }
+
+      .inputUpdateData:focus {
+        outline: none;
+        border-bottom: 2px solid green;
+      }
+    }
+
+    .genderDiv {
+      label,
+      input[type="radio"] {
+        padding: 0.3rem;
+      }
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .updateSec2 {
+      //align-items: flex-end;
+      input[type="date"] {
+        padding-left: 5rem;
+      }
+    }
+    div {
+      display: flex;
+      /* flex-wrap: wrap; */
+      justify-content: center;
+      /* align-items: baseline; */
+      flex-direction: column;
+      .labelUpdateData {
+      }
+    }
+  }
+}
+
 @mixin updateDataForm {
   .updateData {
     display: flex;
@@ -43,6 +161,7 @@
       }
       .inputUpdateData:not(:focus):invalid ~ p {
         bottom: 3rem;
+        left: 1.2rem;
         font-size: 1rem;
       }
       .inputUpdateData:invalid:focus {

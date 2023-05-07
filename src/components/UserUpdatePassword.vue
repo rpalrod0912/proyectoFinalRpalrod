@@ -2,53 +2,77 @@
   <div>
     <form class="updateData">
       <h1>ACTUALIZAR CONTRASEÑA</h1>
-      <div class="genderDiv">
-        <label for="gender">
-          <input name="gender" type="radio" value="Hombre" />Hombre
-        </label>
-        <label for="gender">
-          <input name="gender" type="radio" value="Mujer" />Mujer
-        </label>
-      </div>
 
       <div class="updateSec1">
-        <label class="labelUpdateData">
-          <input
-            class="inputUpdateData"
-            v-model="this.nombre"
-            name="nombre"
-            type="text"
-            required
-            id="nameDataInput"
-          />
-          <p @click="focusInput('nameDataInput')">Antigua Contraseña</p>
-        </label>
-        <label class="labelUpdateData" for="apellidos">
-          <input
-            class="inputUpdateData"
-            name="apellidos"
-            type="text"
-            id="apellidosDataInput"
-            required
-          />
-          <p @click="focusInput('apellidosDataInput')">Apellidos</p>
-        </label>
-      </div>
-      <div class="updateSec2">
-        <label class="dateInput labelUpdateData" for="fechaNac">
-          <input class="inputUpdateData" name="fechaNac" type="date" required />
-          <h1 class="dateP">Fecha de Nacimiento</h1>
-        </label>
-        <label class="labelUpdateData" for="telefonoMovil">
+        <label id="labelOldPwd" class="labelUpdateData" for="oldPwd">
           <input
             class="inputUpdateData"
             v-model="this.pwd"
-            name="telefonoMovil"
-            id="phoneDataInput"
-            type="text"
+            name="oldPwd"
+            type="password"
+            id="pwdDataInput"
             required
           />
-          <p @click="focusInput('phoneDataInput')">Numero móvil</p>
+          <p @click="focusInput('pwdDataInput', 'labelOldPwd')">
+            Antigua Contraseña
+          </p>
+          <div class="borderBottom"></div>
+        </label>
+        <label id="labelNewPwd" class="labelUpdateData" for="newPwd">
+          <input
+            class="inputUpdateData"
+            v-model="this.newPwd"
+            name="newPwd"
+            type="password"
+            id="newPwdDataInput"
+            required
+          />
+          <p @click="focusInput('newPwdDataInput', 'labelNewPwd')">
+            Nueva Contraseña
+          </p>
+          <img
+            v-if="!this.modoTextoInput1"
+            @click="showPassword('newPwdDataInput', 'modoTextoInput1')"
+            src="../assets/UnHideIcon.png"
+          />
+          <img
+            v-else
+            @click="showPassword('newPwdDataInput', 'modoTextoInput1')"
+            src="../assets/HideIcon.png"
+          />
+          <div class="borderBottom"></div>
+        </label>
+        <label
+          id="labelConfirmNewPwd"
+          class="labelUpdateData"
+          for="confirmNewPwd"
+        >
+          <input
+            class="inputUpdateData"
+            name="confirmNewPwd"
+            v-model="this.confirNewPwd"
+            type="password"
+            id="confirmNewPwdDataInput"
+            required
+          />
+          <p @click="focusInput('confirmNewPwdDataInput', 'labelNewPwd')">
+            Repetir Nueva Contraseña
+          </p>
+          <img
+            class="pd-3rem"
+            v-if="!this.modoTextoInput2"
+            @click="showPassword('confirmNewPwdDataInput', 'modoTextoInput2')"
+            src="../assets/UnHideIcon.png"
+          />
+
+          <img
+            v-else
+            class="pd-3rem"
+            @click="showPassword('confirmNewPwdDataInput', 'modoTextoInput2')"
+            src="../assets/HideIcon.png"
+          />
+
+          <div class="borderBottom"></div>
         </label>
       </div>
 
@@ -57,6 +81,7 @@
   </div>
 </template>
 <script>
+/*eslint-disable */
 import ButtonComponent from "./ButtonComponent.vue";
 
 export default {
@@ -66,16 +91,40 @@ export default {
       pwd: this.userData.pwd,
       newPwd: "",
       confirNewPwd: "",
+      modoTextoInput1: false,
+      modoTextoInput2: false,
     };
   },
   props: {
     userData: Object,
   },
   methods: {
-    focusInput(id) {
+    focusInput(id, idLabel) {
       const elemento = document.querySelector(`#${id}`);
       if (document.activeElement !== elemento) {
         elemento.focus();
+      }
+    },
+
+    showPassword(id, dataState) {
+      let element = document.querySelector(`#${id}`);
+      if (element.type === "password") {
+        element.type = "text";
+        if (dataState === "modoTextoInput1") {
+          this.modoTextoInput1 = true;
+        }
+        if (dataState === "modoTextoInput2") {
+          this.modoTextoInput2 = true;
+        }
+      } else {
+        element.type = "password";
+        this.dataState = false;
+        if (dataState === "modoTextoInput1") {
+          this.modoTextoInput1 = false;
+        }
+        if (dataState === "modoTextoInput2") {
+          this.modoTextoInput2 = false;
+        }
       }
     },
   },
@@ -89,5 +138,11 @@ export default {
     bottom: 5.3em;
   }
 }
-@include updateDataForm;
+
+.pd-3rem {
+  padding-right: 2.3rem;
+}
+.updateSec1 {
+}
+@include updatePasswordForm;
 </style>

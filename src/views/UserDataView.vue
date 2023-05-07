@@ -81,6 +81,9 @@ export default {
     };
   },
   async mounted() {
+    if (document.querySelector("body").classList.contains("bodyStyle")) {
+      document.querySelector("body").classList.toggle("bodyStyle");
+    }
     await this.getUserData();
     this.carga = true;
   },
