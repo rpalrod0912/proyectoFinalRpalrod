@@ -107,8 +107,16 @@ export default {
         this.modoTexto = false;
       }
     },
-    submitLogin() {
-      this.logInFirebase();
+    async submitLogin() {
+      await this.logInFirebase();
+      this.$router
+        .push({
+          name: "Inicio",
+          query: { recienLogeado: "SI" },
+        })
+        .then(() => {
+          this.$router.go();
+        });
     },
     async logInFirebase() {
       const logInData = {

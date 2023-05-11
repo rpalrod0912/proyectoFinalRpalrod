@@ -9,10 +9,17 @@
         src="../assets/video/videoSection1.mp4"
       ></video>
     </section>
-    <ButtonComponent
+
+    <PopUpModal
+      :is-opened="true"
       v-if="this.recienRegistrado === 'SI'"
-      msj="TE HAS REGISTRADO CON EXITO"
-    ></ButtonComponent>
+      msj="TE HAS REGISTRADO CON ÉXITO"
+    ></PopUpModal>
+    <PopUpModal
+      :is-opened="true"
+      v-if="this.recienLogeado === 'SI'"
+      msj="HAS INICIADO SESIÓN CON ÉXITO"
+    ></PopUpModal>
     <section class="secIniOfer">
       <h1>
         ¡PROMOCIONES HASTA EL 50 % DE DESCUENTO! ELIGE ENTRE MÁS DE 100
@@ -40,15 +47,18 @@ import AppFooter from "@/components/AppFooter.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import { scrollTop } from "@/helpers/basicHelpers";
 import WhiteHeader from "@/components/WhiteHeader.vue";
+import PopUpModal from "@/components/popUpModal.vue";
 export default {
   /*eslint-disable */
   created() {
     scrollTop();
     this.recienRegistrado = this.$route.query.recienRegistrado;
+    this.recienLogeado = this.$route.query.recienLogeado;
   },
   data() {
     return {
       recienRegistrado: "NO",
+      recienLogeado: "SI",
     };
   },
   methods: {
@@ -60,7 +70,7 @@ export default {
     },
   },
   name: "InicioApp",
-  components: { WhiteHeader, AppFooter, ButtonComponent },
+  components: { WhiteHeader, AppFooter, ButtonComponent, PopUpModal },
 };
 </script>
 <style lang="scss">
