@@ -2,26 +2,10 @@
   <WhiteHeader class="headerPasarela" tipo="backHeader"></WhiteHeader>
   <section v-if="carga">
     <div class="showAccountInfo">
-      <UserInformation
-        :userData="this.userData"
-        class="selectedMenu"
-      ></UserInformation>
-
-      <ButtonComponent
-        @click="this.$router.push('/tuinformacion/password')"
-        class="colorButton saveDataButton"
-        msj="ACTUALIZAR CONTRASEÑA"
-      ></ButtonComponent>
-      <ButtonComponent
-        @click="this.$router.push('/tuinformacion/email')"
-        class="colorButton saveDataButton"
-        msj="ACTUALIZAR EMAIL"
-      ></ButtonComponent>
-      <ButtonComponent
-        class="colorButton saveDataButton"
-        msj="ACTUALIZAR TELÉFONO"
-      ></ButtonComponent>
+      <UserUpdatePassword :userData="this.userData" class="selectedMenu">
+      </UserUpdatePassword>
     </div>
+    <router-view></router-view>
 
     <RightDesktopMenu
       selectedOption="secondOption"
@@ -63,12 +47,10 @@ export default {
     return {
       userData: null,
       carga: false,
+      modo: "datosUsuario",
     };
   },
   async mounted() {
-    axios.defaults.headers.common = {
-      Authorization: `Bearer ${this.$store.state.currentToken}`,
-    };
     if (document.querySelector("body").classList.contains("bodyStyle")) {
       document.querySelector("body").classList.toggle("bodyStyle");
     }
@@ -98,25 +80,6 @@ export default {
 <style lang="scss">
 @import "../helpers/mixings.scss";
 
-.putDataSubmit {
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  align-content: center;
-  width: 100%;
-  height: 3.2rem;
-  background-color: #242424;
-  color: white;
-
-  border: 1px solid black;
-  border-radius: 10px;
-  transition: 0.4s;
-  @include fuenteSemiBold;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  font-size: 1.2rem;
-}
 .showAccountInfo {
   font-family: "Noto Sans";
   font-style: normal;

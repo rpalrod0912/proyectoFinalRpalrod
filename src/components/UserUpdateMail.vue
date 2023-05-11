@@ -1,7 +1,7 @@
 <template>
   <div>
     <form class="updateData">
-      <h1>ACTUALIZAR CONTRASEÑA</h1>
+      <h1>ACTUALIZAR EMAIL</h1>
 
       <div class="updateSec1">
         <label id="labelOldPwd" class="labelUpdateData" for="oldPwd">
@@ -21,26 +21,15 @@
         <label id="labelNewPwd" class="labelUpdateData" for="newPwd">
           <input
             class="inputUpdateData"
-            v-model="this.newPwd"
-            name="newPwd"
-            type="password"
+            v-model="this.oldMail"
+            name="oldMail"
+            type="email"
             id="newPwdDataInput"
             required
           />
           <p @click="focusInput('newPwdDataInput', 'labelNewPwd')">
-            Nueva Contraseña
+            Antiguo Email
           </p>
-          <img
-            v-if="!this.modoTextoInput1"
-            @click="showPassword('newPwdDataInput', 'modoTextoInput1')"
-            src="../assets/UnHideIcon.png"
-          />
-          <img
-            v-else
-            @click="showPassword('newPwdDataInput', 'modoTextoInput1')"
-            src="../assets/HideIcon.png"
-          />
-          <div class="borderBottom"></div>
         </label>
         <label
           id="labelConfirmNewPwd"
@@ -49,30 +38,15 @@
         >
           <input
             class="inputUpdateData"
-            name="confirmNewPwd"
-            v-model="this.confirNewPwd"
-            type="password"
+            name="newMail"
+            v-model="this.newMail"
+            type="email"
             id="confirmNewPwdDataInput"
             required
           />
           <p @click="focusInput('confirmNewPwdDataInput', 'labelNewPwd')">
-            Repetir Nueva Contraseña
+            Nuevo Email
           </p>
-          <img
-            class="pd-3rem"
-            v-if="!this.modoTextoInput2"
-            @click="showPassword('confirmNewPwdDataInput', 'modoTextoInput2')"
-            src="../assets/UnHideIcon.png"
-          />
-
-          <img
-            v-else
-            class="pd-3rem"
-            @click="showPassword('confirmNewPwdDataInput', 'modoTextoInput2')"
-            src="../assets/HideIcon.png"
-          />
-
-          <div class="borderBottom"></div>
         </label>
       </div>
 
@@ -85,14 +59,12 @@
 import ButtonComponent from "./ButtonComponent.vue";
 
 export default {
-  name: "UserUpdatePassword",
+  name: "UserUpdateMail",
   data() {
     return {
       pwd: "",
-      newPwd: "",
-      confirNewPwd: "",
-      modoTextoInput1: false,
-      modoTextoInput2: false,
+      oldMail: "",
+      newMail: "",
     };
   },
   props: {
@@ -133,28 +105,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
-
 .updateData {
   h1 {
     padding-bottom: 3rem;
   }
   label {
     margin-top: 0.6rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.6rem;
   }
   .saveDataButton {
-    width: 22rem;
-  }
-}
-p {
-  position: relative;
-  bottom: 2.6rem;
-  left: 2rem;
-  transition: 0.07s;
-}
-.selectedMenu .updateData .updateSec1 {
-  .inputUpdateData:has(:focus) ~ p {
-    bottom: 10.1rem;
+    width: 20rem;
   }
 }
 .selectedMenu .updateData .dateInput {
@@ -163,74 +123,11 @@ p {
   }
 }
 
-.updateData {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-/*
-.inputUpdateData:invalid:focus-within ~ div {
-  position: relative;
-  top: 2px;
-  width: 100%;
-  border-bottom: 2px solid red;
-}
-.inputUpdateData:focus ~ div {
-  position: relative;
-  top: 2px;
-  width: 100%;
-  border-bottom: 2px solid green;
-}*/
 .pd-3rem {
   padding-right: 2.3rem;
 }
-
-.labelUpdateData {
-  margin: 0.4rem;
-  background-color: #f9f9f9;
-  border: none;
-  /* height: 1rem; */
-  padding-top: 1.7rem;
-  border-bottom: 1px solid #c8c8c8;
-  transition: 0.07s;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  padding-right: 4rem;
-  height: 3rem;
-  border-bottom: 1px solid #c8c8c8;
-
-  border-radius: 4px;
-}
 .updateSec1 {
   flex-direction: column;
-  @include inputPwd;
-
-  img {
-    width: 2.1rem;
-    height: 2.5rem;
-    position: relative;
-    left: 17.5rem;
-
-    bottom: 3.2rem;
-  }
-  input[type="text"],
-  input[type="password"],
-  input[type="mail"],
-  input[type="text"]:focus,
-  input[type="password"]:focus,
-  input[type="mail"]:focus {
-    background: transparent;
-    border: none;
-    outline-width: 0;
-    height: 1.5rem;
-  }
-
-  .inputUpdateData:not(:focus):invalid ~ p {
-    position: relative;
-    left: 2rem;
-    bottom: 1.3rem;
-  }
 }
-
-//@include updatePasswordForm;
+@include updateDataForm;
 </style>

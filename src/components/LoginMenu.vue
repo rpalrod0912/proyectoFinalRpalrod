@@ -91,7 +91,16 @@
         />
       </div>
     </div>
-    <LoadingSpinner v-else></LoadingSpinner>
+    <div v-else>
+      <LoadingSpinner></LoadingSpinner>
+
+      <input
+        @click="logOut"
+        class="nextButtonSubmit"
+        type="button"
+        value="CERRAR SESIÓN"
+      />
+    </div>
 
     <div @click="menuAction(false)" class="greyContainer"></div>
   </ul>

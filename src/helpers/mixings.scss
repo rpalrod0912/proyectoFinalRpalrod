@@ -129,8 +129,52 @@
     h2,
     input[type="text"],
     input[type="date"],
+    input[type="password"],
+    input[type="email"],
     input[type="radio"] {
       padding: 1.2rem;
+    }
+    .labelUpdateDataError {
+      p {
+        position: relative;
+        bottom: 5.3em;
+        left: 1.5em;
+        transition: 0.3s;
+        font-size: 0.8rem;
+        color: red;
+      }
+      h1 {
+        position: relative;
+        bottom: 7em;
+        left: 1.5em;
+        height: 0.1rem;
+        font-size: 0.8rem;
+        color: red;
+      }
+      .inputUpdateData {
+        margin: 0.4rem;
+        background-color: #f9f9f9;
+        border: none;
+        /* height: 1rem; */
+        padding-top: 1.7rem;
+        border-bottom: 2px solid red;
+        transition: 0.07s;
+        font-size: 0.9rem;
+        border-radius: 4px;
+      }
+      .inputUpdateData:not(:focus):invalid ~ p {
+        bottom: 3rem;
+        left: 1.2rem;
+        font-size: 1rem;
+      }
+      .inputUpdateData:invalid:focus {
+        border-bottom: 2px solid red;
+      }
+
+      .inputUpdateData:focus {
+        outline: none;
+        border-bottom: 2px solid red;
+      }
     }
 
     .labelUpdateData {

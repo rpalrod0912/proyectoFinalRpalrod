@@ -66,6 +66,19 @@ const routes = [
     name: "tuInfo",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/UserDataView.vue"),
+    children: [],
+  },
+  {
+    path: "/tuinformacion/password",
+    name: "pwdUpdate",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/UserPasswordView.vue"),
+  },
+  {
+    path: "/tuinformacion/email",
+    name: "emailUpdate",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/UserUpdateMailView"),
   },
 ];
 

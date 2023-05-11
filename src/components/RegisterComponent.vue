@@ -195,8 +195,7 @@ export default {
       this.v$.$touch();
 
       this.v$.$validate();
-      console.log(this.v$);
-      console.log(this.v$.$error);
+
       if (!this.v$.$error) {
         await this.registerFireBase();
         if (this.exito === true) {
@@ -209,8 +208,6 @@ export default {
               this.$router.go();
             });
         }
-      } else {
-        alert("FORM FAILED VALIDAT");
       }
     },
     async registerFireBase() {
@@ -221,9 +218,6 @@ export default {
         password: this.password.password,
         phone: this.phoneNumber,
       };
-      console.log(auth);
-      console.log(registerData.mail);
-      console.log(registerData.password);
 
       await createUserWithEmailAndPassword(
         auth,

@@ -2,25 +2,7 @@
   <WhiteHeader class="headerPasarela" tipo="backHeader"></WhiteHeader>
   <section v-if="carga">
     <div class="showAccountInfo">
-      <UserInformation
-        :userData="this.userData"
-        class="selectedMenu"
-      ></UserInformation>
-
-      <ButtonComponent
-        @click="this.$router.push('/tuinformacion/password')"
-        class="colorButton saveDataButton"
-        msj="ACTUALIZAR CONTRASEÑA"
-      ></ButtonComponent>
-      <ButtonComponent
-        @click="this.$router.push('/tuinformacion/email')"
-        class="colorButton saveDataButton"
-        msj="ACTUALIZAR EMAIL"
-      ></ButtonComponent>
-      <ButtonComponent
-        class="colorButton saveDataButton"
-        msj="ACTUALIZAR TELÉFONO"
-      ></ButtonComponent>
+      <UserUpdateMail> </UserUpdateMail>
     </div>
 
     <RightDesktopMenu
@@ -57,8 +39,9 @@ import WhiteHeader from "@/components/WhiteHeader.vue";
 import RightDesktopMenu from "@/components/RightDesktopMenu.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import UserUpdatePassword from "@/components/UserUpdatePassword.vue";
+import UserUpdateMail from "@/components/UserUpdateMail.vue";
 export default {
-  name: "UserDataView",
+  name: "UserUpdateMailView",
   data() {
     return {
       userData: null,
@@ -66,9 +49,6 @@ export default {
     };
   },
   async mounted() {
-    axios.defaults.headers.common = {
-      Authorization: `Bearer ${this.$store.state.currentToken}`,
-    };
     if (document.querySelector("body").classList.contains("bodyStyle")) {
       document.querySelector("body").classList.toggle("bodyStyle");
     }
@@ -92,36 +72,19 @@ export default {
     RightDesktopMenu,
     ButtonComponent,
     UserUpdatePassword,
+    UserUpdateMail,
   },
 };
 </script>
 <style lang="scss">
 @import "../helpers/mixings.scss";
 
-.putDataSubmit {
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  align-content: center;
-  width: 100%;
-  height: 3.2rem;
-  background-color: #242424;
-  color: white;
-
-  border: 1px solid black;
-  border-radius: 10px;
-  transition: 0.4s;
-  @include fuenteSemiBold;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  font-size: 1.2rem;
-}
 .showAccountInfo {
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
   display: flex;
+  padding-top: 10rem;
   width: 70%;
   justify-content: center;
   flex-direction: column;
@@ -153,6 +116,7 @@ export default {
   //width: 70%;
   padding-top: 10rem;
 }
+
 section {
   display: flex;
 }
