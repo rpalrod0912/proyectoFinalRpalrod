@@ -2,7 +2,8 @@
   <WhiteHeader class="headerPasarela" tipo="backHeader"></WhiteHeader>
   <section v-if="carga">
     <div class="showAccountInfo">
-      <UserUpdateMail> </UserUpdateMail>
+      <UserUpdateMail :userData="this.userData" class="selectedMenu">
+      </UserUpdateMail>
     </div>
 
     <RightDesktopMenu

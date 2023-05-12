@@ -1,10 +1,16 @@
 <template>
   <div>
-    <form class="updateData">
+    <form @submit.prevent="emailUpdate()" class="updateData" novalidate>
       <h1>ACTUALIZAR EMAIL</h1>
 
       <div class="updateSec1">
-        <label id="labelOldPwd" class="labelUpdateData" for="oldPwd">
+        <label
+          id="labelOldPwd"
+          :class="
+            v$.pwd.$error === true ? 'labelUpdateDataError' : 'labelUpdateData'
+          "
+          for="oldPwd"
+        >
           <input
             class="inputUpdateData"
             v-model="this.pwd"
@@ -20,7 +26,11 @@
         </label>
         <label id="labelNewPwd" class="labelUpdateData" for="newPwd">
           <input
-            class="inputUpdateData"
+            :class="
+              v$.oldMail.$error === true
+                ? 'inputUpdateDataError'
+                : 'inputUpdateData'
+            "
             v-model="this.oldMail"
             name="oldMail"
             type="email"
@@ -37,7 +47,11 @@
           for="confirmNewPwd"
         >
           <input
-            class="inputUpdateData"
+            :class="
+              v$.newMail.$error === true
+                ? 'inputUpdateDataError'
+                : 'inputUpdateData'
+            "
             name="newMail"
             v-model="this.newMail"
             type="email"
@@ -49,28 +63,136 @@
           </p>
         </label>
       </div>
+      <div v-if="!this.validPwd" class="infoPanel">
+        <img src="../assets/warning.png" alt="imagenInformativa" />
+        <p>Contraseña Incorrecta</p>
+      </div>
+      <div v-if="v$.oldMail.$error" class="infoPanel">
+        <img src="../assets/warning.png" alt="imagenInformativa" />
+        <p>Email Antiguo Incorrecto</p>
+      </div>
 
-      <ButtonComponent class="saveDataButton" msj="GUARDAR"></ButtonComponent>
+      <div v-if="v$.newMail.$error" class="infoPanel">
+        <img src="../assets/warning.png" alt="imagenInformativa" />
+        <p>Utiliza un formato correcto de email</p>
+      </div>
+      <input type="submit" class="putDataSubmit" value="GUARDAR" />
     </form>
   </div>
 </template>
 <script>
 /*eslint-disable */
+import axios from "axios";
+import { API_URL } from "@/helpers/basicHelpers";
 import ButtonComponent from "./ButtonComponent.vue";
+import {
+  required,
+  email,
+  sameAs,
+  minLength,
+  maxLength,
+  numeric,
+  helpers,
+} from "@vuelidate/validators";
+import useVuelidate from "@vuelidate/core";
+import { updateEmail, auth } from "@/auth/firebaseConfig.js";
+
+const bcrypt = require("bcryptjs");
+const passwordRegex = helpers.regex(
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/
+);
 
 export default {
   name: "UserUpdateMail",
+
   data() {
     return {
+      v$: useVuelidate(),
       pwd: "",
       oldMail: "",
       newMail: "",
+      exito: false,
+      validPwd: true,
     };
   },
   props: {
     userData: Object,
   },
+  validations() {
+    return {
+      pwd: {
+        required,
+        passwordRegex,
+      },
+      oldMail: {
+        required,
+        sameAs: sameAs(this.userData.mail),
+      },
+      newMail: {
+        required,
+        email,
+      },
+    };
+  },
   methods: {
+    async emailUpdate() {
+      debugger;
+      this.v$.$validate();
+      console.log(this.v$);
+      if (!this.v$.$error && (await this.validateOriginalPwd())) {
+        console.log("TODO BIEN");
+        debugger;
+        await this.putData();
+        if (this.exito === true) {
+          this.$router
+            .push({
+              name: "Inicio",
+              query: { recienRegistrado: "SI" },
+            })
+            .then(() => {
+              this.$router.go();
+            });
+        }
+      }
+      if (!(await this.validateOriginalPwd())) this.validPwd = false;
+      console.log("ALGO ANDA MAL");
+      console.log(this.v$.$error);
+      this.v$.$validate();
+    },
+    async putData() {
+      //ACTUALIZAMOS PASSWORD EN FIREBASE
+      await updateEmail(auth.currentUser, this.newMail)
+        .then(() => {
+          ("ACTUALIZADO PWD!!");
+        })
+        .catch((error) => {
+          error;
+        });
+      const datosUsuario = {
+        mail: this.newMail,
+      };
+      //LUEGO DE ACTUALIZAR EN FIREBAE, ACTUALIZAMOS EN NUESTRA BD
+      let status;
+      const data = await axios
+        .put(`${API_URL}users/${this.userData.idUser}`, datosUsuario)
+        .then((res) => (status = res.status))
+        .catch((error) => error);
+      console.log(status);
+      if (status === 200) {
+        this.exito = true;
+      }
+    },
+    async validateOriginalPwd() {
+      debugger;
+      let isPassword;
+      await bcrypt.compare(this.pwd, this.userData.pwd).then(function (result) {
+        debugger;
+        console.log(result);
+        isPassword = result;
+      });
+      console.log(isPassword);
+      return isPassword;
+    },
     focusInput(id, idLabel) {
       const elemento = document.querySelector(`#${id}`);
       if (document.activeElement !== elemento) {
@@ -105,6 +227,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
+@include inputTypeSubmit;
+
 .updateData {
   h1 {
     padding-bottom: 3rem;
@@ -130,4 +254,5 @@ export default {
   flex-direction: column;
 }
 @include updateDataForm;
+@include infoPanel;
 </style>
