@@ -28,7 +28,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 @include popUpModal("#popMenu__toggle", ".menu__btn", ".popMenu__box");
 .popMenu__item {
@@ -43,7 +43,7 @@ export default {
   width: 100%;
   background-color: #6e7272;
   opacity: 0.6;
-  height: 191%;
+  height: 363%;
   top: 0;
 }
 </style>

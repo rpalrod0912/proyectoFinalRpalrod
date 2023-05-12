@@ -1,13 +1,21 @@
 <template>
   <div>
-    <form class="updateData">
+    <form @submit.prevent="passwordUpdate()" class="updateData" novalidate>
       <h1>ACTUALIZAR CONTRASEÑA</h1>
 
       <div class="updateSec1">
-        <label id="labelOldPwd" class="labelUpdateData" for="oldPwd">
+        <label
+          id="labelOldPwd"
+          :class="
+            v$.oldPwd.$error === true
+              ? 'labelUpdateDataError'
+              : 'labelUpdateData'
+          "
+          for="oldPwd"
+        >
           <input
             class="inputUpdateData"
-            v-model="this.pwd"
+            v-model="this.oldPwd"
             name="oldPwd"
             type="password"
             id="pwdDataInput"
@@ -18,10 +26,19 @@
           </p>
           <div class="borderBottom"></div>
         </label>
-        <label id="labelNewPwd" class="labelUpdateData" for="newPwd">
+
+        <label
+          id="labelNewPwd"
+          :class="
+            v$.newPassword.newPwd.$error === true
+              ? 'labelUpdateDataError'
+              : 'labelUpdateData'
+          "
+          for="newPwd"
+        >
           <input
             class="inputUpdateData"
-            v-model="this.newPwd"
+            v-model="this.newPassword.newPwd"
             name="newPwd"
             type="password"
             id="newPwdDataInput"
@@ -44,13 +61,17 @@
         </label>
         <label
           id="labelConfirmNewPwd"
-          class="labelUpdateData"
+          :class="
+            v$.newPassword.confirmNewPwd.$error === true
+              ? 'labelUpdateDataError'
+              : 'labelUpdateData'
+          "
           for="confirmNewPwd"
         >
           <input
             class="inputUpdateData"
             name="confirmNewPwd"
-            v-model="this.confirNewPwd"
+            v-model="this.newPassword.confirmNewPwd"
             type="password"
             id="confirmNewPwdDataInput"
             required
@@ -75,37 +96,152 @@
           <div class="borderBottom"></div>
         </label>
       </div>
-
-      <ButtonComponent class="saveDataButton" msj="GUARDAR"></ButtonComponent>
+      <div v-if="!this.isOgPwd" class="infoPanel">
+        <img src="../assets/warning.png" alt="imagenInformativa" />
+        <p>Contraseña Antigua Incorrecta</p>
+      </div>
+      <div v-if="v$.newPassword.confirmNewPwd.$error" class="infoPanel">
+        <img src="../assets/warning.png" alt="imagenInformativa" />
+        <p>Contraseña demasiado insegura</p>
+      </div>
+      <div v-if="v$.newPassword.confirmNewPwd.$error" class="infoPanel">
+        <img src="../assets/warning.png" alt="imagenInformativa" />
+        <p>Las contraseñas no coinciden</p>
+      </div>
+      <input type="submit" class="putDataSubmit" value="GUARDAR" />
     </form>
   </div>
 </template>
 <script>
 /*eslint-disable */
+import axios from "axios";
+import { app, auth, updatePassword } from "@/auth/firebaseConfig.js";
+import { API_URL } from "@/helpers/basicHelpers";
+import useVuelidate from "@vuelidate/core";
 import ButtonComponent from "./ButtonComponent.vue";
+import {
+  required,
+  email,
+  sameAs,
+  minLength,
+  maxLength,
+  numeric,
+  helpers,
+} from "@vuelidate/validators";
+const bcrypt = require("bcryptjs");
+const passwordRegex = helpers.regex(
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/
+);
+
+//Old pwd validator
+
+const hasPwdMatches = (plainTxt, hash) => {};
 
 export default {
   name: "UserUpdatePassword",
+  created() {
+    console.log(this.userData.pwd);
+    debugger;
+    hasPwdMatches("Rafapr_01", this.userData.pwd);
+  },
   data() {
     return {
-      pwd: "",
-      newPwd: "",
-      confirNewPwd: "",
+      v$: useVuelidate(),
+      oldPwd: "",
+      newPassword: {
+        newPwd: "",
+        confirmNewPwd: "",
+      },
+      isOgPwd: true,
       modoTextoInput1: false,
       modoTextoInput2: false,
+    };
+  },
+  validations() {
+    return {
+      oldPwd: {
+        required,
+        passwordRegex,
+      },
+      newPassword: {
+        newPwd: { required, passwordRegex },
+        confirmNewPwd: {
+          required,
+          sameAs: sameAs(this.newPassword.newPwd, this.userData.pwd),
+        },
+      },
     };
   },
   props: {
     userData: Object,
   },
   methods: {
+    async validateOriginalPwd() {
+      debugger;
+      let isPassword;
+      await bcrypt
+        .compare(this.oldPwd, this.userData.pwd)
+        .then(function (result) {
+          debugger;
+          console.log(result);
+          isPassword = result;
+        });
+      console.log(isPassword);
+      return isPassword;
+    },
     focusInput(id, idLabel) {
       const elemento = document.querySelector(`#${id}`);
       if (document.activeElement !== elemento) {
         elemento.focus();
       }
     },
-
+    async putData() {
+      //ACTUALIZAMOS PASSWORD EN FIREBASE
+      await updatePassword(auth.currentUser, this.newPassword.newPwd)
+        .then(() => {
+          ("ACTUALIZADO PWD!!");
+        })
+        .catch((error) => {
+          error;
+        });
+      const datosUsuario = {
+        pwd: this.newPassword.newPwd,
+      };
+      //LUEGO DE ACTUALIZAR EN FIREBAE, ACTUALIZAMOS EN NUESTRA BD
+      let status;
+      const data = await axios
+        .put(`${API_URL}users/${this.userData.idUser}`, datosUsuario)
+        .then((res) => (status = res.status))
+        .catch((error) => error);
+      console.log(status);
+      if (status === 200) {
+        this.exito = true;
+      }
+    },
+    async passwordUpdate() {
+      debugger;
+      this.v$.$validate();
+      console.log(this.v$);
+      if (!this.v$.$error && (await this.validateOriginalPwd())) {
+        console.log("TODO BIEN");
+        debugger;
+        await this.putData();
+        if (this.exito === true) {
+          this.$router
+            .push({
+              name: "Inicio",
+              query: { recienRegistrado: "SI" },
+            })
+            .then(() => {
+              this.$router.go();
+            });
+        }
+      }
+      if (!(await this.validateOriginalPwd())) this.isOgPwd = false;
+      console.log("ALGO ANDA MAL");
+      console.log(this.v$.$error);
+      this.v$.$validate();
+    },
     showPassword(id, dataState) {
       let element = document.querySelector(`#${id}`);
       if (element.type === "password") {
@@ -133,7 +269,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
-
+@include inputTypeSubmit;
+@include infoPanel;
 .updateData {
   h1 {
     padding-bottom: 3rem;
@@ -168,6 +305,7 @@ p {
   flex-direction: column;
   align-items: center;
 }
+
 /*
 .inputUpdateData:invalid:focus-within ~ div {
   position: relative;
@@ -198,6 +336,36 @@ p {
   padding-right: 4rem;
   height: 3rem;
   border-bottom: 1px solid #c8c8c8;
+
+  border-radius: 4px;
+}
+.labelUpdateDataGreen {
+  margin: 0.4rem;
+  background-color: #f9f9f9;
+  border: none;
+  /* height: 1rem; */
+  padding-top: 1.7rem;
+  transition: 0.07s;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  padding-right: 4rem;
+  height: 3rem;
+  border-bottom: 2px solid green;
+
+  border-radius: 4px;
+}
+.labelUpdateDataError {
+  margin: 0.4rem;
+  background-color: #f9f9f9;
+  border: none;
+  /* height: 1rem; */
+  padding-top: 1.7rem;
+  transition: 0.07s;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  padding-right: 4rem;
+  height: 3rem;
+  border-bottom: 2px solid red;
 
   border-radius: 4px;
 }

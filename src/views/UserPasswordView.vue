@@ -106,6 +106,11 @@ export default {
     border-radius: 1px solid #242424;
   }
 }
+@media (max-width: 899px) {
+  .showAccountInfo {
+    width: 100%;
+  }
+}
 .saveDataButton {
   width: 30rem;
   margin-bottom: 1rem;

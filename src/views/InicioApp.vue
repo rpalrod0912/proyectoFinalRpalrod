@@ -10,16 +10,6 @@
       ></video>
     </section>
 
-    <PopUpModal
-      :is-opened="true"
-      v-if="this.recienRegistrado === 'SI'"
-      msj="TE HAS REGISTRADO CON ÉXITO"
-    ></PopUpModal>
-    <PopUpModal
-      :is-opened="true"
-      v-if="this.recienLogeado === 'SI'"
-      msj="HAS INICIADO SESIÓN CON ÉXITO"
-    ></PopUpModal>
     <section class="secIniOfer">
       <h1>
         ¡PROMOCIONES HASTA EL 50 % DE DESCUENTO! ELIGE ENTRE MÁS DE 100
@@ -41,6 +31,16 @@
     </section>
   </main>
   <AppFooter></AppFooter>
+  <PopUpModal
+    :is-opened="true"
+    v-if="this.recienRegistrado === 'SI'"
+    msj="TE HAS REGISTRADO CON ÉXITO"
+  ></PopUpModal>
+  <PopUpModal
+    :is-opened="true"
+    v-if="this.recienLogeado === 'SI'"
+    msj="HAS INICIADO SESIÓN CON ÉXITO"
+  ></PopUpModal>
 </template>
 <script>
 import AppFooter from "@/components/AppFooter.vue";

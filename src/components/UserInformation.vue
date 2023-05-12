@@ -185,7 +185,8 @@
 import ButtonComponent from "./ButtonComponent.vue";
 import { app, auth } from "@/auth/firebaseConfig.js";
 import { API_URL, toHome } from "@/helpers/basicHelpers";
-import useValidate from "@vuelidate/core";
+import useVuelidate from "@vuelidate/core";
+
 import axios from "axios";
 import {
   requiredUnless,
@@ -206,7 +207,7 @@ export default {
   name: "UserInformation",
   data() {
     return {
-      v$: useValidate(),
+      v$: useVuelidate(),
       nombre: this.userData.nombre,
       apellidos: this.userData.apellidos,
       phone: this.userData.phone,
@@ -321,4 +322,8 @@ export default {
 }
 
 @include updateDataForm;
+
+.userOrderMenu {
+  display: none;
+}
 </style>

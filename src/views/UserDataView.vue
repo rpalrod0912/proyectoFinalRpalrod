@@ -98,25 +98,7 @@ export default {
 <style lang="scss">
 @import "../helpers/mixings.scss";
 
-.putDataSubmit {
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  align-content: center;
-  width: 100%;
-  height: 3.2rem;
-  background-color: #242424;
-  color: white;
-
-  border: 1px solid black;
-  border-radius: 10px;
-  transition: 0.4s;
-  @include fuenteSemiBold;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  font-size: 1.2rem;
-}
+@include inputTypeSubmit;
 .showAccountInfo {
   font-family: "Noto Sans";
   font-style: normal;
@@ -141,6 +123,11 @@ export default {
       color: white;
     }
     border-radius: 1px solid #242424;
+  }
+}
+@media (max-width: 899px) {
+  .showAccountInfo {
+    width: 100%;
   }
 }
 .saveDataButton {
