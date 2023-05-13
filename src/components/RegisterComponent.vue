@@ -190,6 +190,9 @@ export default {
       },
     };
   },
+  emits: {
+    changePopUpState: null,
+  },
   methods: {
     async submitRegister() {
       this.v$.$touch();
@@ -199,14 +202,16 @@ export default {
       if (!this.v$.$error) {
         await this.registerFireBase();
         if (this.exito === true) {
-          this.$router
-            .push({
-              name: "Inicio",
-              query: { recienRegistrado: "SI" },
-            })
-            .then(() => {
-              this.$router.go();
-            });
+          this.$emit("changePopUpState", true);
+          setInterval(() => {
+            this.$router
+              .push({
+                name: "Inicio",
+              })
+              .then(() => {
+                this.$router.go();
+              });
+          }, 2000);
         }
       }
     },

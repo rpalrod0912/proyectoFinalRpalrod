@@ -95,6 +95,9 @@ export default {
       passwordNotFound: false,
     };
   },
+  emits: {
+    changePopUpState: null,
+  },
   name: "LoginApp",
   methods: {
     showPassword() {
@@ -111,6 +114,7 @@ export default {
       await this.logInFirebase();
     },
     async logInFirebase() {
+      debugger;
       const logInData = {
         mail: this.$route.query.email,
         pwd: this.password,
@@ -165,14 +169,16 @@ export default {
         })
         .catch((error) => error);
       if (data !== "NOTFOUND") {
-        this.$router
-          .push({
-            name: "Inicio",
-            query: { recienLogeado: "SI" },
-          })
-          .then(() => {
-            this.$router.go();
-          });
+        this.$emit("changePopUpState", true);
+        setInterval(() => {
+          this.$router
+            .push({
+              name: "Inicio",
+            })
+            .then(() => {
+              this.$router.go();
+            });
+        }, 2000);
       }
     },
   },

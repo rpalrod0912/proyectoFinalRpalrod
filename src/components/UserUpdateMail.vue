@@ -95,7 +95,7 @@ import {
   helpers,
 } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
-import { updateEmail, auth } from "@/auth/firebaseConfig.js";
+import { updateEmail, auth, signOut } from "@/auth/firebaseConfig.js";
 
 const bcrypt = require("bcryptjs");
 const passwordRegex = helpers.regex(
@@ -138,6 +138,34 @@ export default {
     };
   },
   methods: {
+    async logOut() {
+      await signOut(auth)
+        .then(() => {
+          this.$store.commit("setCurrentAuth", false);
+          this.$store.commit("setCurrentUser", null);
+          this.$store.commit("setCurrentCartLength", null);
+          this.$store.commit("setCurrentMail", null);
+          setInterval(() => {
+            this.$router
+              .push({
+                name: "login",
+                query: { email: this.newMail },
+              })
+              .then(() => {
+                this.$router.go();
+              });
+          }, 2000);
+          /*
+          this.$router.push({
+            name: "login",
+            query: { email: this.newMail },
+          });
+          */
+        })
+        .catch((error) => {
+          ("ALGO OCURRIO");
+        });
+    },
     async emailUpdate() {
       debugger;
       this.v$.$validate();
@@ -147,7 +175,10 @@ export default {
         debugger;
         await this.putData();
         if (this.exito === true) {
+          debugger;
           this.$emit("changePopUpState", true);
+
+          await this.logOut();
 
           /*
           this.$router
@@ -167,23 +198,25 @@ export default {
     },
     async putData() {
       //ACTUALIZAMOS PASSWORD EN FIREBASE
+      let status;
+      const datosUsuario = {
+        mail: this.newMail,
+      };
       await updateEmail(auth.currentUser, this.newMail)
-        .then(() => {
+        .then(async () => {
           ("ACTUALIZADO PWD!!");
+          const data = await axios
+            .put(`${API_URL}users/${this.userData.idUser}`, datosUsuario)
+            .then((res) => (status = res.status))
+            .catch((error) => error);
+          console.log(status);
         })
         .catch((error) => {
           error;
         });
-      const datosUsuario = {
-        mail: this.newMail,
-      };
+
       //LUEGO DE ACTUALIZAR EN FIREBAE, ACTUALIZAMOS EN NUESTRA BD
-      let status;
-      const data = await axios
-        .put(`${API_URL}users/${this.userData.idUser}`, datosUsuario)
-        .then((res) => (status = res.status))
-        .catch((error) => error);
-      console.log(status);
+
       if (status === 200) {
         this.exito = true;
       }

@@ -57,6 +57,7 @@ export default {
     return {
       userData: null,
       carga: false,
+      showPopUp: false,
     };
   },
   async mounted() {
