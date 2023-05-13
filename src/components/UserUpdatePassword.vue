@@ -115,7 +115,7 @@
 <script>
 /*eslint-disable */
 import axios from "axios";
-import { app, auth, updatePassword } from "@/auth/firebaseConfig.js";
+import { app, signOut, auth, updatePassword } from "@/auth/firebaseConfig.js";
 import { API_URL } from "@/helpers/basicHelpers";
 import useVuelidate from "@vuelidate/core";
 import ButtonComponent from "./ButtonComponent.vue";
@@ -179,6 +179,35 @@ export default {
     changePopUpstate: null,
   },
   methods: {
+    async logOut() {
+      await signOut(auth)
+        .then(() => {
+          debugger;
+          this.$store.commit("setCurrentAuth", false);
+          this.$store.commit("setCurrentUser", null);
+          this.$store.commit("setCurrentCartLength", null);
+          this.$store.commit("setCurrentMail", null);
+          setInterval(() => {
+            this.$router
+              .push({
+                name: "login",
+                query: { email: this.userData.mail },
+              })
+              .then(() => {
+                this.$router.go();
+              });
+          }, 2000);
+          /*
+          this.$router.push({
+            name: "login",
+            query: { email: this.newMail },
+          });
+          */
+        })
+        .catch((error) => {
+          ("ALGO OCURRIO");
+        });
+    },
     async validateOriginalPwd() {
       debugger;
       let isPassword;
@@ -200,22 +229,23 @@ export default {
     },
     async putData() {
       //ACTUALIZAMOS PASSWORD EN FIREBASE
+      let status;
+      const datosUsuario = {
+        pwd: this.newPassword.newPwd,
+      };
       await updatePassword(auth.currentUser, this.newPassword.newPwd)
-        .then(() => {
-          ("ACTUALIZADO PWD!!");
+        .then(async () => {
+          const data = await axios
+            .put(`${API_URL}users/${this.userData.idUser}`, datosUsuario)
+            .then((res) => (status = res.status))
+            .catch((error) => error);
         })
         .catch((error) => {
           error;
         });
-      const datosUsuario = {
-        pwd: this.newPassword.newPwd,
-      };
+
       //LUEGO DE ACTUALIZAR EN FIREBAE, ACTUALIZAMOS EN NUESTRA BD
-      let status;
-      const data = await axios
-        .put(`${API_URL}users/${this.userData.idUser}`, datosUsuario)
-        .then((res) => (status = res.status))
-        .catch((error) => error);
+
       console.log(status);
       if (status === 200) {
         this.exito = true;
@@ -231,6 +261,7 @@ export default {
         await this.putData();
         if (this.exito === true) {
           this.$emit("changePopUpState", true);
+          await this.logOut();
 
           /*this.$router
             .push({
