@@ -33,7 +33,7 @@
             "
             v-model="this.oldMail"
             name="oldMail"
-            type="email"
+            type="text"
             id="newPwdDataInput"
             required
           />
@@ -54,7 +54,7 @@
             "
             name="newMail"
             v-model="this.newMail"
-            type="email"
+            type="text"
             id="confirmNewPwdDataInput"
             required
           />
@@ -118,6 +118,9 @@ export default {
   props: {
     userData: Object,
   },
+  emits: {
+    changePopUpState: null,
+  },
   validations() {
     return {
       pwd: {
@@ -144,6 +147,9 @@ export default {
         debugger;
         await this.putData();
         if (this.exito === true) {
+          this.$emit("changePopUpState", true);
+
+          /*
           this.$router
             .push({
               name: "Inicio",
@@ -151,7 +157,7 @@ export default {
             })
             .then(() => {
               this.$router.go();
-            });
+            });*/
         }
       }
       if (!(await this.validateOriginalPwd())) this.validPwd = false;

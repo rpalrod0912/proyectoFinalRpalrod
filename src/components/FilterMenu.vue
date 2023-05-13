@@ -13,6 +13,16 @@
 
     <section class="secColor">
       <h1>Colores</h1>
+      <label class="allColors">
+        <input
+          type="radio"
+          name="colorRadio"
+          @click="this.$emit('cambColor', 'Ninguno')"
+        />
+        <div>
+          <p>TODOS</p>
+        </div>
+      </label>
       <div class="colorDiv">
         <label
           v-for="(color, index) in colores"
@@ -27,7 +37,7 @@
             name="colorRadio"
             class="radioColor"
             :value="color"
-            @click="this.$emit('cambColor', color)"
+            @click="this.$emit('cambTalla', color)"
           />
           <span
             @click="changeColor(`#colorRadio${color.color}`, color)"
@@ -38,7 +48,16 @@
     </section>
     <section class="secTallas">
       <h1>Tallas</h1>
-
+      <label class="allColors">
+        <input
+          type="radio"
+          name="tallaRadio"
+          @click="this.$emit('cambTalla', 'Ninguno')"
+        />
+        <div>
+          <p>TODAS</p>
+        </div>
+      </label>
       <div class="colorDiv">
         <label
           v-for="(talla, index) in tallas"
@@ -47,7 +66,6 @@
           :key="index"
         >
           <input
-            v-model="this.salesCheck"
             type="radio"
             :id="`tallaRadio${talla}`"
             name="tallaRadio"
@@ -60,7 +78,7 @@
         </label>
       </div>
     </section>
-    <section class="secColor">
+    <section class="secButton secColor">
       <span class="labelForSale" for="saleCheck">
         <ButtonComponent
           @click="changeSaleState('#saleCheck')"
@@ -266,6 +284,38 @@ export default {
 <style lang="scss">
 @import "../helpers/mixings.scss";
 
+.allColors {
+  div {
+    list-style: none;
+    font-family: "Noto Sans";
+    font-style: normal;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    width: 100%;
+    background-color: #eeeeee;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    transition: 0.2s linear;
+  }
+  p {
+    @include fuenteSemiBold;
+    padding-left: 4rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    padding-right: 4rem;
+  }
+  input[type="radio"]:checked ~ div {
+    p {
+      @include fuenteBold;
+    }
+    transform: scale(1.06);
+    border: 1px solid #242424;
+  }
+}
 .saleButtonCheck {
   background-color: #5cbb5c;
   border: 1px solid #5cbb5c;
@@ -276,6 +326,7 @@ export default {
   background-color: #e92222;
   border: 1px solid #f34646;
   transition: 0.4s;
+  margin-bottom: 2rem;
 }
 button:focus {
   background-color: blue;

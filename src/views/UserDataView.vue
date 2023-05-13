@@ -1,8 +1,15 @@
 <template>
   <WhiteHeader class="headerPasarela" tipo="backHeader"></WhiteHeader>
+  <PopUpModal
+    :is-opened="true"
+    v-if="this.showPopUp"
+    msj="DATOS DE LA CUENTA CAMBIADOS CORRECTAMENTE"
+  ></PopUpModal>
+
   <section v-if="carga">
     <div class="showAccountInfo">
       <UserInformation
+        @changePopUpState="setToTrue"
         :userData="this.userData"
         class="selectedMenu"
       ></UserInformation>
@@ -57,12 +64,14 @@ import WhiteHeader from "@/components/WhiteHeader.vue";
 import RightDesktopMenu from "@/components/RightDesktopMenu.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import UserUpdatePassword from "@/components/UserUpdatePassword.vue";
+import PopUpModal from "@/components/popUpModal.vue";
 export default {
   name: "UserDataView",
   data() {
     return {
       userData: null,
       carga: false,
+      showPopUp: false,
     };
   },
   async mounted() {
@@ -84,6 +93,10 @@ export default {
         .catch((error) => error);
       this.userData = data;
     },
+    setToTrue(val) {
+      debugger;
+      this.showPopUp = val;
+    },
   },
   components: {
     WhiteHeader,
@@ -92,6 +105,7 @@ export default {
     RightDesktopMenu,
     ButtonComponent,
     UserUpdatePassword,
+    PopUpModal,
   },
 };
 </script>

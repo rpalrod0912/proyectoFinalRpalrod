@@ -1,8 +1,17 @@
 <template>
   <WhiteHeader class="headerPasarela" tipo="backHeader"></WhiteHeader>
+  <PopUpModal
+    :is-opened="true"
+    v-if="this.showPopUp"
+    msj="CORREO ELECTRÓNICO ACTUALIZADO CORRECTAMENTE"
+  ></PopUpModal>
   <section v-if="carga">
     <div class="showAccountInfo">
-      <UserUpdateMail :userData="this.userData" class="selectedMenu">
+      <UserUpdateMail
+        @changePopUpState="setToTrue"
+        :userData="this.userData"
+        class="selectedMenu"
+      >
       </UserUpdateMail>
     </div>
 
@@ -41,6 +50,7 @@ import RightDesktopMenu from "@/components/RightDesktopMenu.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import UserUpdatePassword from "@/components/UserUpdatePassword.vue";
 import UserUpdateMail from "@/components/UserUpdateMail.vue";
+import PopUpModal from "@/components/popUpModal.vue";
 export default {
   name: "UserUpdateMailView",
   data() {
@@ -65,6 +75,10 @@ export default {
         .catch((error) => error);
       this.userData = data;
     },
+    setToTrue(val) {
+      debugger;
+      this.showPopUp = val;
+    },
   },
   components: {
     WhiteHeader,
@@ -74,6 +88,7 @@ export default {
     ButtonComponent,
     UserUpdatePassword,
     UserUpdateMail,
+    PopUpModal,
   },
 };
 </script>

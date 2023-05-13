@@ -2,6 +2,7 @@
   <div>
     <form @submit.prevent="submitUpdate()" class="updateData" novalidate>
       <h1>DATOS PERSONALES</h1>
+
       <div class="genderDiv">
         <label for="gender">
           <input name="gender" type="radio" value="Hombre" />Hombre
@@ -176,6 +177,33 @@
           <p @click="focusInput('provinciaDataInput')">Provincia</p>
         </label>
       </div>
+      <div
+        v-if="
+          v$.nombre.$error ||
+          v$.apellidos.$error ||
+          v$.fechaNac.$error ||
+          v$.phone.$error
+        "
+        class="infoPanel"
+      >
+        <img src="../assets/warning.png" alt="imagenInformativa" />
+        <p>Por favor verifica que todos tus datos personales están rellenos.</p>
+      </div>
+      <div
+        v-if="
+          v$.ciudad.$error ||
+          v$.direccion.$error ||
+          v$.codPostal.$error ||
+          v$.provincia.$error
+        "
+        class="infoPanel"
+      >
+        <img src="../assets/warning.png" alt="imagenInformativa" />
+        <p>
+          Por favor verifica que todos lo campos de dirección de facturación
+          están rellenos.
+        </p>
+      </div>
       <input class="putDataSubmit" type="submit" value="GUARDAR" />
     </form>
   </div>
@@ -198,6 +226,7 @@ import {
   numeric,
   helpers,
 } from "@vuelidate/validators";
+import PopUpModal from "./popUpModal.vue";
 
 const passwordRegex = helpers.regex(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/
@@ -218,6 +247,7 @@ export default {
       ciudad: this.userData.ciudad,
       provincia: this.userData.provincia,
       reload: toHome,
+      showPopUp: false,
       exito: false,
     };
   },
@@ -254,6 +284,9 @@ export default {
   },
   props: {
     userData: Object,
+  },
+  emits: {
+    changePopUpState: null,
   },
   methods: {
     focusInput(id) {
@@ -295,21 +328,15 @@ export default {
         debugger;
         await this.putData();
         if (this.exito === true) {
-          this.$router
-            .push({
-              name: "Inicio",
-              query: { recienRegistrado: "SI" },
-            })
-            .then(() => {
-              this.$router.go();
-            });
+          debugger;
+          this.$emit("changePopUpState", true);
         }
       }
       console.log("ALGO ANDA MAL");
       console.log(this.v$.$error);
     },
   },
-  components: { ButtonComponent },
+  components: { ButtonComponent, PopUpModal },
 };
 </script>
 <style lang="scss" scoped>
@@ -322,7 +349,12 @@ export default {
 }
 
 @include updateDataForm;
-
+@include infoPanel;
+.infoPanel {
+  p {
+    max-width: 24rem;
+  }
+}
 .userOrderMenu {
   display: none;
 }

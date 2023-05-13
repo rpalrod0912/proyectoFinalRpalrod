@@ -41,6 +41,7 @@ export default {
 .outsideClick {
   position: absolute;
   width: 100%;
+  z-index: 1;
   background-color: #6e7272;
   opacity: 0.6;
   height: 363%;

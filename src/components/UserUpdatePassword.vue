@@ -175,6 +175,9 @@ export default {
   props: {
     userData: Object,
   },
+  emits: {
+    changePopUpstate: null,
+  },
   methods: {
     async validateOriginalPwd() {
       debugger;
@@ -227,14 +230,16 @@ export default {
         debugger;
         await this.putData();
         if (this.exito === true) {
-          this.$router
+          this.$emit("changePopUpState", true);
+
+          /*this.$router
             .push({
               name: "Inicio",
               query: { recienRegistrado: "SI" },
             })
             .then(() => {
               this.$router.go();
-            });
+            });*/
         }
       }
       if (!(await this.validateOriginalPwd())) this.isOgPwd = false;

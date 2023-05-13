@@ -99,10 +99,41 @@ export default {
   methods: {
     colorFilterState(val) {
       this.tipoFiltro = "color";
+      debugger;
       if (val === "Ninguno") {
-        this.filterValue = false;
+        //this.filterValue = false;
+        if (
+          this.tallaElegida &&
+          this.tallaElegida !== "Ninguno" &&
+          this.mostrarOfer
+        ) {
+          console.log(this.tallaElegida);
+          this.filterArray = this.imgArray.filter(
+            (objeto) =>
+              objeto.talla.includes(this.tallaElegida) && objeto.oferta !== null
+          );
+          console.log(this.filterArray);
+          this.filterValue = true;
+        } else if (this.tallaElegida && this.tallaElegida !== "Ninguno") {
+          console.log(this.tallaElegida);
+          this.filterArray = this.imgArray.filter((objeto) =>
+            objeto.talla.includes(this.tallaElegida)
+          );
+          this.filterValue = true;
+        } else if (this.mostrarOfer) {
+          this.filterArray = this.imgArray.filter(
+            (objeto) => objeto.oferta !== null
+          );
+          this.filterValue = true;
+        } else {
+          this.filterValue = false;
+        }
       } else {
-        if (this.tallaElegida && this.mostrarOfer) {
+        if (
+          this.tallaElegida &&
+          this.tallaElegida !== "Ninguno" &&
+          this.mostrarOfer
+        ) {
           console.log(this.tallaElegida);
           this.filterArray = this.imgArray.filter(
             (objeto) =>
@@ -112,7 +143,7 @@ export default {
           );
           console.log(this.filterArray);
           this.filterValue = true;
-        } else if (this.tallaElegida) {
+        } else if (this.tallaElegida && this.tallaElegida !== "Ninguno") {
           console.log(this.tallaElegida);
           this.filterArray = this.imgArray.filter(
             (objeto) =>
@@ -143,22 +174,28 @@ export default {
       }
     },
     saleFilterState(val) {
+      debugger;
       this.tipoFiltro = "oferta";
       if (val) {
-        if (this.colorElegido && this.tallaElegida) {
+        if (
+          this.colorElegido &&
+          this.colorElegido !== "Ninguno" &&
+          this.tallaElegida &&
+          this.tallaElegida !== "Ninguno"
+        ) {
           this.filterArray = this.imgArray.filter(
             (objeto) =>
               objeto.talla.includes(this.tallaElegida) &&
               objeto.color.includes(this.colorElegido.color) &&
               objeto.oferta !== null
           );
-        } else if (this.colorElegido) {
+        } else if (this.colorElegido && this.colorElegido !== "Ninguno") {
           this.filterArray = this.imgArray.filter(
             (objeto) =>
               objeto.color.includes(this.colorElegido.color) &&
               objeto.oferta !== null
           );
-        } else if (this.tallaElegida) {
+        } else if (this.tallaElegida && this.tallaElegida !== "Ninguno") {
           this.filterArray = this.imgArray.filter(
             (objeto) =>
               objeto.talla.includes(this.tallaElegida) && objeto.oferta !== null
@@ -172,9 +209,9 @@ export default {
           this.filterValue = true;
         }
       } else {
-        if (this.tallaElegida) {
+        if (this.tallaElegida && this.tallaElegida !== "Ninguno") {
           this.sizeFilterState(this.tallaElegida);
-        } else if (this.colorElegido) {
+        } else if (this.colorElegido && this.tallaElegida !== "Ninguno") {
           this.colorFilterState(this.colorElegido);
         } else {
           this.filterValue = false;
@@ -183,12 +220,41 @@ export default {
     },
     sizeFilterState(tallaVal) {
       this.tipoFiltro = "tallas";
-
+      debugger;
       const tallasRopa = ["S", "M", "L", "XL"];
       if (tallaVal === "Ninguno") {
-        this.filterValue = false;
+        debugger;
+        //this.filterValue = false;
+        if (
+          this.colorElegido &&
+          this.colorElegido !== "Ninguno" &&
+          this.mostrarOfer
+        ) {
+          this.filterArray = this.imgArray.filter(
+            (objeto) =>
+              objeto.color.includes(this.colorElegido.color) &&
+              objeto.oferta !== null
+          );
+          this.filterValue = true;
+        } else if (this.colorElegido && this.colorElegido !== "Ninguno") {
+          this.filterArray = this.imgArray.filter((objeto) =>
+            objeto.color.includes(this.colorElegido.color)
+          );
+          this.filterValue = true;
+        } else if (this.mostrarOfer) {
+          this.filterArray = this.imgArray.filter(
+            (objeto) => objeto.oferta !== null
+          );
+          this.filterValue = true;
+        } else {
+          this.filterValue = false;
+        }
       } else if (!tallasRopa.includes(tallaVal)) {
-        if (this.colorElegido && this.mostrarOfer) {
+        if (
+          this.colorElegido &&
+          this.colorElegido !== "Ninguno" &&
+          this.mostrarOfer
+        ) {
           this.filterArray = this.imgArray.filter(
             (objeto) =>
               objeto.talla.includes(tallaVal) &&
@@ -196,7 +262,7 @@ export default {
               objeto.oferta !== null
           );
           this.filterValue = true;
-        } else if (this.colorElegido) {
+        } else if (this.colorElegido && this.colorElegido !== "Ninguno") {
           this.filterArray = this.imgArray.filter(
             (objeto) =>
               objeto.talla.includes(tallaVal) &&
@@ -218,14 +284,18 @@ export default {
           this.filterValue = true;
         }
       } else {
-        if (this.colorElegido && this.mostrarOfer) {
+        if (
+          this.colorElegido &&
+          this.colorElegido !== "Ninguno" &&
+          this.mostrarOfer
+        ) {
           this.filterArray = this.imgArray.filter(
             (objeto) =>
               objeto.talla.includes(tallaVal) &&
               objeto.color.includes(this.colorElegido.color) &&
               objeto.oferta !== null
           );
-        } else if (this.colorElegido) {
+        } else if (this.colorElegido && this.colorElegido !== "Ninguno") {
           this.filterArray = this.imgArray.filter(
             (objeto) =>
               objeto.talla.includes(tallaVal) &&
@@ -266,6 +336,7 @@ export default {
     },
     changeParentTalla(val) {
       console.log(val);
+
       this.tallaElegida = val;
       this.sizeFilterState(val);
     },
