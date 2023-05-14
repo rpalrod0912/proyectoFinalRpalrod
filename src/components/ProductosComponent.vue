@@ -44,6 +44,7 @@ export default {
   created() {
     console.log(this.carga);
   },
+
   name: "ProductosComponent",
   props: {
     carga: {

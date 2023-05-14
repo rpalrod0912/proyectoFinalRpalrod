@@ -80,7 +80,12 @@
                 />
               </section>
               <section class="prodOptions">
-                <div class="optionContainer"></div>
+                <div class="optionContainer">
+                  <span
+                    class="spanHeight"
+                    :style="{ backgroundColor: item.color.estilo }"
+                  ></span>
+                </div>
                 <div class="optionContainer">
                   {{ item.talla }}
                 </div>
@@ -187,45 +192,7 @@
                 />
               </section>
             </div>
-            <!--
-<div class="imgContainer">
-              <img :src="this.wishListData[index].imagen" />
-            </div>
-            <div class="options">
-              <section class="carrPSec1">
-                <p>
-                  {{ item.productName }}
-                </p>
-                <img
-                  @click="this.deleteItem(index)"
-                  src="../assets/trash-can.png"
-                />
-              </section>
-              <section class="prodOptions">
-                <div class="optionContainer"></div>
-                <div class="optionContainer">
-                  {{ item.talla }}
-                </div>
-                <div class="optionContainer">
-                  {{ item.cantidad }}
-                </div>
-              </section>
-              <section class="precioProd">
-                <p class="precio" v-if="this.wishListData[index].oferta">
-                  {{
-                    applySale(
-                      this.wishListData[index].precio,
-                      this.wishListData[index].oferta
-                    ) * item.cantidad
-                  }}
-                  €
-                </p>
-                <p class="precio" v-else>
-                  {{ this.productsData[index].precio * item.cantidad }} €
-                </p>
-              </section>
-            </div>
-          --></div>
+          </div>
 
           <ButtonComponent
             class="colorBoton mgBottom"
@@ -233,14 +200,14 @@
           ></ButtonComponent>
         </div>
       </div>
+      <div v-else class="contenidoCarrito">
+        <p class="textoP">TU WISHLIST ESTA VACÍA</p>
+        <button @click="seeProducts()" class="seeProductsButton">
+          VER PRODUCTOS
+        </button>
+      </div>
     </div>
 
-    <div v-else class="contenidoCarrito">
-      <p class="textoP">TU WISHLIST ESTA VACÍA</p>
-      <button @click="seeProducts()" class="seeProductsButton">
-        VER PRODUCTOS
-      </button>
-    </div>
     <div @click="menuAction(false)" class="greyContainer"></div>
   </ul>
 </template>
@@ -539,6 +506,12 @@ export default {
 @import "../helpers/mixings.scss";
 
 @include headerIconHover;
+
+.spanHeight {
+  width: 4rem;
+  height: 0.6rem;
+  box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
+}
 .colorBoton {
   @include loginButton("green", "white", "2rem");
   height: 1rem;
@@ -617,6 +590,9 @@ export default {
       padding-top: 3em;
       padding-bottom: 3rem;
       .optionContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         @include fuenteSemiBold;
         height: 1.5rem;
         box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);

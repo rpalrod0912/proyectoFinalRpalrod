@@ -11,6 +11,30 @@
         <div class="productoInfo1">
           <h2 class="textoH2">{{ this.productData.nombre }}</h2>
           <h2 class="textoH2Bold">{{ this.productData.precio }} €</h2>
+          <section class="secColor">
+            <div class="colorDiv">
+              <label
+                v-for="(color, index) in this.productColors"
+                class="labelColorButton"
+                for="colorRadio"
+                :key="index"
+              >
+                <!--Si ponemos atributo name A UN NOMBRE QUE No tengan atributos en comin se cambiara a poderser marcar todos-->
+                <input
+                  type="radio"
+                  :id="`colorRadio${color.color}`"
+                  name="colorRadio"
+                  class="radioColor"
+                  :value="color"
+                />
+                <span
+                  @click="changeColor(`#colorRadio${color.color}`, color)"
+                  :style="{ backgroundColor: color.estilo }"
+                ></span>
+              </label>
+            </div>
+          </section>
+
           <div class="dropdown">
             <label class="dropdown--label">
               <input type="checkbox" class="dropdown--checkbox" />
@@ -46,7 +70,10 @@
         </div>
         <input type="checkbox" v-model="this.added" id="popMenu__toggle" />
         <ul id="menuBox" class="popMenu__box">
-          <div v-if="tallaElegida" class="popMenu__item textoGuresoh1">
+          <div
+            v-if="tallaElegida && colorElegido"
+            class="popMenu__item textoGuresoh1"
+          >
             <div @click="añadirProd()" class="hoverBox">
               <img class="closeModal" src="@/assets/DeleteIcon.png" />
             </div>
@@ -97,20 +124,47 @@ export default {
     await this.getProductData(this.productId);
 
     this.productData = JSON.parse(JSON.stringify(this.datosProduct));
-    console.log(this.productData);
+    this.productColors = this.filteredColors();
+
     this.carga = true;
   },
   data() {
     return {
       added: false,
       tallaElegida: null,
+      colorElegido: null,
       productId: null,
       carga: false,
       productData: null,
       datosProduct: null,
       carritoIsOpened: this.$store.state.currentFilterMenu,
+      colores: [
+        {
+          color: "Blanco",
+          estilo: "white",
+        },
+        {
+          color: "Negro",
+          estilo: "black",
+        },
+        {
+          color: "Azul",
+          estilo: "blue",
+        },
+        {
+          color: "Rojo",
+          estilo: "red",
+        },
+        {
+          color: "Verde",
+          estilo: "green",
+        },
+      ],
+      productColors: null,
+      //prodColors: this.filteredColors(),
     };
   },
+
   components: {
     WhiteHeader,
     LoadingSpinner,
@@ -119,6 +173,15 @@ export default {
     LikeButton,
   },
   methods: {
+    changeColor(name, color) {
+      this.colorElegido = color;
+      document.querySelector(name).checked = true;
+    },
+    filteredColors() {
+      return this.colores.filter((color) =>
+        this.productData.color.includes(color.color)
+      );
+    },
     añadirCarro() {
       let carrito = JSON.parse(localStorage.getItem("userProducts"));
       if (carrito === null) {
@@ -128,23 +191,38 @@ export default {
       const datosPrd = {
         productName: this.productData.nombre,
         talla: this.tallaElegida,
-        color: [],
+        color: this.colorElegido,
       };
 
       console.log(carrito);
       const productAlreadyInCart = carrito.cesta.findIndex((producto) => {
-        return producto.productName === datosPrd.productName;
+        return (
+          producto.productName === datosPrd.productName &&
+          producto.talla === datosPrd.talla &&
+          datosPrd.color.color === producto.color.color
+        );
       });
       debugger;
       console.log(datosPrd.talla);
       if (productAlreadyInCart !== -1) {
-        if (carrito.cesta[productAlreadyInCart].talla == datosPrd.talla) {
+        debugger;
+        console.log(carrito.cesta[productAlreadyInCart].talla);
+        console.log(datosPrd.talla);
+        console.log(carrito.cesta[productAlreadyInCart].color);
+        console.log(datosPrd.color);
+
+        if (
+          carrito.cesta[productAlreadyInCart].talla === datosPrd.talla &&
+          carrito.cesta[productAlreadyInCart].color.color ===
+            datosPrd.color.color
+        ) {
           carrito.cesta[productAlreadyInCart].cantidad += 1;
         } else {
           carrito.cesta.push({
             productName: this.productData.nombre,
             cantidad: 1,
             talla: datosPrd.talla,
+            color: datosPrd.color,
           });
         }
       } else {
@@ -152,6 +230,7 @@ export default {
           productName: this.productData.nombre,
           cantidad: 1,
           talla: datosPrd.talla,
+          color: datosPrd.color,
         });
       }
       localStorage.setItem("userProducts", JSON.stringify(carrito));
@@ -180,6 +259,7 @@ export default {
       return data;
     },
   },
+
   watch: {
     "$store.state.currentFilterMenu": {
       deep: true,
@@ -200,6 +280,73 @@ export default {
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 
+.secColor {
+  @include fuenteSemiBold;
+  @include flexInputDpNone;
+  border: 2px solid #dee5ff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px #dee5ff;
+  display: block;
+  max-width: 18.7rem;
+  background: #fff;
+  color: #262e47;
+  font-weight: bold;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+
+  margin-bottom: 2rem;
+  margin-top: 0rem;
+
+  .colorDiv {
+    width: 100%;
+  }
+  div {
+    margin-bottom: 1rem;
+  }
+}
+.labelColorButton {
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  cursor: pointer;
+  span {
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    background: #eeeeee;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    transition: ease 0.3s;
+  }
+  span:hover {
+    padding: 10px;
+  }
+  input:checked + span {
+    position: absolute;
+    padding: 7px;
+
+    top: 50%;
+    left: 50%;
+    border: 1px solid black;
+  }
+  input:checked + button {
+    background-color: #e7e7e7;
+  }
+}
 .hide {
   display: none;
 }
@@ -375,5 +522,8 @@ body {
       }
     }
   }
+}
+#popMenu__toggle {
+  display: none;
 }
 </style>

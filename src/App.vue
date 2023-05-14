@@ -1,12 +1,12 @@
 <template>
   <!--<img alt="Vue logo" src="./assets/logo.png" />-->
-
   <router-view :key="$route.fullPath" />
 </template>
 
 <script>
 /*eslint-disable */
 import axios from "axios";
+import WhiteHeader from "./components/WhiteHeader.vue";
 export default {
   async mounted() {
     debugger;
@@ -63,6 +63,7 @@ export default {
         });
     },
   },
+  components: { WhiteHeader },
 };
 </script>
 

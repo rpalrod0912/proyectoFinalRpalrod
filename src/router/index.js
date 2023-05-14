@@ -18,6 +18,7 @@ const routes = [
     name: "login",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/LoginApp.vue"),
+    props: true,
   },
   {
     path: "/register",
@@ -33,6 +34,7 @@ const routes = [
   },
   {
     path: "/verProducto",
+
     name: "product",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/VerProductoApp.vue"),
