@@ -599,8 +599,12 @@ export default {
     margin: 2rem 1.2rem 2rem;
     cursor: pointer;
     img {
+      width: 6rem;
+      height: 29%;
+      /*
       width: 10rem;
       height: 6rem;
+      */
     }
   }
   .options {
@@ -620,6 +624,7 @@ export default {
     }
     .prodOptions {
       display: flex;
+      flex-wrap: wrap;
       //flex-wrap: wrap;
       padding-top: 3em;
       padding-bottom: 3rem;
@@ -667,6 +672,14 @@ export default {
 @media (min-width: 755px) and (max-width: 1174px) {
   .cartProduct {
     right: 0.5rem;
+
+    .imgContainer {
+      img {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+
     .options {
       .carrPSec1 {
         p {
@@ -855,6 +868,59 @@ export default {
     left: 31% !important;
   }
 }
+
+@media (max-width: 330px) {
+  .CarritoMenu__box {
+    .contenidoCarrito {
+      .totalPrice {
+        .total {
+          width: 90%;
+        }
+        padding-left: 2rem;
+      }
+      .cartProduct {
+        padding-left: 3rem;
+        .options {
+          .carrPSec1 {
+            img {
+              right: -1.6rem;
+              //right: -3rem;
+            }
+          }
+          .precioProd {
+            .precio {
+              right: -1.6rem;
+
+              //right: -3rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  .cartProduct .options .carrPSec1 {
+    right: -3rem;
+  }
+  .cartProduct .options .precioProd .precio {
+    right: -3rem;
+  }
+}
+@media (max-width: 545px) {
+  .CarritoMenu__box {
+    .contenidoCarrito {
+      .cartProduct {
+        .imgContainer {
+          margin-left: 2.4rem;
+          img {
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (min-width: 600px) and (max-width: 899px) {
   .CarritoMenu__box {
     width: 50%;
