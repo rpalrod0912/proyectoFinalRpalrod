@@ -90,7 +90,13 @@
                   {{ item.talla }}
                 </div>
                 <div class="optionContainer">
+                  <img
+                    class="minusQuantity"
+                    src="../assets/minus-sign.png"
+                    @click="this.modifyCantity('delete', index)"
+                  />
                   {{ item.cantidad }}
+                  <p @click="this.modifyCantity('add', index)">+</p>
                 </div>
               </section>
               <section class="precioProd">
@@ -318,6 +324,22 @@ export default {
     authentication: Boolean,
   },
   methods: {
+    modifyCantity(operation, itemIndex) {
+      const cantidad = this.carrito.cesta[itemIndex].cantidad;
+      if (operation === "delete") {
+        debugger;
+        if (cantidad > 1) {
+          this.carrito.cesta[itemIndex].cantidad -= 1;
+          localStorage.setItem("userProducts", JSON.stringify(this.carrito));
+        }
+        return;
+      }
+      if (operation === "add") {
+        console.log("sumando");
+        this.carrito.cesta[itemIndex].cantidad += 1;
+        localStorage.setItem("userProducts", JSON.stringify(this.carrito));
+      }
+    },
     tramitarPedido() {
       if (this.authentication === false) {
         this.$router.push("/cartLogin");
@@ -507,6 +529,18 @@ export default {
 
 @include headerIconHover;
 
+.minusQuantity {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.quantityOptions {
+  background-color: black;
+  height: 0.1rem;
+  width: 0.6rem;
+  cursor: pointer;
+}
+
 .spanHeight {
   width: 4rem;
   height: 0.6rem;
@@ -593,6 +627,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        justify-content: space-around;
         @include fuenteSemiBold;
         height: 1.5rem;
         box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
