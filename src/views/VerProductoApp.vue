@@ -479,6 +479,7 @@ body {
     display: flex;
     flex-direction: column;
     @include fuenteSemiBold;
+    z-index: -1;
     h2,
     ul {
       padding-bottom: 1.5rem;

@@ -8,6 +8,12 @@
 
   <label class="headerHoverLabel" @click="menuAction(true)" for="checkBusqueda">
     <img class="headerHoverLabel" :src="this.modo" />
+    <div
+      class="carritoNumber headerHoverLabel"
+      v-if="this.carrito.cesta.length > 0"
+    >
+      <p>{{ this.cartLength }}</p>
+    </div>
   </label>
 
   <ul class="CarritoMenu__box">
@@ -25,7 +31,7 @@
             class="grupoFlex"
           >
             <img src="../assets/bolso.png" />
-            <p>CARRITO ({{ carrito.cesta.length }})</p>
+            <p>CARRITO ({{ this.cartLength }})</p>
           </div>
 
           <div v-else class="grupoFlex">
@@ -309,6 +315,7 @@ export default {
       }
       this.carga = true;
     }
+    this.cartLength = this.cartQuantity();
     debugger;
     console.log(this.carrito);
 
@@ -324,6 +331,14 @@ export default {
     authentication: Boolean,
   },
   methods: {
+    cartQuantity() {
+      debugger;
+      let cantidad = 0;
+      this.carrito.cesta.forEach((prod) => {
+        cantidad += prod.cantidad;
+      });
+      return cantidad;
+    },
     modifyCantity(operation, itemIndex) {
       const cantidad = this.carrito.cesta[itemIndex].cantidad;
       if (operation === "delete") {
@@ -477,6 +492,7 @@ export default {
       carga: false,
       isOpened: false,
       token: null,
+      cartLength: null,
     };
   },
   watch: {
@@ -497,6 +513,7 @@ export default {
           const prodData = await this.getProductData(objeto.productName);
           dataArr.push(prodData);
         }
+        this.cartLength = this.cartQuantity();
         this.productsData = dataArr;
         this.carga = true;
       },
@@ -529,6 +546,23 @@ export default {
 
 @include headerIconHover;
 
+.carritoNumber {
+  background-color: #242424;
+  border-radius: 100%;
+  width: 1.3rem;
+  display: flex;
+  height: 1.3rem;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  bottom: 3rem;
+  left: 2.8rem;
+  box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
+  p {
+    @include fuenteSemiBold;
+    color: white;
+  }
+}
 .minusQuantity {
   width: 0.9rem;
   height: 0.9rem;
