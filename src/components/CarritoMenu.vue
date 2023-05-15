@@ -425,6 +425,7 @@ export default {
       this.$router.push("/products");
     },
     menuAction(bool) {
+      debugger;
       const pageBody = document.querySelector("body");
       document.querySelector("#CarritoMenu__toggle").checked = bool;
       if (bool === true) {

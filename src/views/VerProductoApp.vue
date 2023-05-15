@@ -95,6 +95,31 @@
         <h2>DESCRIPCIÓN</h2>
         <p>{{ this.productData.descripcion }}</p>
       </section>
+      <section class="comentariosSec descripcionProd">
+        <h2>OPINIONES({{ this.productData.comentarios.length }})</h2>
+        <div
+          v-for="(comentario, index) in this.productData.comentarios"
+          :key="index"
+          class="comentarioContainer"
+        >
+          <h1>{{ toTitleCase(comentario.userNameLastName) }}</h1>
+          <p>
+            {{ comentario.text }}
+          </p>
+        </div>
+        <p v-if="this.auth"></p>
+        <p v-else>NO LOGEADO</p>
+        <div class="comentarioContainer">
+          <textarea
+            id="w3review"
+            name="w3review"
+            rows="4"
+            cols="50"
+            v-model="comentario"
+          ></textarea>
+          <button @click="postComments()">Enviar</button>
+        </div>
+      </section>
     </div>
     <div v-else><LoadingSpinner class="spinner"></LoadingSpinner></div>
   </main>
@@ -103,11 +128,11 @@
 </template>
 <script>
 /*eslint-disable */
+import { auth, onAuthStateChanged } from "../auth/firebaseConfig.js";
 import AppFooter from "@/components/AppFooter.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import axios from "axios";
-
 import WhiteHeader from "@/components/WhiteHeader.vue";
 import { API_URL, scrollTop } from "@/helpers/basicHelpers";
 import LikeButton from "@/components/LikeButton.vue";
@@ -116,6 +141,26 @@ export default {
   name: "VerProductoApp",
   añadirProd() {},
   async created() {
+    debugger;
+    this.auth = false;
+    let self = this;
+    auth.onAuthStateChanged(async function (user) {
+      debugger;
+      console.log(user);
+      if (user !== null) {
+        debugger;
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        // ...
+        self.auth = true;
+        self.userData = await self.findUserByMail(user.email);
+      } else {
+        // User is signed out
+        // ...
+        self.auth = false;
+      }
+    });
+
     scrollTop();
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
@@ -125,11 +170,16 @@ export default {
 
     this.productData = JSON.parse(JSON.stringify(this.datosProduct));
     this.productColors = this.filteredColors();
-
+    console.log(this.productData);
     this.carga = true;
+    console.log(this.auth);
+    console.log(this.idUser);
   },
   data() {
     return {
+      comentario: "",
+      userData: null,
+      auth: null,
       added: false,
       tallaElegida: null,
       colorElegido: null,
@@ -173,6 +223,26 @@ export default {
     LikeButton,
   },
   methods: {
+    async postComments() {
+      const objetoComentario = {
+        text: this.comentario,
+        productId: this.productData.idProduct,
+        userId: this.userData.idUser,
+      };
+      const data = axios
+        .post(`${API_URL}comments`, objetoComentario)
+        .then((res) => console.log(res));
+    },
+    toTitleCase(str) {
+      str = str
+        .toLowerCase()
+        .split(" ")
+        .map(function (palabra) {
+          return palabra.charAt(0).toUpperCase() + palabra.slice(1);
+        });
+
+      return str.join(" ");
+    },
     changeColor(name, color) {
       this.colorElegido = color;
       document.querySelector(name).checked = true;
@@ -202,10 +272,8 @@ export default {
           datosPrd.color.color === producto.color.color
         );
       });
-      debugger;
       console.log(datosPrd.talla);
       if (productAlreadyInCart !== -1) {
-        debugger;
         console.log(carrito.cesta[productAlreadyInCart].talla);
         console.log(datosPrd.talla);
         console.log(carrito.cesta[productAlreadyInCart].color);
@@ -258,6 +326,14 @@ export default {
         .then((res) => (this.datosProduct = res.data));
       return data;
     },
+    async findUserByMail(mail) {
+      const data = await axios
+        .get(`${API_URL}users/email/${mail}`)
+        .then((res) => (this.datosProduct = res.data));
+      debugger;
+      console.log(data);
+      return data;
+    },
   },
 
   watch: {
@@ -267,10 +343,10 @@ export default {
         debugger;
 
         if (newVal) {
-          document.querySelector(".dropdown").style.display = "none";
+          document.querySelector(".productoInfo1").style.zIndex = "-1";
         }
         if (!newVal) {
-          document.querySelector(".dropdown").style.display = "flex";
+          document.querySelector(".productoInfo1").style.zIndex = "0";
         }
       },
     },
@@ -279,6 +355,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
+.contenedorImagenes {
+  .comentariosSec {
+    margin-top: 3rem;
+    padding-bottom: 1rem;
+    h2 {
+      padding-bottom: 2.5rem;
+    }
+  }
+}
 
 .secColor {
   @include fuenteSemiBold;
@@ -479,7 +564,7 @@ body {
     display: flex;
     flex-direction: column;
     @include fuenteSemiBold;
-    z-index: -1;
+    //z-index: -1;
     h2,
     ul {
       padding-bottom: 1.5rem;
@@ -493,6 +578,42 @@ body {
   .spinner {
     display: flex;
     margin: 0 auto;
+  }
+}
+
+.descripcionProd {
+  .comentarioContainer {
+    width: 100%;
+    padding: 8px;
+    margin: 0.4rem;
+    background-color: #f9f9f9;
+    border: none;
+    /* height: 1rem; */
+    padding-top: 1.7rem;
+    border-bottom: 1px solid #c8c8c8;
+    transition: 0.07s;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    h1 {
+      @include fuenteBold;
+    }
+    p {
+      margin-top: 3rem;
+      padding-bottom: 1.8rem;
+      font-size: 1.2rem;
+    }
+    h1,
+    p {
+      padding-left: 1rem;
+    }
+    textArea {
+      background-color: #ececec;
+      border-radius: 3px;
+      outline: none;
+      border: none;
+      resize: none;
+      @include fuenteRegular;
+    }
   }
 }
 

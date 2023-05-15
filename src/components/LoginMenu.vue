@@ -130,6 +130,7 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 export default {
   /*eslint-disable */
   async created() {
+    debugger;
     if (this.color === "Dark") {
       this.modo = this.UserOscuro;
       this.deleteIcon = this.deleteOscuro;
@@ -137,6 +138,7 @@ export default {
       this.modo = this.UserClaro;
       this.deleteIcon = this.deleteClaro;
     }
+    console.log(this.userData);
     console.log(this.authentication);
   },
   data() {
@@ -215,11 +217,11 @@ export default {
           // Some error occurred.
         });
     },
-    logOut() {
-      signOut(auth)
+    async logOut() {
+      debugger;
+      await signOut(auth)
         .then(() => {
-          this.authentication = false;
-          this.$store.commit("setCurrentAuth", this.authentication);
+          this.$store.commit("setCurrentAuth", false);
           this.$store.commit("setCurrentUser", null);
           this.$store.commit("setCurrentCartLength", null);
           this.$store.commit("setCurrentMail", null);
@@ -228,6 +230,7 @@ export default {
         .catch((error) => {
           ("ALGO OCURRIO");
         });
+      debugger;
     },
     menuAction(bool) {
       document.querySelector("#RightMenu__toggle").checked = bool;

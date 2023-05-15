@@ -50,9 +50,12 @@ export default {
   },
   data() {
     return {
+      isOpened: false,
+
       colorBoton: null,
     };
   },
+
   name: "MenuGeneral",
   props: {
     color: "String",
@@ -64,7 +67,14 @@ export default {
       pageBody.classList.toggle("bodyStyle");
     },
     menuAction(bool) {
+      debugger;
       document.querySelector("#menu__toggle").checked = bool;
+      if (bool === true) {
+        this.isOpened = true;
+      }
+      if (bool === false) {
+        this.isOpened = false;
+      }
       this.check();
     },
   },
@@ -74,6 +84,9 @@ export default {
         document.documentElement.style.setProperty("--baseColor", "white");
         document.documentElement.style.setProperty("--secondColor", "black");
       }
+    },
+    isOpened: function (newVal, oldVal) {
+      this.$store.commit("setCurrentFilterMenu", newVal);
     },
   },
 };

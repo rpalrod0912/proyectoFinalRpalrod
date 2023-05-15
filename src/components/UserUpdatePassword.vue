@@ -182,7 +182,6 @@ export default {
     async logOut() {
       await signOut(auth)
         .then(() => {
-          debugger;
           this.$store.commit("setCurrentAuth", false);
           this.$store.commit("setCurrentUser", null);
           this.$store.commit("setCurrentCartLength", null);
@@ -197,12 +196,6 @@ export default {
                 this.$router.go();
               });
           }, 2000);
-          /*
-          this.$router.push({
-            name: "login",
-            query: { email: this.newMail },
-          });
-          */
         })
         .catch((error) => {
           ("ALGO OCURRIO");
