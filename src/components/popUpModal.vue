@@ -4,6 +4,7 @@
     @click="
       this.isOpen = false;
       this.$emit('ventanaError', false);
+      this.$emit('ventanaBorrarComment', false);
     "
     class="outsideClick"
   ></div>
@@ -16,6 +17,7 @@
         @click="
           this.isOpen = false;
           this.$emit('ventanaError', false);
+          this.$emit('ventanaBorrarComment', false);
         "
         class="hoverBox"
       >
@@ -25,6 +27,13 @@
       <img v-if="isError" src="@/assets/cancel.png" />
       <img v-else src="@/assets/checked.png" />
       <p>{{ msj }}</p>
+      <button
+        v-if="isOperation"
+        @click="this.$emit('ventanaDeleteComment', true)"
+        class="buttonStyle"
+      >
+        BORRAR
+      </button>
     </div>
   </ul>
 </template>
@@ -41,9 +50,12 @@ export default {
     msj: String,
     isOpened: Boolean,
     isError: Boolean,
+    isOperation: Boolean,
   },
   emits: {
     ventanaError: null,
+    ventanaBorrarComment: null,
+    ventanaDeleteComment: null,
   },
   watch: {
     isOpened: function (newVal, OldVal) {
@@ -58,6 +70,15 @@ export default {
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 @include popUpModal("#popMenu__toggle", ".menu__btn", ".popMenu__box");
+
+.buttonStyle {
+  @include buttonStyle;
+  margin-top: 2.4rem;
+  margin-bottom: -2rem;
+}
+.buttonStyle:hover {
+  transform: scale(1.1);
+}
 .popMenu__item {
   display: flex;
   align-items: center;
