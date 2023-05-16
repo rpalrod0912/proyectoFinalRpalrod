@@ -1,0 +1,123 @@
+.orderUl {
+  h1 {
+    @include fuenteSemiBold;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1400px) {
+  .comprasMain {
+    .orderUl {
+      width: 60%;
+      .orderProduct .options .orderPrice {
+        padding-left: 8rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 686px) and (max-width: 899px) {
+  .comprasMain {
+    .orderUl {
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: 580px) and (max-width: 685px) {
+  .comprasMain {
+    justify-content: center;
+    .orderUl {
+      width: 80%;
+      .orderProduct .options .orderPrice {
+        padding-left: 4rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 579px) {
+  .comprasMain {
+    justify-content: center;
+    .orderUl {
+      width: 80%;
+      .orderProduct {
+        .options {
+          flex-direction: column;
+          align-items: center;
+          .carrPSec1 {
+            align-items: center;
+          }
+        }
+        .orderPrice {
+          padding-left: 0rem;
+        }
+        .orderDiv {
+          align-items: center;
+          flex-direction: column;
+        }
+        .separadorBlack {
+          width: 15rem;
+        }
+      }
+    }
+  }
+}
+
+.comprasMain {
+  display: flex;
+  min-height: 100vh;
+}
+.orderUl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10rem;
+  width: 70%;
+}
+.orderDiv {
+  display: flex;
+  align-items: center;
+}
+
+.separadorBlack {
+  width: 100%;
+  border: 0.1px solid #aca8a8;
+}
+.orderProduct {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .options {
+    display: flex;
+    padding-left: 1rem;
+    .carrPSec1 {
+      display: flex;
+      flex-direction: column;
+    }
+    .orderPrice {
+      padding-left: 12rem;
+    }
+    p {
+      @include fuenteSemiBold;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+  }
+  .imgContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 140px;
+    height: 200px;
+    background-color: beige;
+    border-radius: 18px;
+    margin: 2rem 1.2rem 2rem;
+    cursor: pointer;
+    img {
+      width: 10rem;
+      height: 6rem;
+    }
+  }
+}

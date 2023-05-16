@@ -1,5 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap");
 
+@mixin buttonStyle {
+  background-color: #e32636;
+  border-radius: 10px;
+  transition: 0.4s;
+  color: white;
+  border: 1px solid #e32636;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.8rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  cursor: pointer;
+}
+
 //Boton usado de codepen:https://codepen.io/robeen/pen/PbvJjy
 @mixin infoPanel {
   .infoPanel {

@@ -110,50 +110,6 @@ export default {
 </script>
 <style lang="scss">
 @import "../helpers/mixings.scss";
-
 @include inputTypeSubmit;
-.showAccountInfo {
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 600;
-  display: flex;
-  width: 70%;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  .colorButton {
-    background-color: white;
-    p {
-      color: #242424;
-    }
-    transition: 0.4s;
-    border-radius: 1px solid #242424;
-  }
-  .colorButton:hover {
-    background-color: #242424;
-    scale: (1.03);
-    p {
-      color: white;
-    }
-    border-radius: 1px solid #242424;
-  }
-}
-@media (max-width: 899px) {
-  .showAccountInfo {
-    width: 100%;
-  }
-}
-.saveDataButton {
-  width: 30rem;
-  margin-bottom: 1rem;
-}
-.selectedMenu {
-  @include fuenteSemiBold;
-
-  //width: 70%;
-  padding-top: 10rem;
-}
-section {
-  display: flex;
-}
+@import "../styles/views/UserDataView.scss";
 </style>

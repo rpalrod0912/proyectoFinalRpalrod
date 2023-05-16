@@ -416,38 +416,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.contenedorLi {
-  width: 3.5rem;
-  background-color: aliceblue;
-  display: flex;
-  justify-content: center;
-  margin: 1rem;
-  border-radius: 50%;
-  border: 2px solid black;
-  cursor: pointer;
-}
-.pagination {
-  display: flex;
-  justify-content: center;
-
-  list-style: none;
-  li {
-    cursor: pointer;
-
-    @include fuenteSemiBold;
-    margin: 1rem;
-  }
-}
-.liSeleccionado {
-  color: aliceblue;
-  background-color: black;
-
-  //font-size: 2rem;
-}
+@import "../styles/views/ProductosApp.scss";
 </style>

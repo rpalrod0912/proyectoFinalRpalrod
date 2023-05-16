@@ -13,6 +13,15 @@
     :is-opened="true"
     msj="¡MUCHAS GRACIAS POR COMPARTIR TU OPINIÓN!"
   ></PopUpModal>
+  <PopUpModal
+    @ventanaBorrarComment="setPostError"
+    @ventanaDeleteComment="deleteUserOpinion"
+    v-if="deleteComment"
+    :is-opened="this.deleteComment"
+    :isOperation="true"
+    msj="¿Seguro que quieres borrar tu opinión?"
+  >
+  </PopUpModal>
   <main>
     <div @click="añadirProd()" v-if="added" class="outsideClick"></div>
 
@@ -117,8 +126,16 @@
         >
           <div class="cabeceraComentario">
             <h1>{{ toTitleCase(comentario.userNameLastName) }}</h1>
-
-            <div class="puntuacion">
+            <div
+              @click="this.deleteComment = true"
+              v-if="index === this.comentarioUsuario"
+              class="deleteImg"
+            >
+              <img src="../assets/DeleteIcon.png" />
+            </div>
+          </div>
+          <div class="puntuacion">
+            <div>
               <template v-for="index in 5" :key="index">
                 <img
                   v-if="index <= comentario.rating"
@@ -214,6 +231,7 @@ export default {
   },
   data() {
     return {
+      deleteComment: false,
       comentarioPublicado: false,
       comentarioUsuario: null,
       v$: useVuelidate(),
@@ -312,7 +330,23 @@ export default {
       }
     },
     setPostError(val) {
+      this.deleteComment = val;
       this.postError = val;
+    },
+    deleteUserOpinion(val) {
+      if (val === true) {
+        this.deleteUserComments();
+      }
+    },
+    async deleteUserComments() {
+      const opinionId = this.productData.comentarios[this.comentarioUsuario].id;
+      let respuesta;
+      const data = await axios
+        .delete(`${API_URL}comments/${opinionId}`)
+        .then((res) => (respuesta = res));
+      setInterval(() => {
+        this.$router.go();
+      }, 1200);
     },
     async postComments() {
       debugger;
@@ -465,322 +499,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
+@import "../styles/views/VerProducto.scss";
+
 @include inputTypeSubmit;
-.contenedorImagenes {
-  .comentariosSec {
-    margin-top: 3rem;
-    padding-bottom: 1rem;
-    h2 {
-      padding-bottom: 2.5rem;
-    }
-    .commentContent {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-  }
-}
-
-.secColor {
-  @include fuenteSemiBold;
-  @include flexInputDpNone;
-  border: 2px solid #dee5ff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px #dee5ff;
-  display: block;
-  max-width: 18.7rem;
-  background: #fff;
-  color: #262e47;
-  font-weight: bold;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-
-  margin-bottom: 2rem;
-  margin-top: 0rem;
-
-  .colorDiv {
-    width: 100%;
-  }
-  div {
-    margin-bottom: 1rem;
-  }
-}
-.labelColorButton {
-  display: inline-block;
-  position: relative;
-  width: 50px;
-  height: 50px;
-  margin: 10px;
-  cursor: pointer;
-  span {
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    display: flex;
-    width: 50px;
-    height: 50px;
-    padding: 0;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    border-radius: 100%;
-    background: #eeeeee;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-    transition: ease 0.3s;
-  }
-  span:hover {
-    padding: 10px;
-  }
-  input:checked + span {
-    position: absolute;
-    padding: 7px;
-
-    top: 50%;
-    left: 50%;
-    border: 1px solid black;
-  }
-  input:checked + button {
-    background-color: #e7e7e7;
-  }
-}
-.hide {
-  display: none;
-}
-
-.productActions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  position: relative;
-  left: -0.5rem;
-}
-.outsideClick {
-  position: absolute;
-  width: 100%;
-  background-color: #6e7272;
-  opacity: 0.6;
-  height: 191%;
-  top: 0;
-}
-body {
-  display: flex;
-  flex-direction: column;
-  main {
-    width: 100%;
-    padding-top: 18rem;
-    margin-bottom: 10rem;
-  }
-  .colorBoton {
-    @include loginButton("green", "white", "2rem");
-    height: 1rem;
-    width: 15rem;
-    cursor: pointer;
-    overflow: hidden;
-    transition: transform 0.1s;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-  }
-  .colorBoton:hover {
-    transform: scale(1.1);
-  }
-  .descripcionProd {
-    width: 65%;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    @include fuenteBold;
-    h2 {
-      font-size: 2rem;
-      padding-bottom: 4rem;
-    }
-    p {
-      font-size: 1.6rem;
-      @include fuenteRegular;
-    }
-  }
-  .presentacionProd {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    align-items: flex-start;
-    padding-bottom: 6rem;
-  }
-
-  .dropdown {
-    @include dropdownList;
-  }
-
-  .bodyStyle {
-    overflow: hidden;
-  }
-  @include popUpModal("#popMenu__toggle", ".menu__btn", ".popMenu__box");
-
-  .popMenu__item {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    //padding: 12px 24px;
-    //margin-top: 0.5rem;
-  }
-  .textoPlano {
-    margin-left: 9%;
-    margin-right: 9%;
-    @include fuenteSemiBold;
-    color: #95a3a4;
-    font-size: 1.2rem;
-  }
-  .textoPlanoFino {
-    @include fuenteSemiBold;
-    color: black;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
-  .textoGrueso {
-    margin-left: 9%;
-    margin-right: 9%;
-    @include fuenteSemiBold;
-    color: black;
-    font-size: 1.8rem;
-  }
-  .textoGruesoh1 {
-    margin-left: 9%;
-    margin-right: 9%;
-    @include fuenteSemiBold;
-    color: black;
-    font-size: 1.3rem;
-    text-align: center;
-  }
-
-  .productDiv {
-    min-width: 20rem;
-    width: 30%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    // width: 320px;
-    height: 488px;
-    background-color: beige;
-    border-radius: 18px;
-    margin: 3rem;
-    img {
-      width: 15rem;
-    }
-  }
-  .productoInfo1 {
-    width: 30%;
-    padding-left: 6rem;
-    padding-top: 5rem;
-    display: flex;
-    flex-direction: column;
-    @include fuenteSemiBold;
-    //z-index: -1;
-    h2,
-    ul {
-      padding-bottom: 1.5rem;
-    }
-
-    /*
-    position: relative;
-    right: 29vw;
-    */
-  }
-  .spinner {
-    display: flex;
-    margin: 0 auto;
-  }
-}
-
-.descripcionProd {
-  .comentarioContainer {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 8px;
-    margin: 0.4rem;
-    background-color: #f9f9f9;
-    border: none;
-    /* height: 1rem; */
-    padding-top: 1.7rem;
-    border-bottom: 1px solid #c8c8c8;
-    transition: 0.07s;
-    font-size: 0.9rem;
-    border-radius: 4px;
-
-    .cabeceraComentario {
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-    h1 {
-      @include fuenteBold;
-    }
-    p {
-      margin-top: 3rem;
-      padding-bottom: 1.8rem;
-      font-size: 1.2rem;
-    }
-    h1,
-    p {
-      padding-left: 1rem;
-    }
-    textArea {
-      background-color: #ececec;
-      border-radius: 3px;
-      outline: none;
-      border: none;
-      resize: none;
-      @include fuenteRegular;
-    }
-    .puntuacion {
-      display: flex;
-      img {
-        cursor: pointer;
-
-        width: 2rem;
-      }
-    }
-  }
-}
-
-@media (max-width: 800px) {
-  body {
-    main {
-      padding-top: 8em;
-    }
-    .colorBoton {
-      width: 100%;
-    }
-    .productoInfo1 {
-      width: auto;
-      padding-left: 0rem;
-      padding-top: 0rem;
-      h2 {
-        text-align: center;
-      }
-    }
-    .descripcionProd {
-      h2 {
-        text-align: center;
-        font-size: 1.8em;
-        padding-bottom: 4rem;
-      }
-      p {
-        font-size: 1.3rem;
-      }
-    }
-  }
-}
-#popMenu__toggle {
-  display: none;
-}
 </style>
