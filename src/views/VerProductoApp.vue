@@ -82,7 +82,7 @@
           </div>
         </div>
         <input type="checkbox" v-model="this.added" id="popMenu__toggle" />
-        <ul id="menuBox" class="popMenu__box">
+        <ul v-if="come" id="menuBox" class="popMenu__box">
           <div
             v-if="tallaElegida && colorElegido"
             class="popMenu__item textoGuresoh1"
@@ -134,7 +134,7 @@
         </div>
         <p v-if="this.auth"></p>
         <p v-else>NO LOGEADO</p>
-        <div class="comentarioContainer">
+        <div v-if="comentarioUsuario === -1" class="comentarioContainer">
           <form @submit.prevent="postComments()">
             <div class="cabeceraComentario">
               <label for="tuComentario"> ¡Danos tu Opinión!</label>
@@ -191,26 +191,9 @@ export default {
   name: "VerProductoApp",
   añadirProd() {},
   async created() {
-    debugger;
     this.auth = false;
     let self = this;
-    auth.onAuthStateChanged(async function (user) {
-      debugger;
-      console.log(user);
-      if (user !== null) {
-        debugger;
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        // ...
-        self.auth = true;
-        self.userData = await self.findUserByMail(user.email);
-      } else {
-        // User is signed out
-        // ...
-        self.auth = false;
-      }
-    });
-
+    this.auth = await this.IsLoggedIn();
     scrollTop();
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
@@ -221,13 +204,18 @@ export default {
     this.productData = JSON.parse(JSON.stringify(this.datosProduct));
     this.productColors = this.filteredColors();
     console.log(this.productData);
+    this.comentarioUsuario = this.IsLoggedUserComment(
+      this.productData.comentarios
+    );
+
     this.carga = true;
     console.log(this.auth);
-    console.log(this.idUser);
+    console.log(this.userData);
   },
   data() {
     return {
       comentarioPublicado: false,
+      comentarioUsuario: null,
       v$: useVuelidate(),
       postError: false,
       yourScore: 0,
@@ -286,6 +274,43 @@ export default {
     PopUpModal,
   },
   methods: {
+    IsLoggedUserComment(array) {
+      if (this.auth) {
+        return array.findIndex((elemento) => {
+          return parseInt(elemento.userId) === parseInt(this.userData.idUser);
+        });
+      }
+      return -1;
+    },
+    async IsLoggedIn() {
+      try {
+        debugger;
+
+        await new Promise((resolve, reject) =>
+          auth.onAuthStateChanged(
+            async (user) => {
+              debugger;
+
+              if (user) {
+                debugger;
+                this.userData = await this.findUserByMail(user.email);
+                resolve("Usuario logeado");
+              } else {
+                debugger;
+
+                reject("No Logeado");
+              }
+            },
+            // Prevent console errors
+            (error) => reject(error)
+          )
+        );
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
     setPostError(val) {
       this.postError = val;
     },
@@ -293,8 +318,10 @@ export default {
       debugger;
       this.v$.$validate();
       console.log(this.v$);
-
+      debugger;
       if (!this.v$.$error) {
+        console.log(this.userData.idUser);
+
         const objetoComentario = {
           text: this.comentario,
           productId: this.productData.idProduct,
@@ -406,6 +433,7 @@ export default {
       return data;
     },
     async findUserByMail(mail) {
+      debugger;
       const data = await axios
         .get(`${API_URL}users/email/${mail}`)
         .then((res) => (this.datosProduct = res.data));

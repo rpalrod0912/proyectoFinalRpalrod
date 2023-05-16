@@ -67,7 +67,6 @@ export default {
       pageBody.classList.toggle("bodyStyle");
     },
     menuAction(bool) {
-      debugger;
       document.querySelector("#menu__toggle").checked = bool;
       if (bool === true) {
         this.isOpened = true;

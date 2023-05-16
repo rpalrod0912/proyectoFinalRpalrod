@@ -56,12 +56,10 @@ export default {
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };
-    debugger;
     await this.getUserOrders();
     await this.getOrdersImages();
     console.log(this.ordersImages);
     console.log(this.userOrders);
-    debugger;
     this.carga = true;
   },
   data() {
@@ -87,9 +85,7 @@ export default {
         .catch((error) => error);
       this.userData = data;
       console.log(this.userData);
-      debugger;
       const idUser = data.idUser;
-      debugger;
       const getUserOrders = await axios
         .get(`${API_URL}orders/user/${idUser}`)
         .then((res) => res.data)

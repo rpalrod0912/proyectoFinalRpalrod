@@ -130,7 +130,6 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 export default {
   /*eslint-disable */
   async created() {
-    debugger;
     if (this.color === "Dark") {
       this.modo = this.UserOscuro;
       this.deleteIcon = this.deleteOscuro;
@@ -218,7 +217,6 @@ export default {
         });
     },
     async logOut() {
-      debugger;
       await signOut(auth)
         .then(() => {
           this.$store.commit("setCurrentAuth", false);
@@ -230,7 +228,6 @@ export default {
         .catch((error) => {
           ("ALGO OCURRIO");
         });
-      debugger;
     },
     menuAction(bool) {
       document.querySelector("#RightMenu__toggle").checked = bool;

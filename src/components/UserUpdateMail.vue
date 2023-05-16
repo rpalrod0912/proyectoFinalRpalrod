@@ -167,15 +167,12 @@ export default {
         });
     },
     async emailUpdate() {
-      debugger;
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error && (await this.validateOriginalPwd())) {
         console.log("TODO BIEN");
-        debugger;
         await this.putData();
         if (this.exito === true) {
-          debugger;
           this.$emit("changePopUpState", true);
 
           await this.logOut();
@@ -222,10 +219,8 @@ export default {
       }
     },
     async validateOriginalPwd() {
-      debugger;
       let isPassword;
       await bcrypt.compare(this.pwd, this.userData.pwd).then(function (result) {
-        debugger;
         console.log(result);
         isPassword = result;
       });

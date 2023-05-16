@@ -192,7 +192,6 @@ export default {
     if (this.$store.state.currentToken === null) {
       await this.getToken();
     }
-    debugger;
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };
@@ -206,7 +205,6 @@ export default {
         localStorage.setItem("userProducts", JSON.stringify({ cesta: [] }));
       }
     } else {
-      debugger;
       this.carga = false;
       if (this.carrito.cesta.length > 0) {
         let dataArr = [];
@@ -248,7 +246,6 @@ export default {
         products: this.productsId,
         quantity: this.producstQuantity,
       };
-      debugger;
       console.log(orderDto);
       const postOrder = await axios
         .post(`${API_URL}orders`, orderDto)
@@ -273,7 +270,6 @@ export default {
           }
         )
         .then((res) => {
-          debugger;
           this.$store.commit("setCurrentToken", res.data);
         });
     },
@@ -286,7 +282,6 @@ export default {
       return data;
     },
     calcularPrecioCarrito() {
-      debugger;
       let price = 0;
       for (let i = 0; i < this.carrito.cesta.length; i++) {
         if (this.productsData[i].oferta !== null) {

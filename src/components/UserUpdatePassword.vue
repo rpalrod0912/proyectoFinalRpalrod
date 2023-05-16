@@ -141,7 +141,6 @@ export default {
   name: "UserUpdatePassword",
   created() {
     console.log(this.userData.pwd);
-    debugger;
     hasPwdMatches("Rafapr_01", this.userData.pwd);
   },
   data() {
@@ -202,12 +201,10 @@ export default {
         });
     },
     async validateOriginalPwd() {
-      debugger;
       let isPassword;
       await bcrypt
         .compare(this.oldPwd, this.userData.pwd)
         .then(function (result) {
-          debugger;
           console.log(result);
           isPassword = result;
         });
@@ -245,12 +242,10 @@ export default {
       }
     },
     async passwordUpdate() {
-      debugger;
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error && (await this.validateOriginalPwd())) {
         console.log("TODO BIEN");
-        debugger;
         await this.putData();
         if (this.exito === true) {
           this.$emit("changePopUpState", true);

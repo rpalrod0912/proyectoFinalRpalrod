@@ -42,8 +42,6 @@
 export default {
   name: "RightDesktopMenu",
   mounted() {
-    debugger;
-
     if (this.selectedOption !== null) {
       console.log(this.selectedOption);
       document.getElementById(this.selectedOption).classList.add("usOption");

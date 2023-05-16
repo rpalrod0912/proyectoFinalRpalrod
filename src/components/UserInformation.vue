@@ -325,10 +325,8 @@ export default {
       this.v$.$validate();
       if (!this.v$.$error) {
         console.log("TODO BIEN");
-        debugger;
         await this.putData();
         if (this.exito === true) {
-          debugger;
           this.$emit("changePopUpState", true);
         }
       }

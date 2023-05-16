@@ -9,7 +9,6 @@ import axios from "axios";
 import WhiteHeader from "./components/WhiteHeader.vue";
 export default {
   async mounted() {
-    debugger;
     if (this.$store.state.currentToken === null) {
       await this.getToken();
       axios.defaults.headers.common = {

@@ -114,7 +114,6 @@ export default {
       await this.logInFirebase();
     },
     async logInFirebase() {
-      debugger;
       const logInData = {
         mail: this.$route.query.email,
         pwd: this.password,

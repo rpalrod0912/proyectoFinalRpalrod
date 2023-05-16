@@ -156,7 +156,6 @@ export default {
   },
   methods: {
     checkLogo() {
-      debugger;
       console.log(this.tipoHeader);
       console.log(this.tipo);
       if (this.tipo === "blanco") {

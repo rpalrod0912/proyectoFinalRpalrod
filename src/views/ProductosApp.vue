@@ -99,7 +99,6 @@ export default {
   methods: {
     colorFilterState(val) {
       this.tipoFiltro = "color";
-      debugger;
       if (val === "Ninguno") {
         //this.filterValue = false;
         if (
@@ -174,7 +173,6 @@ export default {
       }
     },
     saleFilterState(val) {
-      debugger;
       this.tipoFiltro = "oferta";
       if (val) {
         if (
@@ -220,10 +218,8 @@ export default {
     },
     sizeFilterState(tallaVal) {
       this.tipoFiltro = "tallas";
-      debugger;
       const tallasRopa = ["S", "M", "L", "XL"];
       if (tallaVal === "Ninguno") {
-        debugger;
         //this.filterValue = false;
         if (
           this.colorElegido &&

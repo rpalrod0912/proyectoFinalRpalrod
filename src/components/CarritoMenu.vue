@@ -258,7 +258,6 @@ export default {
       this.modo = this.bolsoClaro;
       this.deleteIcon = this.deleteClaro;
     }
-    debugger;
     if (this.$store.state.currentToken === null) {
       await this.getToken();
     }
@@ -289,7 +288,6 @@ export default {
         }
       }
     } else {
-      debugger;
       this.carga = false;
       if (this.carrito.cesta.length > 0) {
         let dataArr = [];
@@ -304,7 +302,6 @@ export default {
       if (this.wishList.wishList.length > 0) {
         this.carga = false;
         let wishListArr = [];
-        debugger;
 
         for (let name of this.wishList.wishList) {
           console.log(name);
@@ -316,7 +313,6 @@ export default {
       this.carga = true;
     }
     this.cartLength = this.cartQuantity();
-    debugger;
     console.log(this.carrito);
 
     this.checked = "#cartCheck";
@@ -332,7 +328,6 @@ export default {
   },
   methods: {
     cartQuantity() {
-      debugger;
       let cantidad = 0;
       this.carrito.cesta.forEach((prod) => {
         cantidad += prod.cantidad;
@@ -342,7 +337,6 @@ export default {
     modifyCantity(operation, itemIndex) {
       const cantidad = this.carrito.cesta[itemIndex].cantidad;
       if (operation === "delete") {
-        debugger;
         if (cantidad > 1) {
           this.carrito.cesta[itemIndex].cantidad -= 1;
           localStorage.setItem("userProducts", JSON.stringify(this.carrito));
@@ -375,16 +369,13 @@ export default {
           }
         )
         .then((res) => {
-          debugger;
           this.token = res.data;
           this.$store.commit("setCurrentToken", res.data);
         });
-      debugger;
       console.log(data);
       console.log(this.token);
     },
     deleteItem(index) {
-      debugger;
       console.log(this.carrito.cesta);
       this.carrito.cesta.splice(index, 1);
       console.log(this.carrito.cesta);
@@ -394,7 +385,6 @@ export default {
       console.log(this.$store.state.currentCart);
     },
     calcularPrecioCarrito() {
-      debugger;
       let price = 0;
       for (let i = 0; i < this.carrito.cesta.length; i++) {
         if (this.productsData[i].oferta !== null) {
@@ -425,7 +415,6 @@ export default {
       this.$router.push("/products");
     },
     menuAction(bool) {
-      debugger;
       const pageBody = document.querySelector("body");
       document.querySelector("#CarritoMenu__toggle").checked = bool;
       if (bool === true) {
@@ -522,7 +511,6 @@ export default {
     "$store.state.currentWishList": {
       deep: true,
       async handler(newVal) {
-        debugger;
         this.carga = false;
         this.wishList = newVal;
         let dataArr = [];

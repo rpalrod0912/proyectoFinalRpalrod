@@ -47,7 +47,6 @@ export default {
   },
   watch: {
     isOpened: function (newVal, OldVal) {
-      debugger;
       console.log("VIENDO");
       if (this.newVal) {
         this.isOpen = newVal;
