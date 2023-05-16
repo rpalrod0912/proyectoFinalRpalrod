@@ -3,7 +3,7 @@
   <PopUpModal
     :is-opened="true"
     v-if="this.showPopUp"
-    msj="REGISTRADO CON ÉXITO"
+    msj="HAS INCIADO SESIÓN CON ÉXITO"
   ></PopUpModal>
   <main>
     <!--

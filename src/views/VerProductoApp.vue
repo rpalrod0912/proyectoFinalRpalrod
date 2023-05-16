@@ -1,5 +1,18 @@
 <template>
   <WhiteHeader tipo="Dark"></WhiteHeader>
+  <PopUpModal
+    @ventanaError="setPostError"
+    v-if="this.postError"
+    :is-opened="this.postError"
+    :isError="true"
+    msj="EL COMENTARIO DEBE TENER AL MENOS 10 LÍNEAS DE TEXTO"
+  ></PopUpModal>
+  <PopUpModal
+    @ventanaError="setPostError"
+    v-if="comentarioPublicado"
+    :is-opened="true"
+    msj="¡MUCHAS GRACIAS POR COMPARTIR TU OPINIÓN!"
+  ></PopUpModal>
   <main>
     <div @click="añadirProd()" v-if="added" class="outsideClick"></div>
 
@@ -102,7 +115,19 @@
           :key="index"
           class="comentarioContainer"
         >
-          <h1>{{ toTitleCase(comentario.userNameLastName) }}</h1>
+          <div class="cabeceraComentario">
+            <h1>{{ toTitleCase(comentario.userNameLastName) }}</h1>
+
+            <div class="puntuacion">
+              <template v-for="index in 5" :key="index">
+                <img
+                  v-if="index <= comentario.rating"
+                  src="../assets/rating/voted.png"
+                />
+                <img v-else src="../assets/rating/unVoted.png" />
+              </template>
+            </div>
+          </div>
           <p>
             {{ comentario.text }}
           </p>
@@ -110,14 +135,36 @@
         <p v-if="this.auth"></p>
         <p v-else>NO LOGEADO</p>
         <div class="comentarioContainer">
-          <textarea
-            id="w3review"
-            name="w3review"
-            rows="4"
-            cols="50"
-            v-model="comentario"
-          ></textarea>
-          <button @click="postComments()">Enviar</button>
+          <form @submit.prevent="postComments()">
+            <div class="cabeceraComentario">
+              <label for="tuComentario"> ¡Danos tu Opinión!</label>
+              <div class="puntuacion">
+                <template v-for="index in 5" :key="index">
+                  <img
+                    v-if="index > this.yourScore"
+                    @click="this.yourScore = index"
+                    src="../assets/rating/unVoted.png"
+                  />
+                  <img
+                    v-else
+                    @click="this.yourScore = index"
+                    src="../assets/rating/voted.png"
+                  />
+                </template>
+              </div>
+            </div>
+            <div class="commentContent">
+              <textarea
+                id="tuComentario"
+                name="tuComentario"
+                rows="4"
+                cols="50"
+                v-model="comentario"
+              ></textarea>
+
+              <input type="submit" class="typeSubmit" value="ENVIAR" />
+            </div>
+          </form>
         </div>
       </section>
     </div>
@@ -128,6 +175,8 @@
 </template>
 <script>
 /*eslint-disable */
+import useVuelidate from "@vuelidate/core";
+import { required, minLength } from "@vuelidate/validators";
 import { auth, onAuthStateChanged } from "../auth/firebaseConfig.js";
 import AppFooter from "@/components/AppFooter.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
@@ -136,6 +185,7 @@ import axios from "axios";
 import WhiteHeader from "@/components/WhiteHeader.vue";
 import { API_URL, scrollTop } from "@/helpers/basicHelpers";
 import LikeButton from "@/components/LikeButton.vue";
+import PopUpModal from "@/components/popUpModal.vue";
 
 export default {
   name: "VerProductoApp",
@@ -177,6 +227,10 @@ export default {
   },
   data() {
     return {
+      comentarioPublicado: false,
+      v$: useVuelidate(),
+      postError: false,
+      yourScore: 0,
       comentario: "",
       userData: null,
       auth: null,
@@ -214,6 +268,14 @@ export default {
       //prodColors: this.filteredColors(),
     };
   },
+  validations() {
+    return {
+      comentario: {
+        required,
+        minLength: minLength(10),
+      },
+    };
+  },
 
   components: {
     WhiteHeader,
@@ -221,17 +283,34 @@ export default {
     AppFooter,
     ButtonComponent,
     LikeButton,
+    PopUpModal,
   },
   methods: {
+    setPostError(val) {
+      this.postError = val;
+    },
     async postComments() {
-      const objetoComentario = {
-        text: this.comentario,
-        productId: this.productData.idProduct,
-        userId: this.userData.idUser,
-      };
-      const data = axios
-        .post(`${API_URL}comments`, objetoComentario)
-        .then((res) => console.log(res));
+      debugger;
+      this.v$.$validate();
+      console.log(this.v$);
+
+      if (!this.v$.$error) {
+        const objetoComentario = {
+          text: this.comentario,
+          productId: this.productData.idProduct,
+          userId: this.userData.idUser,
+          rating: this.yourScore,
+        };
+        const data = axios
+          .post(`${API_URL}comments`, objetoComentario)
+          .then((res) => console.log(res));
+        this.comentarioPublicado = true;
+        setInterval(() => {
+          this.$router.go();
+        }, 1200);
+      } else {
+        this.postError = true;
+      }
     },
     toTitleCase(str) {
       str = str
@@ -350,17 +429,26 @@ export default {
         }
       },
     },
+    yourScore: function (newVal, oldVal) {
+      console.log(newVal);
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
+@include inputTypeSubmit;
 .contenedorImagenes {
   .comentariosSec {
     margin-top: 3rem;
     padding-bottom: 1rem;
     h2 {
       padding-bottom: 2.5rem;
+    }
+    .commentContent {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
   }
 }
@@ -583,6 +671,9 @@ body {
 
 .descripcionProd {
   .comentarioContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     width: 100%;
     padding: 8px;
     margin: 0.4rem;
@@ -594,6 +685,14 @@ body {
     transition: 0.07s;
     font-size: 0.9rem;
     border-radius: 4px;
+
+    .cabeceraComentario {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
     h1 {
       @include fuenteBold;
     }
@@ -613,6 +712,14 @@ body {
       border: none;
       resize: none;
       @include fuenteRegular;
+    }
+    .puntuacion {
+      display: flex;
+      img {
+        cursor: pointer;
+
+        width: 2rem;
+      }
     }
   }
 }

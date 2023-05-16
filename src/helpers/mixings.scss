@@ -33,6 +33,23 @@
   }
 }
 @mixin inputTypeSubmit {
+  .typeSubmit {
+    background-color: green;
+    border-radius: 10px;
+    transition: 0.4s;
+    color: white;
+    border: 1px solid green;
+    @include fuenteSemiBold;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.4rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    cursor: pointer;
+  }
+  .typeSubmit:hover {
+    transform: scale(1.07);
+  }
   .putDataSubmit {
     display: flex;
     align-items: center;

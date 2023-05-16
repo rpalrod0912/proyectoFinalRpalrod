@@ -1,20 +1,35 @@
 <template>
-  <div v-if="isOpen" @click="this.isOpen = false" class="outsideClick"></div>
+  <div
+    v-if="isOpen"
+    @click="
+      this.isOpen = false;
+      this.$emit('ventanaError', false);
+    "
+    class="outsideClick"
+  ></div>
 
   <input type="checkbox" v-model="isOpen" id="popMenu__toggle" />
 
   <ul id="menuBox" class="popMenu__box">
     <div class="popMenu__item textoGuresoh1">
-      <div @click="this.isOpen = false" class="hoverBox">
+      <div
+        @click="
+          this.isOpen = false;
+          this.$emit('ventanaError', false);
+        "
+        class="hoverBox"
+      >
         <img class="closeModal" src="@/assets/DeleteIcon.png" />
       </div>
 
-      <img src="@/assets/checked.png" />
+      <img v-if="isError" src="@/assets/cancel.png" />
+      <img v-else src="@/assets/checked.png" />
       <p>{{ msj }}</p>
     </div>
   </ul>
 </template>
 <script>
+/*eslint-disable */
 export default {
   data() {
     return {
@@ -25,6 +40,19 @@ export default {
   props: {
     msj: String,
     isOpened: Boolean,
+    isError: Boolean,
+  },
+  emits: {
+    ventanaError: null,
+  },
+  watch: {
+    isOpened: function (newVal, OldVal) {
+      debugger;
+      console.log("VIENDO");
+      if (this.newVal) {
+        this.isOpen = newVal;
+      }
+    },
   },
 };
 </script>
