@@ -94,7 +94,16 @@ body {
 *::-webkit-scrollbar-thumb:hover {
   background-color: #363636;
 }
-
+@media (max-width: 650px) {
+  body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+  }
+  *::-webkit-scrollbar {
+    background: transparent; /* Chrome/Safari/Webkit */
+    width: 0px;
+  }
+}
 /*
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
