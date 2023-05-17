@@ -153,7 +153,7 @@
         <p v-else>NO LOGEADO</p>
         <div v-if="comentarioUsuario === -1" class="comentarioContainer">
           <form @submit.prevent="postComments()">
-            <div class="cabeceraComentario">
+            <div class="cabeceraPost">
               <label for="tuComentario"> ¡Danos tu Opinión!</label>
               <div class="puntuacion">
                 <template v-for="index in 5" :key="index">
@@ -170,13 +170,14 @@
                 </template>
               </div>
             </div>
-            <div class="commentContent">
+            <div class="postContent">
               <textarea
                 id="tuComentario"
                 name="tuComentario"
                 rows="4"
                 cols="50"
                 v-model="comentario"
+                placeholder="Cuentanos como ha sido tu experiencia con el producto..."
               ></textarea>
 
               <input type="submit" class="typeSubmit" value="ENVIAR" />
@@ -482,13 +483,14 @@ export default {
       deep: true,
       handler(newVal) {
         debugger;
-
+        /*
         if (newVal) {
           document.querySelector(".productoInfo1").style.zIndex = "-1";
         }
         if (!newVal) {
           document.querySelector(".productoInfo1").style.zIndex = "0";
         }
+        */
       },
     },
     yourScore: function (newVal, oldVal) {

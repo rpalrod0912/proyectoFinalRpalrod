@@ -6,15 +6,30 @@
     name="checkBusqueda"
   />
 
-  <label class="headerHoverLabel" @click="menuAction(true)" for="checkBusqueda">
-    <img class="searchBar searchMenu headerHoverLabel" :src="this.modo" />
+  <label
+    id="searchImg"
+    class="headerHoverLabel"
+    @click="menuAction(true)"
+    for="checkBusqueda"
+  >
+    <img
+      id="searchImg"
+      class="searchBar searchMenu headerHoverLabel"
+      :src="this.modo"
+    />
 
     <img
+      id="searchImg"
       class="searchIcon"
       v-if="this.color === 'Dark'"
       src="../assets/lupaNegra.png"
     />
-    <img class="searchIcon" v-else src="../assets/LupaBlanca.png" />
+    <img
+      id="searchImg"
+      class="searchIcon"
+      v-else
+      src="../assets/LupaBlanca.png"
+    />
   </label>
 
   <ul class="TopMenu__box">
@@ -106,11 +121,14 @@ export default {
 
       document.querySelector("#TopMenu__toggle").checked = bool;
       if (bool === true) {
+        document.querySelector("#headerId").classList.add("hideHeader");
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "0";
       }
       if (bool === false) {
+        document.querySelector("#headerId").classList.remove("hideHeader");
+
         document
           .getElementById("menuGeneral")
           .querySelector(".menu__btn").style.opacity = "1";

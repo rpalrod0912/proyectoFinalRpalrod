@@ -6,7 +6,12 @@
     name="checkBusqueda"
   />
 
-  <label class="headerHoverLabel" @click="menuAction(true)" for="checkBusqueda">
+  <label
+    id="hideCartId"
+    class="headerHoverLabel"
+    @click="menuAction(true)"
+    for="checkBusqueda"
+  >
     <img class="headerHoverLabel" :src="this.modo" />
     <div
       class="carritoNumber headerHoverLabel"
@@ -543,9 +548,15 @@ export default {
   height: 1.3rem;
   justify-content: center;
   align-items: center;
+  /*
   position: relative;
   bottom: 3rem;
   left: 2.8rem;
+  */
+  position: absolute;
+  bottom: 5.3rem;
+  right: 2.6rem;
+
   box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
   p {
     @include fuenteSemiBold;

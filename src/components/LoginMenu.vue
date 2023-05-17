@@ -7,7 +7,7 @@
   />
 
   <label class="headerHoverLabel" @click="menuAction(true)" for="checkBusqueda">
-    <img class="headerHoverLabel" :src="this.modo" />
+    <img id="loginMenuId" class="headerHoverLabel" :src="this.modo" />
   </label>
 
   <ul v-if="!this.authentication" class="RightMenu__box">

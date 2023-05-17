@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header id="searchHeader">
     <MenuGeneral
       menuButtonColor="Dark"
       id="searchBusqueda"
@@ -70,6 +70,8 @@ export default {
   },
   methods: {
     closeMenu() {
+      document.querySelector("#headerId").classList.remove("hideHeader");
+
       const pageBody = document.querySelector("body");
       pageBody.classList.toggle("bodyStyle");
       document.querySelector("#logoWhite").classList.toggle("headerError");

@@ -114,6 +114,15 @@
   position: relative;
   left: -0.5rem;
 }
+@media (max-width: 635px) {
+  .productActions {
+    .colorBoton {
+      margin-right: 0rem;
+    }
+    left: 0rem;
+    justify-content: center;
+  }
+}
 .outsideClick {
   position: absolute;
   width: 100%;
@@ -258,7 +267,7 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
-    padding: 8px;
+    padding: 1.2rem;
     margin: 0.4rem;
     background-color: #f9f9f9;
     border: none;
@@ -268,7 +277,29 @@ body {
     transition: 0.07s;
     font-size: 0.9rem;
     border-radius: 4px;
-
+    .cabeceraPost {
+      label {
+        font-size: 1.2rem;
+        padding-bottom: 1rem;
+      }
+      display: flex;
+      flex-direction: column;
+      .puntuacion {
+        padding-top: 0rem;
+        padding-left: 0rem;
+      }
+    }
+    .postContent {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      .typeSubmit {
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        max-width: 8rem;
+        border-radius: 4px;
+      }
+    }
     .cabeceraComentario {
       display: flex;
       align-items: center;
@@ -294,6 +325,7 @@ body {
       outline: none;
       border: none;
       resize: none;
+      font-size: 1rem;
       @include fuenteRegular;
     }
     .puntuacion {

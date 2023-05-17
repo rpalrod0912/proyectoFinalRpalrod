@@ -71,6 +71,17 @@
         <img src="../assets/warning.png" alt="imagenInformativa" />
         <p>Email Antiguo Incorrecto</p>
       </div>
+      <div v-if="emailOcupado" class="infoPanel">
+        <img src="../assets/warning.png" alt="imagenInformativa" />
+        <p>Ese correo ya está en uso por otro usuario</p>
+      </div>
+      <div v-if="recentAuth" class="infoPanel">
+        <img src="../assets/warning.png" alt="imagenInformativa" />
+        <p>
+          Se necesita un inicio de sesion reciente, por favor inicia sesion de
+          nuevo
+        </p>
+      </div>
 
       <div v-if="v$.newMail.$error" class="infoPanel">
         <img src="../assets/warning.png" alt="imagenInformativa" />
@@ -113,6 +124,8 @@ export default {
       newMail: "",
       exito: false,
       validPwd: true,
+      emailOcupado: false,
+      recentAuth: false,
     };
   },
   props: {
@@ -201,6 +214,9 @@ export default {
       };
       await updateEmail(auth.currentUser, this.newMail)
         .then(async () => {
+          this.emailOcupado = false;
+          this.recentAuth = false;
+
           ("ACTUALIZADO PWD!!");
           const data = await axios
             .put(`${API_URL}users/${this.userData.idUser}`, datosUsuario)
@@ -209,6 +225,18 @@ export default {
           console.log(status);
         })
         .catch((error) => {
+          debugger;
+          console.log(error.message);
+          if (
+            error.message === "Firebase: Error (auth/requires-recent-login)."
+          ) {
+            this.recentAuth = true;
+          }
+          if (
+            error.message === "Firebase: Error (auth/email-already-in-use)."
+          ) {
+            this.emailOcupado = true;
+          }
           error;
         });
 

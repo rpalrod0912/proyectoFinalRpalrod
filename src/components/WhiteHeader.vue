@@ -190,12 +190,28 @@ export default {
 @import "../helpers/mixings.scss";
 
 @include headerIconHover;
-
+.hideHeader {
+  #logoWhite {
+    display: none;
+  }
+  .headerMedia {
+    #searchImg {
+      display: none;
+    }
+  }
+  #loginMenuId {
+    display: none;
+  }
+  #hideCartId {
+    display: none;
+  }
+}
 header {
   height: 10rem;
   justify-content: space-between;
   align-items: center;
   position: fixed;
+  z-index: 4;
 
   img {
     width: 2.5rem;
