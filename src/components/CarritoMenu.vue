@@ -8,17 +8,17 @@
 
   <label
     id="hideCartId"
-    class="headerHoverLabel"
+    class="cartWithNumber headerHoverLabel"
     @click="menuAction(true)"
     for="checkBusqueda"
   >
-    <img class="headerHoverLabel" :src="this.modo" />
     <div
-      class="carritoNumber headerHoverLabel"
+      v-bind:class="color === 'Dark' ? 'carritoNumberDark' : 'carritoNumber'"
       v-if="this.carrito.cesta.length > 0"
     >
       <p>{{ this.cartLength }}</p>
     </div>
+    <img class="headerHoverLabel" :src="this.modo" />
   </label>
 
   <ul class="CarritoMenu__box">
@@ -540,7 +540,7 @@ export default {
 
 @include headerIconHover;
 
-.carritoNumber {
+@mixin carrito() {
   background-color: #242424;
   border-radius: 100%;
   width: 1.3rem;
@@ -553,14 +553,52 @@ export default {
   bottom: 3rem;
   left: 2.8rem;
   */
-  position: absolute;
-  bottom: 5.3rem;
-  right: 2.6rem;
 
+  position: absolute;
+  bottom: 2rem;
+  left: 1.6rem;
+  /*    top: 0;
+    right: 0;
+*/
   box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
   p {
     @include fuenteSemiBold;
     color: white;
+  }
+}
+
+.cartWithNumber {
+  position: relative;
+  .carritoNumber {
+    @include carrito();
+  }
+  .carritoNumberDark {
+    @include carrito();
+  }
+  @media (max-width: 638px) {
+    .carritoNumber,
+    .carritoNumberDark {
+      background-color: transparent;
+      box-shadow: none;
+      bottom: 2px;
+      left: 2px;
+    }
+    .carritoNumberDark {
+      p {
+        color: #242424;
+      }
+    }
+    .carritoNumber {
+      p {
+        color: white;
+      }
+    }
+  }
+
+  @media (min-width: 639px) and (max-width: 695px) {
+    .carritoNumber {
+      left: 0.6rem;
+    }
   }
 }
 .minusQuantity {

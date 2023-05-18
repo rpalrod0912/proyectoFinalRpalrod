@@ -2,6 +2,7 @@
   <input
     @click="menuAction(true)"
     id="TopMenu__toggle"
+    style="display: none"
     type="checkbox"
     name="checkBusqueda"
   />

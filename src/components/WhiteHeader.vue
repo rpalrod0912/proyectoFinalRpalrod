@@ -320,6 +320,24 @@ header {
     }
   }
 }
+@media (min-width: 634px) {
+  header {
+    #menuGeneral {
+      .menu__btn {
+        padding-top: 1vw;
+      }
+    }
+  }
+}
+@media (max-width: 634px) {
+  header {
+    .headerMedia {
+      li {
+        right: 3rem;
+      }
+    }
+  }
+}
 @media (min-width: 400px) and (max-width: 634px) {
   .secFoot2 {
     flex-direction: column;
