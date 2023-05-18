@@ -243,6 +243,11 @@ header {
     li {
       margin: 1rem;
     }
+    @media (max-width: 695px) {
+      li {
+        margin: 0rem;
+      }
+    }
   }
   background-color: transparent;
 

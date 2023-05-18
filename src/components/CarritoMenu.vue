@@ -595,12 +595,6 @@ export default {
       }
     }
   }
-
-  @media (min-width: 639px) and (max-width: 695px) {
-    .carritoNumber {
-      left: 0.6rem;
-    }
-  }
 }
 .minusQuantity {
   width: 0.9rem;
