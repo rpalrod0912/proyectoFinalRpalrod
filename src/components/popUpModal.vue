@@ -25,6 +25,7 @@
       </div>
 
       <img v-if="isError" src="@/assets/cancel.png" />
+      <img v-else-if="isOperation" src="@/assets/alertaPng.png" />
       <img v-else src="@/assets/checked.png" />
       <p>{{ msj }}</p>
       <button

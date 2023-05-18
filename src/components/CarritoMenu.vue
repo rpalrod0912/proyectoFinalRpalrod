@@ -541,6 +541,7 @@ export default {
 @include headerIconHover;
 
 @mixin carrito() {
+  z-index: 2;
   background-color: #242424;
   border-radius: 100%;
   width: 1.3rem;

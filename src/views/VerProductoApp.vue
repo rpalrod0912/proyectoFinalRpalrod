@@ -91,7 +91,7 @@
           </div>
         </div>
         <input type="checkbox" v-model="this.added" id="popMenu__toggle" />
-        <ul v-if="come" id="menuBox" class="popMenu__box">
+        <ul v-if="added" id="menuBox" class="popMenu__box">
           <div
             v-if="tallaElegida && colorElegido"
             class="popMenu__item textoGuresoh1"
