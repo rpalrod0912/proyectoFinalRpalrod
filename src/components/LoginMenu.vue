@@ -115,6 +115,7 @@ import {
   signInWithPopup,
   getRedirectResult,
   signInWithRedirect,
+  linkWithPopup,
   getAdditionalUserInfo,
   fetchSignInMethodsForEmail,
   signOut,
@@ -269,7 +270,6 @@ export default {
       // await this.getGoogleRedirectToken();
     },
     async continueLogin() {
-      console.log(auth);
       await fetchSignInMethodsForEmail(auth, this.mail)
         .then((signInMethods) => {
           console.log(signInMethods);

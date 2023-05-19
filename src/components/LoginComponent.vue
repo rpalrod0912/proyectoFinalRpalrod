@@ -35,6 +35,10 @@
     <span class="alertText" v-if="passwordNotFound"
       >Contraseña Incorrecta
     </span>
+    <span class="alertText" v-if="notVerified"
+      >Verifica tu cuenta con el correo electrónico que hemos mandado a tu
+      dirección de correo para iniciar sesión
+    </span>
     <input class="loginSubmit" type="submit" />
     <ButtonComponent
       v-if="this.loginMode !== 'password'"
@@ -73,6 +77,7 @@
 /*eslint-disable */
 import {
   auth,
+  signOut,
   googleProvider,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
@@ -103,6 +108,7 @@ export default {
       loginMode: null,
       password: "",
       passwordNotFound: false,
+      notVerified: null,
     };
   },
   emits: {
@@ -110,6 +116,18 @@ export default {
   },
   name: "LoginApp",
   methods: {
+    async logOut() {
+      await signOut(auth)
+        .then(() => {
+          this.$store.commit("setCurrentAuth", false);
+          this.$store.commit("setCurrentUser", null);
+          this.$store.commit("setCurrentCartLength", null);
+          this.$store.commit("setCurrentMail", null);
+        })
+        .catch((error) => {
+          ("ALGO OCURRIO");
+        });
+    },
     async resetPassword() {
       sendPasswordResetEmail(auth, this.$route.query.email)
         .then(() => {
@@ -131,6 +149,7 @@ export default {
       }
     },
     async submitLogin() {
+      debugger;
       await this.logInFirebase();
     },
     async logInFirebase() {
@@ -138,6 +157,7 @@ export default {
         mail: this.$route.query.email,
         pwd: this.password,
       };
+
       await signInWithEmailAndPassword(auth, logInData.mail, logInData.pwd)
         .then((userCredential) => {
           this.userNotFound = false;
@@ -187,7 +207,11 @@ export default {
           (res) => res.json();
         })
         .catch((error) => error);
-      if (data !== "NOTFOUND") {
+      debugger;
+      if (!auth.currentUser.emailVerified) {
+        this.notVerified = true;
+        await this.logOut();
+      } else if (data !== "NOTFOUND") {
         this.$emit("changePopUpState", true);
         setInterval(() => {
           this.$router
