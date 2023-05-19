@@ -106,12 +106,40 @@ import {
   helpers,
 } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
-import { updateEmail, auth, signOut } from "@/auth/firebaseConfig.js";
+import "firebase/auth";
+
+import {
+  updateEmail,
+  reauthenticateWithCredential,
+  auth,
+  signOut,
+} from "@/auth/firebaseConfig.js";
+import { EmailAuthProvider } from "firebase/auth";
 
 const bcrypt = require("bcryptjs");
 const passwordRegex = helpers.regex(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/
 );
+
+const reauthWithOldPwd = async (oldPassword) => {
+  const user = auth.currentUser;
+  const cred = EmailAuthProvider.credential(
+    auth.currentUser.email,
+    oldPassword
+  );
+  let valid;
+  await reauthenticateWithCredential(user, cred)
+    .then((res) => {
+      debugger;
+      valid = true;
+    })
+    .catch((err) => {
+      debugger;
+      console.log(err.message);
+      valid = false;
+    });
+  return valid;
+};
 
 export default {
   name: "UserUpdateMail",
@@ -182,7 +210,7 @@ export default {
     async emailUpdate() {
       this.v$.$validate();
       console.log(this.v$);
-      if (!this.v$.$error && (await this.validateOriginalPwd())) {
+      if (!this.v$.$error && (await reauthWithOldPwd(this.pwd))) {
         console.log("TODO BIEN");
         await this.putData();
         if (this.exito === true) {
@@ -201,7 +229,7 @@ export default {
             });*/
         }
       }
-      if (!(await this.validateOriginalPwd())) this.validPwd = false;
+      if (!(await reauthWithOldPwd(this.pwd))) this.validPwd = false;
       console.log("ALGO ANDA MAL");
       console.log(this.v$.$error);
       this.v$.$validate();
@@ -246,15 +274,7 @@ export default {
         this.exito = true;
       }
     },
-    async validateOriginalPwd() {
-      let isPassword;
-      await bcrypt.compare(this.pwd, this.userData.pwd).then(function (result) {
-        console.log(result);
-        isPassword = result;
-      });
-      console.log(isPassword);
-      return isPassword;
-    },
+
     focusInput(id, idLabel) {
       const elemento = document.querySelector(`#${id}`);
       if (document.activeElement !== elemento) {

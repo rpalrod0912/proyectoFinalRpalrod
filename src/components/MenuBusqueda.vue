@@ -7,17 +7,8 @@
     name="checkBusqueda"
   />
 
-  <label
-    id="searchImg"
-    class="headerHoverLabel"
-    @click="menuAction(true)"
-    for="checkBusqueda"
-  >
-    <img
-      id="searchImg"
-      class="searchBar searchMenu headerHoverLabel"
-      :src="this.modo"
-    />
+  <label id="searchImg" @click="menuAction(true)" for="checkBusqueda">
+    <img id="searchImg" class="searchBar searchMenu" :src="this.modo" />
 
     <img
       id="searchImg"
@@ -244,9 +235,7 @@ input[type="text"]:focus {
   color: black;
   font-size: 1.8rem;
 }
-.TopMenu__item:hover {
-  background-color: #cfd8dc;
-}
+
 @media (max-width: 780px) {
   .TopMenu__box {
     height: 100%;

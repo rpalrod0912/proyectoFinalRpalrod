@@ -51,7 +51,11 @@
       class="colorBtnSoc btn"
       msj="Acceder con código vía e-mail"
     ></ButtonComponent>
-    <p v-if="this.loginMode === 'password'" class="underLineTxt">
+    <p
+      @click="this.resetPassword()"
+      v-if="this.loginMode === 'password'"
+      class="underLineTxt"
+    >
       Restablecer Contraseña
     </p>
     <p v-else-if="this.loginMode !== 'password'" class="underLineTxt">
@@ -67,8 +71,14 @@
 </template>
 <script>
 /*eslint-disable */
-import { auth, signInWithEmailAndPassword } from "@/auth/firebaseConfig.js";
+import {
+  auth,
+  googleProvider,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "@/auth/firebaseConfig.js";
 import { API_URL } from "@/helpers/basicHelpers";
+
 import axios from "axios";
 
 import ButtonComponent from "./ButtonComponent.vue";
@@ -100,6 +110,16 @@ export default {
   },
   name: "LoginApp",
   methods: {
+    async resetPassword() {
+      sendPasswordResetEmail(auth, this.$route.query.email)
+        .then(() => {
+          //Password reset email sent!
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+    },
     showPassword() {
       let element = document.querySelector("#loginInput");
       if (element.type === "password") {

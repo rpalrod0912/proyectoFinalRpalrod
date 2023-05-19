@@ -131,6 +131,7 @@ import {
   app,
   auth,
   createUserWithEmailAndPassword,
+  sendEmailVerification,
 } from "@/auth/firebaseConfig.js";
 import { API_URL, toHome } from "@/helpers/basicHelpers";
 import useValidate from "@vuelidate/core";
@@ -242,6 +243,10 @@ export default {
             pwd: registerData.password,
             firebaseId: userId,
             phone: registerData.phone,
+          });
+          sendEmailVerification(auth.currentUser).then(() => {
+            // Email verification sent!
+            // ...
           });
           const usuario = userCredential.user;
           if (localStorage.getItem(`carrito_${usuario.email}`) === null) {

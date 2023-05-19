@@ -5,12 +5,20 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  signInWithRedirect,
+  sendPasswordResetEmail,
+  getAdditionalUserInfo,
+  getRedirectResult,
+  sendEmailVerification,
   reauthenticateWithCredential,
   setPersistence,
   browserSessionPersistence,
   updateEmail,
   updatePassword,
   fetchSignInMethodsForEmail,
+  GoogleAuthProvider,
+  signInWithPopup,
+  EmailAuthProvider,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -24,14 +32,23 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const googleProvider = new GoogleAuthProvider();
 
 export {
   app,
   auth,
+  googleProvider,
+  getAdditionalUserInfo,
+  getRedirectResult,
+  sendPasswordResetEmail,
+  signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  signInWithRedirect,
   updateEmail,
+  sendEmailVerification,
+  GoogleAuthProvider,
   updatePassword,
   reauthenticateWithCredential,
   fetchSignInMethodsForEmail,

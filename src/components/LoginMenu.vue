@@ -28,7 +28,7 @@
       />
       <input type="submit" class="nextButtonSubmit" />
       <p class="TopMenu__item textoPlanoFino">O si lo prefieres</p>
-      <button class="socialButton">
+      <button @click="googleSignIn()" class="socialButton">
         <img src="../assets/gmail.png" />
         <p>CONTINUAR CON GMAIL</p>
       </button>
@@ -110,6 +110,12 @@
 
 import {
   auth,
+  googleProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+  getRedirectResult,
+  signInWithRedirect,
+  getAdditionalUserInfo,
   fetchSignInMethodsForEmail,
   signOut,
 } from "@/auth/firebaseConfig.js";
@@ -129,6 +135,21 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 
 export default {
   /*eslint-disable */
+  /*
+  async mounted() {
+    try {
+      const result = await getRedirectResult(auth);
+      if (result) {
+        const details = getAdditionalUserInfo(result);
+        console.log(details); // details.isNewUser to determine if a new or returning user
+      } else {
+        // Everything is fine
+      }
+    } catch (error) {
+      console.log(error); // Debug errors from redirect response
+    }
+  },
+  */
   async created() {
     if (this.color === "Dark") {
       this.modo = this.UserOscuro;
@@ -137,6 +158,7 @@ export default {
       this.modo = this.UserClaro;
       this.deleteIcon = this.deleteClaro;
     }
+
     console.log(this.userData);
     console.log(this.authentication);
   },
@@ -188,6 +210,64 @@ export default {
     };
   },
   methods: {
+    async getGoogleRedirectToken() {
+      debugger;
+      console.log(auth);
+      await getRedirectResult(auth)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access Google APIs.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+
+          // The signed-in user info.
+          const user = result.user;
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+        });
+    },
+    async googleSignIn() {
+      await signInWithPopup(auth, googleProvider)
+        .then((result) => {
+          debugger;
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          const user = result.user;
+          var loggedInUser = result.user;
+          console.log(loggedInUser);
+          console.log(result);
+          const isNewUser = result.additionalUserInfo.isNewUser;
+          if (isNewUser) {
+            loggedInUser.delete().then(() => {
+              auth.signOut("SIGNED OUT");
+            });
+          } else {
+            console.log("is new user :", result.additionalUserInfo.isNewUser);
+          }
+        })
+        .catch((error) => {
+          debugger;
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+        });
+
+      //await signInWithRedirect(auth, googleProvider);
+      // await this.getGoogleRedirectToken();
+    },
     async continueLogin() {
       console.log(auth);
       await fetchSignInMethodsForEmail(auth, this.mail)

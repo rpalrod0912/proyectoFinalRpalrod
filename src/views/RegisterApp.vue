@@ -3,7 +3,7 @@
   <PopUpModal
     :is-opened="true"
     v-if="this.showPopUp"
-    msj="REGISTRADO CON ÉXITO"
+    msj="REGISTRADO CON ÉXITO, HEMOS MANDADO UNA VERIFICACIÓN A TU CORREO ELECTRÓNICO"
   ></PopUpModal>
   <main>
     <RegisterComponent @changePopUpState="setToTrue"></RegisterComponent>

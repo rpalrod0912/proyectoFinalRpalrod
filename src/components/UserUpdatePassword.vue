@@ -115,10 +115,18 @@
 <script>
 /*eslint-disable */
 import axios from "axios";
-import { app, signOut, auth, updatePassword } from "@/auth/firebaseConfig.js";
+import { EmailAuthProvider } from "firebase/auth";
+import {
+  app,
+  signOut,
+  auth,
+  updatePassword,
+  reauthenticateWithCredential,
+} from "@/auth/firebaseConfig.js";
 import { API_URL } from "@/helpers/basicHelpers";
 import useVuelidate from "@vuelidate/core";
 import ButtonComponent from "./ButtonComponent.vue";
+import "firebase/auth";
 import {
   required,
   email,
@@ -133,6 +141,25 @@ const passwordRegex = helpers.regex(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/
 );
 
+const reauthWithOldPwd = async (oldPassword) => {
+  const user = auth.currentUser;
+  const cred = EmailAuthProvider.credential(
+    auth.currentUser.email,
+    oldPassword
+  );
+  let valid;
+  await reauthenticateWithCredential(user, cred)
+    .then((res) => {
+      debugger;
+      valid = true;
+    })
+    .catch((err) => {
+      debugger;
+      console.log(err.message);
+      valid = false;
+    });
+  return valid;
+};
 //Old pwd validator
 
 const hasPwdMatches = (plainTxt, hash) => {};
@@ -200,17 +227,7 @@ export default {
           ("ALGO OCURRIO");
         });
     },
-    async validateOriginalPwd() {
-      let isPassword;
-      await bcrypt
-        .compare(this.oldPwd, this.userData.pwd)
-        .then(function (result) {
-          console.log(result);
-          isPassword = result;
-        });
-      console.log(isPassword);
-      return isPassword;
-    },
+
     focusInput(id, idLabel) {
       const elemento = document.querySelector(`#${id}`);
       if (document.activeElement !== elemento) {
@@ -244,9 +261,17 @@ export default {
     async passwordUpdate() {
       this.v$.$validate();
       console.log(this.v$);
-      if (!this.v$.$error && (await this.validateOriginalPwd())) {
+      console.log(`El usurio es ${await reauthWithOldPwd(this.oldPwd)}`);
+
+      if (reauthWithOldPwd(this.oldPwd)) {
+        console.log("Contraseña Valida");
+      } else {
+        console.log("Contraseña No Valida");
+      }
+
+      if (!this.v$.$error && (await reauthWithOldPwd(this.oldPwd))) {
         console.log("TODO BIEN");
-        await this.putData();
+        // await this.putData();
         if (this.exito === true) {
           this.$emit("changePopUpState", true);
           await this.logOut();
@@ -261,7 +286,7 @@ export default {
             });*/
         }
       }
-      if (!(await this.validateOriginalPwd())) this.isOgPwd = false;
+      if (!(await reauthWithOldPwd(this.oldPwd))) this.isOgPwd = false;
       console.log("ALGO ANDA MAL");
       console.log(this.v$.$error);
       this.v$.$validate();
