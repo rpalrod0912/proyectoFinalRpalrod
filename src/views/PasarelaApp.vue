@@ -1,6 +1,19 @@
 <template>
   <WhiteHeader class="headerPasarela" tipo="backHeader"></WhiteHeader>
-  <div class="pasarelaMain">
+  <PopUpModal
+    @ventanaError="setPopValue"
+    v-if="this.postError"
+    :is-opened="this.postError"
+    :isError="true"
+    msj="Los Datos de Facturación deben estar rellenos "
+  ></PopUpModal>
+  <PopUpModal
+    @ventanaError="setPedidoProcesado"
+    v-if="pedidoProcesado"
+    :is-opened="true"
+    msj="¡GRACIAS, TU PEDIDO SE ESTA PROCESANDO CORRECTAMENTE!"
+  ></PopUpModal>
+  <div style="padding-top: 3rem" class="pasarelaMain">
     <section class="pasarelaOptions">
       <h1>DETALLES DEL PEDIDO</h1>
       <ul class="options">
@@ -16,6 +29,39 @@
           <img src="../assets/gift.png" />
           <h1>Datos del Regalo</h1>
         </li>
+        <li v-if="!this.orderData && this.loadData">
+          <UserInformation
+            :userData="this.userData"
+            @updateWindow="reloadWindowIfTrue"
+          ></UserInformation>
+        </li>
+        <li class="directionData" v-if="this.orderData && !this.loadData">
+          <h1>Dirección del envío</h1>
+          <div class="parentInfoContainer">
+            <div class="infoContainer">
+              <p class="boldP">Nombre:</p>
+              <p>{{ this.userData.nombre }}</p>
+            </div>
+            <div class="infoContainer">
+              <p class="boldP">Apellidos:</p>
+              <p>{{ this.userData.apellidos }}</p>
+            </div>
+            <div class="infoContainer">
+              <p class="boldP">Provincia:</p>
+              <p>{{ this.userData.provincia }}</p>
+            </div>
+            <div class="infoContainer">
+              <p class="boldP">CodigoPostal:</p>
+              <p>{{ this.userData.cp }}</p>
+            </div>
+            <div class="infoContainer">
+              <p class="boldP">Ciudad:</p>
+              <p>{{ this.userData.ciudad }}</p>
+            </div>
+            <p class="boldP">Dirección del domicilio:</p>
+            <p>{{ this.userData.direccion }}</p>
+          </div>
+        </li>
         <ButtonComponent
           async
           @click="this.tramitarPedido()"
@@ -24,12 +70,10 @@
         ></ButtonComponent>
       </ul>
     </section>
-    <div class="cartInfo">
+    <div class="cartInfo" v-if="this.carga">
       <h1>TU CARRITO</h1>
-      <div v-if="!carga">
-        <LoadingSpinner></LoadingSpinner>
-      </div>
-      <div class="cartInfoProducts" v-else>
+
+      <div class="cartInfoProducts">
         <div
           class="cartProduct"
           v-for="(item, index) in this.carrito.cesta"
@@ -49,7 +93,12 @@
               />
             </section>
             <section class="prodOptions">
-              <div class="optionContainer"></div>
+              <div class="optionContainer">
+                <span
+                  class="spanHeight"
+                  :style="{ backgroundColor: item.color.estilo }"
+                ></span>
+              </div>
               <div class="optionContainer">
                 {{ item.talla }}
               </div>
@@ -81,6 +130,12 @@
           <p class="precio">Envío Incluido</p>
         </section>
       </div>
+      <div v-if="!this.carga">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    </div>
+    <div v-else class="cartInfo">
+      <LoadingSpinner></LoadingSpinner>
     </div>
     <div class="bottomMenu">
       <input
@@ -100,12 +155,12 @@
           src="../assets/upIcon.png"
         />
       </label>
-      <div class="cartImg">
+      <div class="cartImg" v-if="this.carga">
         <div v-for="(item, index) in this.carrito.cesta" :key="index">
           <img :src="this.productsData[index].imagen" />
         </div>
       </div>
-      <div class="bottomMenu__box cartInfoProducts" v-if="carga">
+      <div class="bottomMenu__box cartInfoProducts" v-if="this.carga">
         <div class="fixedCabecera">
           <div class="cabecera">
             <h1>TU CARRITO</h1>
@@ -160,9 +215,6 @@
           </div>
         </div>
       </div>
-      <div v-else>
-        <LoadingSpinner></LoadingSpinner>
-      </div>
     </div>
   </div>
 </template>
@@ -173,9 +225,17 @@ import WhiteHeader from "@/components/WhiteHeader.vue";
 import axios from "axios";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import { API_URL } from "@/helpers/basicHelpers";
+import UserInformation from "@/components/UserInformation.vue";
+import PopUpModal from "@/components/popUpModal.vue";
 export default {
   name: "PasarelaApp",
-  components: { WhiteHeader, LoadingSpinner, ButtonComponent },
+  components: {
+    WhiteHeader,
+    LoadingSpinner,
+    ButtonComponent,
+    UserInformation,
+    PopUpModal,
+  },
   data() {
     return {
       carga: false,
@@ -183,20 +243,42 @@ export default {
       productsData: null,
       productsId: null,
       producstQuantity: null,
+      userData: null,
+      orderData: null,
+      loadData: null,
+      pedidoProcesado: null,
+      postError: null,
     };
   },
   async created() {
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${this.$store.state.currentToken}`,
+    };
     if (document.querySelector("body").classList.contains("bodyStyle")) {
       document.querySelector("body").classList.toggle("bodyStyle");
     }
     if (this.$store.state.currentToken === null) {
       await this.getToken();
     }
-    axios.defaults.headers.common = {
-      Authorization: `Bearer ${this.$store.state.currentToken}`,
-    };
-
+    debugger;
+    this.userData = await this.fetchUserData();
+    if (
+      this.userData.cp === null ||
+      this.userData.direccion === null ||
+      this.userData.fechaNac === null ||
+      this.userData.ciudad === null ||
+      this.userData.provincia === null
+    ) {
+      this.orderData = false;
+    } else {
+      this.orderData = true;
+    }
+    debugger;
+    console.log(this.carga);
+    console.log(this.userData);
+    debugger;
     if (this.carrito === null) {
+      debugger;
       this.$store.commit(
         "setCurrentCart",
         JSON.parse(localStorage.getItem("userProducts"))
@@ -206,7 +288,9 @@ export default {
       }
     } else {
       this.carga = false;
+
       if (this.carrito.cesta.length > 0) {
+        debugger;
         let dataArr = [];
         let productsId = [];
         let producstQuantity = [];
@@ -222,9 +306,31 @@ export default {
       }
 
       this.carga = true;
+      if (!this.orderData) {
+        this.loadData = true;
+      } else {
+        this.loadData = false;
+      }
     }
   },
   methods: {
+    setPopValue(val) {
+      this.postError = val;
+    },
+    setPedidoProcesado(val) {
+      this.pedidoProcesado = val;
+    },
+    reloadWindowIfTrue() {
+      this.$router.go();
+    },
+    async fetchUserData() {
+      debugger;
+      const data = await axios
+        .get(`${API_URL}users/email/${this.$store.state.currentMail}`)
+        .then((res) => res.data)
+        .catch((error) => error);
+      return data;
+    },
     menuAction(bool) {
       document.querySelector("#bottomMenu__toggle").checked = bool;
       if (bool === true) {
@@ -237,20 +343,35 @@ export default {
     },
     async tramitarPedido() {
       console.log("TRAMITADO");
-      const data = await axios
-        .get(`${API_URL}users/email/${this.$store.state.currentMail}`)
-        .then((res) => res.data)
-        .catch((error) => error);
-      const orderDto = {
-        userid: data.idUser,
-        products: this.productsId,
-        quantity: this.producstQuantity,
-      };
-      console.log(orderDto);
-      const postOrder = await axios
-        .post(`${API_URL}orders`, orderDto)
-        .then((res) => console.log(res));
-      console.log(data.idUser);
+      if (
+        this.userData.cp === null ||
+        this.userData.direccion === null ||
+        this.userData.fechaNac === null ||
+        this.userData.ciudad === null ||
+        this.userData.provincia === null
+      ) {
+        this.postError = true;
+      } else {
+        const orderDto = {
+          userid: this.userData.idUser,
+          products: this.productsId,
+          quantity: this.producstQuantity,
+        };
+        console.log(orderDto);
+        const postOrder = await axios
+          .post(`${API_URL}orders`, orderDto)
+          .then((res) => console.log(res));
+        this.pedidoProcesado = true;
+        setInterval(() => {
+          this.$router
+            .push({
+              name: "Inicio",
+            })
+            .then(() => {
+              this.$router.go();
+            });
+        }, 2000);
+      }
     },
 
     applySale(precio, porcentaje) {
@@ -299,7 +420,12 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../helpers/mixings.scss";
 @import "../styles/views/PasarelaApp.scss";
+
+@include inputTypeSubmit;
+.putDataSubmit {
+  width: 60%;
+}
 </style>

@@ -106,11 +106,7 @@ export default {
 
         self.userData = JSON.parse(JSON.stringify(datosUsuario));
         console.log(self.userData);
-        const carrito = JSON.parse(
-          localStorage.getItem(`carrito_${user.email}`)
-        );
-        self.carritoNumero = carrito.cesta.length;
-        self.$store.commit("setCurrentCartLength", self.carritoNumero);
+
         //self.carritoNumero = await self.contarProd(user.uid);
         self.$store.commit("setCurrentAuth", true);
         /*

@@ -26,7 +26,7 @@
         placeholder="Email/Número Móvil"
         type="text"
       />
-      <input type="submit" class="nextButtonSubmit" />
+      <input id="sigInButton" type="submit" class="nextButtonSubmit" />
       <p class="TopMenu__item textoPlanoFino">O si lo prefieres</p>
       <button @click="googleSignIn()" class="socialButton">
         <img src="../assets/gmail.png" />
@@ -118,6 +118,7 @@ import {
   linkWithPopup,
   getAdditionalUserInfo,
   fetchSignInMethodsForEmail,
+  RecaptchaVerifier,
   signOut,
 } from "@/auth/firebaseConfig.js";
 import useValidate from "@vuelidate/core";
@@ -133,6 +134,8 @@ import {
   helpers,
 } from "@vuelidate/validators";
 import LoadingSpinner from "./LoadingSpinner.vue";
+
+const phoneRegex = /\d{9}/;
 
 export default {
   /*eslint-disable */
@@ -270,6 +273,17 @@ export default {
       // await this.getGoogleRedirectToken();
     },
     async continueLogin() {
+      if (phoneRegex.test(this.mail)) {
+        console.log("es un telefono");
+
+        return this.$router.push({
+          name: "login",
+          query: { phone: this.mail },
+          params: {
+            loginMode: "sms",
+          },
+        });
+      }
       await fetchSignInMethodsForEmail(auth, this.mail)
         .then((signInMethods) => {
           console.log(signInMethods);
@@ -281,6 +295,9 @@ export default {
             this.$router.push({
               name: "login",
               query: { email: this.mail },
+              params: {
+                loginMode: "password",
+              },
             });
             pageBody.classList.toggle("bodyStyle");
           } else {

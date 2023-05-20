@@ -568,6 +568,10 @@ export default {
   }
 }
 
+.totalprice {
+  display: flex;
+  flex-direction: column;
+}
 .cartWithNumber {
   position: relative;
   .carritoNumber {
@@ -625,6 +629,8 @@ export default {
   transform: scale(1.1);
 }
 .totalPrice {
+  display: flex;
+  flex-direction: column;
   .total {
     @include fuenteBold;
     font-size: 1.3rem;

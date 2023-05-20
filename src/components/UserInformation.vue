@@ -234,6 +234,7 @@ const passwordRegex = helpers.regex(
 
 export default {
   name: "UserInformation",
+
   data() {
     return {
       v$: useVuelidate(),
@@ -287,6 +288,7 @@ export default {
   },
   emits: {
     changePopUpState: null,
+    updateWindow: null,
   },
   methods: {
     focusInput(id) {
@@ -296,6 +298,7 @@ export default {
       }
     },
     async putData() {
+      debugger;
       const datosUsuario = {
         nombre: this.nombre,
         apellidos: this.apellidos,
@@ -319,6 +322,7 @@ export default {
       }
     },
     async submitUpdate() {
+      debugger;
       console.log(this.v$);
       // this.v$.$touch();
 
@@ -328,6 +332,7 @@ export default {
         await this.putData();
         if (this.exito === true) {
           this.$emit("changePopUpState", true);
+          this.$emit("updateWindow", true);
         }
       }
       console.log("ALGO ANDA MAL");

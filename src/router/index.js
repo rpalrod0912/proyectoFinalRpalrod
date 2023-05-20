@@ -9,7 +9,7 @@ const routes = [
   },
 
   {
-    path: "/login",
+    path: "/login/:loginMode",
     name: "login",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/LoginApp.vue"),

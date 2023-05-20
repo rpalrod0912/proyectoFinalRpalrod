@@ -7,13 +7,14 @@
       <h1 v-else>INTRODUCE TU CONTRASEÑA</h1>
     </label>
     <p v-if="this.loginMode === 'sms'" class="pDescrip">
-      Introduce el código que te hemos enviado al SMS al número de teléfono
-      +34XXXXXXXX
+      Introduce el código que te hemos enviado al SMS al número de teléfono +34
+      {{ this.userInput }}
     </p>
     <p v-else-if="this.loginMode === 'mail'" class="pDescrip">
-      Introduce el código que te hemos enviado por e-mail a ********02@gmail.com
+      Accede al enlace que hemos enviado a {{ this.$route.query.email }}
     </p>
-    <div class="passwordInputFlex">
+    <div id="recaptcha-container"></div>
+    <div v-if="this.loginMode !== 'mail'" class="passwordInputFlex">
       <input
         v-model="this.password"
         type="password"
@@ -39,7 +40,20 @@
       >Verifica tu cuenta con el correo electrónico que hemos mandado a tu
       dirección de correo para iniciar sesión
     </span>
-    <input class="loginSubmit" type="submit" />
+    <input v-if="this.loginMode !== 'mail'" class="loginSubmit" type="submit" />
+    <input
+      v-if="this.loginMode === 'sms'"
+      v-model="this.code"
+      type="password"
+      class="loginSubmit"
+      placeholder="Cod verficiacion"
+    />
+    <ButtonComponent
+      v-if="this.loginMode === 'sms'"
+      @click="this.verifyCode()"
+      class="colorBtnSoc btn"
+      msj="INTRODUCIR CODIGO VERIFICACION"
+    ></ButtonComponent>
     <ButtonComponent
       v-if="this.loginMode !== 'password'"
       class="btn"
@@ -50,13 +64,18 @@
       class="colorBtnSoc btn"
       msj="Acceder con código vía SMS"
     ></ButtonComponent>
+
     <ButtonComponent
       v-if="this.loginMode === 'password'"
       class="colorBtnSoc btn"
       msj="Acceder con código vía e-mail"
+      @click="this.$emit('changeLoginType', 'mail')"
     ></ButtonComponent>
     <p
-      @click="this.resetPassword()"
+      @click="
+        this.resetPassword();
+        this.$emit('emailVerified', true);
+      "
       v-if="this.loginMode === 'password'"
       class="underLineTxt"
     >
@@ -78,8 +97,12 @@
 import {
   auth,
   signOut,
+  signInWithPhoneNumber,
   googleProvider,
   sendPasswordResetEmail,
+  RecaptchaVerifier,
+  actionCodeSettings,
+  sendSignInLinkToEmail,
   signInWithEmailAndPassword,
 } from "@/auth/firebaseConfig.js";
 import { API_URL } from "@/helpers/basicHelpers";
@@ -109,13 +132,69 @@ export default {
       password: "",
       passwordNotFound: false,
       notVerified: null,
+      code: null,
     };
   },
   emits: {
     changePopUpState: null,
+    emailVerified: null,
+    changeLoginType: null,
   },
   name: "LoginApp",
   methods: {
+    formatPhoneNumber(str) {
+      let result = str.replace(/.{3}/g, "$&-");
+      result = result.slice(0, -1);
+      console.log(result);
+      return `+34 ${result}`;
+    },
+    verifyCode() {
+      //
+      let vm = this;
+      let code = this.code;
+      //
+      window.confirmationResult
+        .confirm(code)
+        .then(function (result) {
+          // User signed in successfully.
+          var user = result.user;
+          // ...
+          //route to set password !
+          vm.$router.push({ path: "/Inicio" });
+        })
+        .catch(function (error) {
+          // User couldn't sign in (bad verification code?)
+          // ...
+        });
+    },
+    async submitPhoneLogin() {
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        "recaptcha-container",
+        {
+          size: "invisible",
+          callback: (response) => {
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+            onSignInSubmit();
+          },
+        },
+        auth
+      );
+
+      signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+          // SMS sent. Prompt user to type the code from the message, then sign the
+          // user in with confirmationResult.confirm(code).
+          window.confirmationResult = confirmationResult;
+          // ...
+        })
+        .catch((error) => {
+          // Error; SMS not sent
+          // ...
+          window.recaptchaVerifier.render().then(function (widgetId) {
+            grecaptcha.reset(widgetId);
+          });
+        });
+    },
     async logOut() {
       await signOut(auth)
         .then(() => {
@@ -129,7 +208,7 @@ export default {
         });
     },
     async resetPassword() {
-      sendPasswordResetEmail(auth, this.$route.query.email)
+      sendPasswordResetEmail(auth)
         .then(() => {
           //Password reset email sent!
         })
@@ -150,7 +229,61 @@ export default {
     },
     async submitLogin() {
       debugger;
-      await this.logInFirebase();
+      if (this.loginMode === "mail") {
+        debugger;
+        console.log(this.password);
+        await sendSignInLinkToEmail(auth, this.password, actionCodeSettings)
+          .then(() => {
+            // The link was successfully sent. Inform the user.
+            // Save the email locally so you don't need to ask the user for it again
+            // if they open the link on the same device.
+            debugger;
+            console.log("correo enviado");
+            window.localStorage.setItem("emailForSignIn", this.password);
+            console.log(localStorage.getItem("emailForSignIn"));
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(error);
+            // ...
+          });
+      } else if (this.loginMode === "sms") {
+        window.recaptchaVerifier = new RecaptchaVerifier(
+          "loginInput",
+          {
+            size: "invisible",
+            callback: (response) => {
+              // reCAPTCHA solved, allow signInWithPhoneNumber.
+              this.submitLogin();
+            },
+          },
+          auth
+        );
+        const appVerifier = window.recaptchaVerifier;
+
+        await signInWithPhoneNumber(
+          auth,
+          this.formatPhoneNumber(this.password),
+          appVerifier
+        )
+          .then((confirmationResult) => {
+            debugger;
+            // SMS sent. Prompt user to type the code from the message, then sign the
+            // user in with confirmationResult.confirm(code).
+            window.confirmationResult = confirmationResult;
+            // ...
+          })
+          .catch((error) => {
+            // Error; SMS not sent
+            // ...
+            debugger;
+            console.log(error);
+          });
+      } else {
+        await this.logInFirebase();
+      }
     },
     async logInFirebase() {
       const logInData = {
@@ -186,19 +319,7 @@ export default {
         });
       this.userNotFound;
     },
-    /*
-    async encontrarUsuario(email) {
-      const mail = email;
-      const foundUser = await fetch(`${API_URL}users/email/${mail}`).then(
-        (res) => res.json()
-      );
-      foundUser;
-      if (foundUser !== "NOTFOUND") {
-        this.$router.push("/");
-      }
-      
-    },
-    */
+
     async encontrarUsuario(email) {
       const mail = email;
       const data = await axios
@@ -228,6 +349,13 @@ export default {
   components: { ButtonComponent },
   props: {
     loginModeProp: String,
+    userInput: String,
+  },
+  watch: {
+    loginModeProp: function (newVal, OldVal) {
+      debugger;
+      this.loginMode = newVal;
+    },
   },
 };
 </script>

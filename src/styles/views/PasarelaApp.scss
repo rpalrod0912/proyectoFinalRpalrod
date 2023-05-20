@@ -2,6 +2,7 @@ header {
   z-index: 0;
   width: 100%;
 }
+
 .cartImg {
   display: flex;
 
@@ -94,6 +95,21 @@ header {
 .pasarelaOptions {
   @include fuenteSemiBold;
   ul {
+    .directionData {
+      .boldP {
+        @include fuenteSemiBold;
+      }
+      display: flex;
+      flex-direction: column;
+      .parentInfoContainer {
+        display: flex;
+        flex-direction: column;
+        .infoContainer {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+    }
     li {
       @include fuenteRegular;
       display: flex;
