@@ -72,6 +72,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/UserUpdateMailView"),
   },
+  {
+    path: "/pagos",
+    name: "pagos",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/PaymentMethodsView.vue"),
+  },
 ];
 
 const router = createRouter({
