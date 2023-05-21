@@ -45,13 +45,21 @@
       <img src="../assets/imagenComprimidaGuia.jpg" alt="ImagenGuiaCompra" />
     </section>
   </main>
+  <AppFooter></AppFooter>
 </template>
 <script>
+import AppFooter from "@/components/AppFooter.vue";
 import WhiteHeader from "@/components/WhiteHeader.vue";
-
+import { scrollTop } from "@/helpers/basicHelpers";
 export default {
-  name: "PaymentMethodsView",
-  components: { WhiteHeader },
+  name: "GuideView",
+  components: { WhiteHeader, AppFooter },
+  created() {
+    if (document.querySelector("body").classList.contains("bodyStyle")) {
+      document.querySelector("body").classList.toggle("bodyStyle");
+    }
+    scrollTop();
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -60,30 +68,35 @@ export default {
 main {
   display: flex;
   background-color: rgb(246, 246, 246);
-  .guide {
-    padding-top: 9rem;
 
+  .guide {
+    padding-top: 16rem;
+    padding-bottom: 3rem;
     width: 50%;
     display: flex;
     flex-direction: column;
 
     h1,
     h2 {
-      font-size: 2.3rem;
+      font-size: 46px;
+      //font-size: 2.3rem;
       padding: 20px;
       padding-left: 5rem;
       padding-right: 5rem;
+      color: #242424;
     }
     p {
       padding: 10px;
       padding-left: 5rem;
       padding-right: 5rem;
+      color: #777;
     }
     h1 {
-      @include fuenteBold;
+      @include fuenteSemiBold;
+      font-size: 2rem;
     }
     h2 {
-      @include fuenteSemiBold;
+      @include fuenteBold;
     }
     p {
       @include fuenteRegular;
@@ -95,6 +108,53 @@ main {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+  }
+}
+@media (max-width: 790px) {
+  main {
+    flex-direction: column-reverse;
+    .guide {
+      padding-top: 3rem;
+
+      width: 100%;
+    }
+    .guideImg {
+      width: 100%;
+      img {
+        height: 40rem;
+        -o-object-fit: cover;
+        object-fit: cover;
+        object-position: 27% 28%;
+      }
+    }
+  }
+}
+@media (max-width: 430px) {
+  main {
+    .guide {
+      h1,
+      h2 {
+        padding-left: 3rem;
+        padding-right: 3rem;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+      p {
+        font-size: 0.8rem;
+        padding-left: 3rem;
+        padding-right: 3rem;
+      }
+    }
+    .guideImg {
+      img {
+        height: 17rem;
+        object-position: 25% 19%;
+      }
     }
   }
 }

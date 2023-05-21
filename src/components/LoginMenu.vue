@@ -63,26 +63,28 @@
         />
       </div>
       <div class="menuOptions">
-        <ul>
-          <li @click="this.$router.push('/pedidos')" class="usOption">
+        <div class="parentOptionsContainer">
+          <div
+            style="margin-top: 1rem"
+            @click="this.$router.push('/pedidos')"
+            class="usOption"
+          >
             <h2>Mis Compras</h2>
-            <img src="../assets/Caja.png" />
-          </li>
-          <li>
-            <h2 @click="this.$router.push('/tuinformacion')">
-              Datos Personales
-            </h2>
-            <img src="../assets/huella.png" />
-          </li>
-          <li>
+            <img class="menuOptionsImg" src="../assets/Caja.png" />
+          </div>
+          <div @click="this.$router.push('/tuinformacion')">
+            <h2>Datos Personales</h2>
+            <img class="menuOptionsImg" src="../assets/huella.png" />
+          </div>
+          <div>
             <h2>Métodos de pago</h2>
-            <img src="../assets/tarjeta.png" />
-          </li>
-          <li>
-            <h2>Política de Privacidad</h2>
-            <img src="../assets/alertaPng.png" />
-          </li>
-        </ul>
+            <img class="menuOptionsImg" src="../assets/tarjeta.png" />
+          </div>
+          <div @click="this.$router.push('/guiadecompra')">
+            <h2>Guía de compra</h2>
+            <img class="menuOptionsImg" src="../assets/infoIcon.png" />
+          </div>
+        </div>
         <input
           @click="logOut"
           class="nextButtonSubmit"
@@ -138,22 +140,6 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 const phoneRegex = /\d{9}/;
 
 export default {
-  /*eslint-disable */
-  /*
-  async mounted() {
-    try {
-      const result = await getRedirectResult(auth);
-      if (result) {
-        const details = getAdditionalUserInfo(result);
-        console.log(details); // details.isNewUser to determine if a new or returning user
-      } else {
-        // Everything is fine
-      }
-    } catch (error) {
-      console.log(error); // Debug errors from redirect response
-    }
-  },
-  */
   async created() {
     if (this.color === "Dark") {
       this.modo = this.UserOscuro;
@@ -362,6 +348,7 @@ export default {
 
 @include headerIconHover;
 
+/*
 .menuOptions {
   display: flex;
   flex-direction: column;
@@ -386,7 +373,53 @@ export default {
     }
   }
 }
+*/
+.menuOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  .parentOptionsContainer {
+    display: flex;
+    flex-direction: column;
+    div {
+      margin-bottom: 1.8rem;
 
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+      justify-content: space-between;
+      h2 {
+        @include fuenteSemiBold;
+        color: #949494;
+      }
+      .menuOptionsImg {
+        padding-left: 1.5rem;
+        width: 2.8rem;
+        height: 2.3rem;
+      }
+    }
+  }
+  .nextButtonSubmit {
+    width: 100%;
+  }
+}
+@media (max-width: 440px) {
+  .menuOptions {
+    .parentOptionsContainer {
+      div {
+        h2 {
+          font-size: 1.1rem;
+        }
+        .menuOptionsImg {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
+    }
+  }
+}
 .nextButtonSubmit {
   @include loginButton("black", "white", "2rem");
   padding-top: 0rem;
@@ -529,20 +562,6 @@ export default {
   }
 }
 
-@media (min-width: 400px) and (max-width: 634px) {
-  .menuOptions {
-    ul {
-      li {
-        margin: 1rem;
-        img {
-          width: 2.1rem;
-          height: 2.1rem;
-        }
-      }
-    }
-  }
-}
-
 @media (min-width: 300px) and (max-width: 599px) {
   .itemsBox {
     margin-top: 2rem;
@@ -562,19 +581,7 @@ export default {
   .nextButtonSubmit {
     font-size: 1rem;
   }
-  .menuOptions {
-    ul {
-      li {
-        margin: 1rem;
-        right: 2rem;
-        font-size: 0.7rem;
-        img {
-          left: 14rem;
-          width: 1.8rem;
-        }
-      }
-    }
-  }
+
   .contenidoLogin {
     label {
       text-align: center;
