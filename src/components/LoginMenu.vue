@@ -29,11 +29,11 @@
       <input id="sigInButton" type="submit" class="nextButtonSubmit" />
       <p class="TopMenu__item textoPlanoFino">O si lo prefieres</p>
       <button @click="googleSignIn()" class="socialButton">
-        <img src="../assets/gmail.png" />
+        <img src="../assets/gmail.png" alt="gmail img" />
         <p>CONTINUAR CON GMAIL</p>
       </button>
       <button class="socialButton">
-        <img src="../assets/facebook.png" />
+        <img src="../assets/facebook.png" alt="facebook img" />
         <p>CONTINUAR CON FACEBOOK</p>
       </button>
 
@@ -70,19 +70,35 @@
             class="usOption"
           >
             <h2>Mis Compras</h2>
-            <img class="menuOptionsImg" src="../assets/Caja.png" />
+            <img
+              class="menuOptionsImg"
+              src="../assets/Caja.png"
+              alt="Compras img"
+            />
           </div>
           <div @click="this.$router.push('/tuinformacion')">
             <h2>Datos Personales</h2>
-            <img class="menuOptionsImg" src="../assets/huella.png" />
+            <img
+              class="menuOptionsImg"
+              src="../assets/huella.png"
+              alt="huella digital img"
+            />
           </div>
-          <div>
-            <h2>Métodos de pago</h2>
-            <img class="menuOptionsImg" src="../assets/tarjeta.png" />
+          <div @click="this.$router.push('/contacto')">
+            <h2>Contacto</h2>
+            <img
+              class="menuOptionsImg"
+              src="../assets/contact-mail.png"
+              alt="correo electrónico img"
+            />
           </div>
           <div @click="this.$router.push('/guiadecompra')">
             <h2>Guía de compra</h2>
-            <img class="menuOptionsImg" src="../assets/infoIcon.png" />
+            <img
+              class="menuOptionsImg"
+              src="../assets/infoIcon.png"
+              alt="información img"
+            />
           </div>
         </div>
         <input
@@ -348,32 +364,6 @@ export default {
 
 @include headerIconHover;
 
-/*
-.menuOptions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  ul {
-    position: relative;
-    left: -2rem;
-    display: flex;
-    flex-direction: column;
-    li {
-      cursor: pointer;
-      display: flex;
-      h2 {
-        @include fuenteSemiBold;
-        color: #949494;
-      }
-      img {
-        position: absolute;
-        left: 22rem;
-        width: 2.8rem;
-      }
-    }
-  }
-}
-*/
 .menuOptions {
   display: flex;
   flex-direction: column;

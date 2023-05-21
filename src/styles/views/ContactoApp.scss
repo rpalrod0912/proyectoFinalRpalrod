@@ -1,0 +1,134 @@
+@import "../views/GuideView.scss";
+.separador {
+  border-top: 1px solid #dadada;
+  height: 2px;
+  padding: 0;
+}
+.nextButtonSubmit {
+  @include loginButton("#DADADA", "#949494", "2rem");
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  height: 3rem;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+main {
+  .guide {
+    //  padding-top: 10rem;
+  }
+  .contactoContainer {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    p {
+      padding-left: 0rem;
+      padding-right: 0rem;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .contactoContainerHeader {
+      display: flex;
+      align-items: center;
+      h1,
+      h2,
+      p {
+        font-size: 2rem;
+        @include fuenteBold;
+        padding: 0rem;
+      }
+      .serviceUp {
+        display: flex;
+        align-items: center;
+        p {
+          padding-left: 1rem;
+          color: #5cc777;
+        }
+      }
+      .serviceDown {
+        display: flex;
+        align-items: center;
+        p {
+          color: #e04f4f;
+        }
+        .circleDown {
+          background-color: #e04f4f;
+          width: 0.5rem;
+          margin: 8px;
+          height: 0.5rem;
+          border-radius: 100%;
+        }
+      }
+      img {
+        padding-right: 1.2rem;
+        width: 2rem;
+      }
+    }
+  }
+}
+@media (max-width: 1283px) {
+  main {
+    .contactoContainer {
+      .contact {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .serviceUp {
+          p {
+            padding-left: 0rem;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1010px) {
+  main {
+    flex-direction: column-reverse;
+    .guide {
+      padding-top: 3rem;
+
+      width: 100%;
+    }
+    .guideImg {
+      width: 100%;
+      img {
+        height: 40rem;
+        -o-object-fit: cover;
+        object-fit: cover;
+        object-position: 27% 28%;
+      }
+    }
+  }
+}
+@media (max-width: 555px) {
+  main {
+    .guide {
+      .contactoContainer {
+        padding-left: 3rem;
+        padding-right: 3rem;
+        img {
+          width: 1.3rem;
+        }
+        h2 {
+          font-size: 18px;
+        }
+        p {
+          font-size: 12px;
+        }
+        .serviceDown,
+        .serviceUp {
+          p {
+            font-size: 18px;
+          }
+        }
+        .nextButtonSubmit {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
