@@ -673,7 +673,7 @@ export default {
     cursor: pointer;
     img {
       width: 6rem;
-      height: 29%;
+      height: auto;
       /*
       width: 10rem;
       height: 6rem;

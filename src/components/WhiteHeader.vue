@@ -28,15 +28,16 @@
       @click="toHome()"
       id="logoWhite"
       class="backHeaderLogo headerHoverLabel"
+      :class="!showHeader ? 'hideLogo' : ''"
       src="../assets/LogoOscuroSinFondo.png"
     />
     <img
-      v-else
       @mouseover="checkLogo()"
       @mouseout="checkLogo()"
       @click="toHome()"
       id="logoWhite"
-      class="logo headerHoverLabel"
+      class="backHeaderLogo headerHoverLabel"
+      :class="!showHeader ? 'hideLogo' : ''"
       :src="this.logo"
     />
     <ul v-if="tipo !== 'backHeader'" class="userOptions">
@@ -76,6 +77,12 @@ import { API_URL } from "@/helpers/basicHelpers";
 
 export default {
   /*eslint-disable */
+  mounted() {
+    window.addEventListener("scroll", this.onScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.onScroll);
+  },
   created() {
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
@@ -126,6 +133,8 @@ export default {
 
   data() {
     return {
+      showHeader: true,
+      scrollPos: 0,
       tipoHeader: "white",
       iconos: {
         logoClaro: require("../assets/LogoOscuroTransparente.png"),
@@ -151,6 +160,19 @@ export default {
     menuButtonColor: "String",
   },
   methods: {
+    onScroll() {
+      debugger;
+      const currentScrollPos =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      if (currentScrollPos < 0) return;
+
+      if (Math.abs(currentScrollPos - this.scrollPos) < 60) {
+        return;
+      }
+      this.showHeader = currentScrollPos < this.scrollPos;
+      this.scrollPos = currentScrollPos;
+    },
     checkLogo() {
       console.log(this.tipoHeader);
       console.log(this.tipo);
@@ -186,251 +208,5 @@ export default {
 @import "../helpers/mixings.scss";
 
 @include headerIconHover;
-.hideHeader {
-  #logoWhite {
-    display: none;
-  }
-  .headerMedia {
-    #searchImg {
-      display: none;
-    }
-  }
-  #loginMenuId {
-    display: none;
-  }
-  #hideCartId {
-    display: none;
-  }
-}
-header {
-  height: 10rem;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  z-index: 4;
-
-  img {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-  width: 100%;
-  .hoverArrow {
-    margin-left: 2rem;
-
-    transition: 0.3s;
-    cursor: pointer;
-  }
-  .hoverArrow:hover {
-    transform: scale(1.12);
-  }
-  .menu {
-    margin-left: 2rem;
-  }
-  ul {
-    list-style-type: none;
-
-    display: flex;
-    margin-right: 2rem;
-    marker: none;
-    .searchBar {
-      width: 13rem;
-      margin-left: 0px;
-    }
-    li {
-      margin: 1rem;
-    }
-    @media (max-width: 695px) {
-      li {
-        margin: 0rem;
-      }
-    }
-  }
-  background-color: transparent;
-
-  display: flex;
-  .backHeaderLogo {
-    margin-left: 15rem;
-    position: sticky;
-    right: 64rem;
-    width: 14rem;
-    height: 2rem;
-    cursor: pointer;
-  }
-  .invisibleDiv {
-    display: none;
-  }
-
-  @media (max-width: 657px) {
-    .backHeaderLogo {
-      width: 8rem;
-      height: 1.2rem;
-      margin-left: 3rem;
-      position: unset;
-    }
-    .invisibleDiv {
-      display: flex;
-      width: 2.5rem;
-      height: 2.5rem;
-      margin-right: 2rem;
-    }
-  }
-
-  .logo {
-    //position: fixed;
-    left: 39%;
-    width: 14rem;
-    height: 2rem;
-    cursor: pointer;
-  }
-
-  @media (max-width: 1400px) {
-    .logo {
-      position: revert;
-    }
-  }
-  @media (min-width: 897px) {
-    .headerMedia {
-      .searchBar {
-        display: none;
-      }
-    }
-    .searchIcon {
-      display: none;
-    }
-  }
-
-  @media (max-width: 897px) {
-    .headerWithoutMedia {
-      display: none;
-    }
-
-    header {
-      width: 0%;
-
-      ul {
-        img {
-          width: 2rem;
-          height: 2rem;
-        }
-      }
-    }
-    .searchBar {
-      display: none;
-    }
-    .logo {
-    }
-  }
-}
-@media (min-width: 634px) {
-  header {
-    #menuGeneral {
-      .menu__btn {
-        padding-top: 1vw;
-      }
-    }
-  }
-}
-@media (max-width: 634px) {
-  header {
-    .headerMedia {
-      li {
-        right: 3rem;
-      }
-    }
-  }
-}
-@media (min-width: 400px) and (max-width: 634px) {
-  .secFoot2 {
-    flex-direction: column;
-    ul {
-      flex-direction: column;
-    }
-  }
-  .userOptions {
-    position: relative;
-    right: -3em;
-  }
-  .menu__btn {
-    left: 0.5em;
-    top: 4.8em;
-  }
-  header {
-    z-index: 1;
-    width: 100%;
-    .headerMedia {
-      left: 4.2em;
-      position: fixed;
-      top: 4em;
-    }
-    .logo {
-      position: relative;
-      left: 9%;
-      width: 11em;
-      height: 1.8em;
-    }
-    img {
-      width: 1.6rem;
-      height: 1.6rem;
-    }
-    ul {
-      marker: none;
-      margin: 0rem;
-      li {
-        right: 4rem;
-        position: relative;
-        margin: 0rem;
-      }
-      right: -29.9rem;
-    }
-  }
-}
-@media (min-width: 300px) and (max-width: 399px) {
-  .secFoot2 {
-    flex-direction: column;
-    ul {
-      flex-direction: column;
-    }
-  }
-  .productDiv {
-    width: 70%;
-  }
-  .userOptions {
-    position: relative;
-    right: -3em;
-  }
-  .menu__btn {
-    left: 0.5em;
-    top: 4.8em;
-  }
-  header {
-    width: 100%;
-    z-index: 1;
-    .headerMedia {
-      left: 4em;
-      position: fixed;
-      top: 4em;
-    }
-    .logo {
-      position: absolute;
-      left: 34%;
-
-      width: 7rem;
-      height: 1.2rem;
-    }
-    img {
-      width: 1.6rem;
-      height: 1.6rem;
-    }
-    ul {
-      marker: none;
-      margin: 0rem;
-      li {
-        right: 4rem;
-        position: relative;
-        margin: 0rem;
-      }
-      right: -29.9rem;
-    }
-  }
-}
+@import "../styles/layout/WhiteHeader.scss";
 </style>

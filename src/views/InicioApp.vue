@@ -55,6 +55,7 @@ import {
 import PopUpModal from "@/components/popUpModal.vue";
 export default {
   /*eslint-disable */
+
   created() {
     if (isSignInWithEmailLink(auth, window.location.href)) {
       // Additional state parameters can also be passed via URL.

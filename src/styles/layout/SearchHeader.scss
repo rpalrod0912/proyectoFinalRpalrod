@@ -1,0 +1,84 @@
+header {
+  display: flex;
+  height: 10rem;
+  justify-content: space-between;
+  align-items: center;
+  img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  width: 100%;
+  .menu {
+    margin-left: 2rem;
+  }
+  ul {
+    list-style-type: none;
+
+    display: flex;
+    margin-right: 2rem;
+    marker: none;
+    .searchBar {
+      width: 13rem;
+      margin-left: 0px;
+    }
+    li {
+      margin: 1rem;
+    }
+  }
+  background-color: transparent;
+
+  display: flex;
+
+  .logo {
+    width: 14rem;
+    height: 2rem;
+  }
+
+  @media (max-width: 1400px) {
+    .logo {
+      position: revert;
+    }
+  }
+
+  @media (min-width: 550px) and (max-width: 780px) {
+    .logo {
+      position: sticky;
+      left: 0;
+    }
+    .menu {
+      display: none;
+    }
+    padding-left: 2rem;
+    header img {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+    .searchHeaderUl {
+      li {
+        right: 0rem;
+      }
+    }
+  }
+
+  @media (max-width: 559px) {
+    .logo {
+      position: sticky;
+      left: 7%;
+      width: 8em;
+      height: 1.4em;
+    }
+    .menu {
+      display: none;
+    }
+    padding-left: 2rem;
+    header img {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+    .searchHeaderUl {
+      li {
+        right: -2em;
+      }
+    }
+  }
+}

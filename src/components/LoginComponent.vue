@@ -208,13 +208,16 @@ export default {
         });
     },
     async resetPassword() {
-      sendPasswordResetEmail(auth)
+      sendPasswordResetEmail(auth, this.$route.query.email)
         .then(() => {
           //Password reset email sent!
         })
         .catch((error) => {
+          debugger;
           const errorCode = error.code;
+          console.log(errorCode);
           const errorMessage = error.message;
+          console.log(errorMessage);
         });
     },
     showPassword() {
