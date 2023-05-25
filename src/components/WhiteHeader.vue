@@ -32,6 +32,7 @@
       src="../assets/LogoOscuroSinFondo.png"
     />
     <img
+      v-else
       @mouseover="checkLogo()"
       @mouseout="checkLogo()"
       @click="toHome()"

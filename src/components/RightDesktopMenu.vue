@@ -8,24 +8,24 @@
     </div>
     <div class="separadorBlack"></div>
     <div class="menuOptions">
-      <ul>
-        <li id="firstOption">
+      <div class="parentElement">
+        <div class="subElement" id="firstOption">
           <h2>Mis Compras</h2>
           <img src="../assets/Caja.png" />
-        </li>
-        <li id="secondOption">
+        </div>
+        <div class="subElement" id="secondOption">
           <h2>Datos Personales</h2>
           <img src="../assets/huella.png" />
-        </li>
-        <li id="thirdOption">
+        </div>
+        <div class="subElement" id="thirdOption">
           <h2>Métodos de pago</h2>
           <img src="../assets/tarjeta.png" />
-        </li>
-        <li id="fourthOption">
+        </div>
+        <div class="subElement" id="fourthOption">
           <h2>Política de Privacidad</h2>
           <img src="../assets/alertaPng.png" />
-        </li>
-      </ul>
+        </div>
+      </div>
       <div class="separadorBlack"></div>
 
       <input
@@ -78,16 +78,32 @@ export default {
     margin-bottom: 1.3rem;
   }
 }
-
+.menuOptions .parentElement {
+  list-style: none;
+}
+.menuOptions {
+  img {
+    padding-left: 1.5rem;
+    width: 2.8rem;
+    height: 2.3rem;
+  }
+}
+.menuOptions .subElement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .menuOptions .usOption h2 {
   color: #242424;
 }
-.menuOptions ul li h2 {
+.menuOptions .parentElement .subElement h2 {
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
+
   color: #949494;
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 @media (min-width: 900px) and (max-width: 1400px) {

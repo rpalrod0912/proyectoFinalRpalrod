@@ -10,7 +10,7 @@
         <div class="productDiv divMedia">
           <img :src="producto.imagen" />
         </div>
-        <div v-if="producto.oferta">
+        <div class="salesParenCont" v-if="producto.oferta">
           <div class="saleContainer">
             <p>DESCUENTO DEL {{ producto.oferta }} %</p>
           </div>
@@ -144,6 +144,9 @@ main {
       position: relative;
       right: 29vw;
     }
+    .salesParenCont {
+      margin-bottom: 2rem;
+    }
   }
 }
 .prodContainer:hover {
@@ -152,9 +155,27 @@ main {
     box-shadow: 10px 10px #5c5c5c;
   }
 }
-@media (min-width: 300px) and (max-width: 399px) {
-  .productDiv {
-    margin: 0rem;
+@media (min-width: 300px) and (max-width: 400px) {
+  .prodContainer {
+    width: 80%;
+
+    .productDiv {
+      margin: 0rem;
+      margin-bottom: 2rem;
+      margin-top: 1rem;
+      width: 100%;
+      height: 200px;
+      img {
+        width: 50%;
+        height: auto;
+      }
+      .textoRegular {
+        margin-bottom: 2rem;
+      }
+    }
+    .emptyContainer {
+      margin-bottom: 7rem;
+    }
   }
 }
 

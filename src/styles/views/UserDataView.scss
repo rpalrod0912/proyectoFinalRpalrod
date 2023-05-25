@@ -29,6 +29,49 @@
     width: 100%;
   }
 }
+@media (max-width: 550px) {
+  .selectedMenu {
+    .updateData {
+      .infoPanel {
+        width: 21rem;
+      }
+    }
+  }
+  .showAccountInfo {
+    .putDataSubmit {
+      width: 21rem;
+    }
+    .saveDataButton {
+      width: 21rem;
+    }
+  }
+}
+@media (max-width: 460px) {
+  .selectedMenu {
+    .updateData {
+      h1,
+      h2 {
+        font-size: 1rem;
+      }
+      .infoPanel {
+        width: 15rem;
+      }
+    }
+  }
+
+  .showAccountInfo {
+    .putDataSubmit {
+      width: 16rem;
+      font-size: 0.9rem;
+    }
+    .saveDataButton {
+      width: 16rem;
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
 .saveDataButton {
   width: 30rem;
   margin-bottom: 1rem;
