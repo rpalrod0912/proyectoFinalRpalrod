@@ -28,7 +28,7 @@ header {
   align-items: center;
   position: fixed;
   z-index: 4;
-
+  top: 0rem;
   img {
     width: 2.5rem;
     height: 2.5rem;
@@ -69,9 +69,7 @@ header {
 
   display: flex;
   .backHeaderLogo {
-    margin-left: 15rem;
     position: sticky;
-    right: 64rem;
     width: 14rem;
     height: 2rem;
     cursor: pointer;
@@ -92,6 +90,11 @@ header {
       width: 2.5rem;
       height: 2.5rem;
       margin-right: 2rem;
+    }
+  }
+  @media (max-width: 380px) {
+    .backHeaderLogo {
+      margin-left: 4rem;
     }
   }
 
@@ -251,5 +254,8 @@ header {
       }
       right: -29.9rem;
     }
+  }
+  input[type="checkbox"] {
+    display: none;
   }
 }

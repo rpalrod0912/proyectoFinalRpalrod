@@ -535,7 +535,14 @@ button:focus {
     left: -10% !important;
   }
 }
-
+@media (max-width: 400px) {
+  .genericButton {
+    width: 16rem;
+    p {
+      font-size: 1rem;
+    }
+  }
+}
 @media (min-width: 300px) and (max-width: 599px) {
   .itemsBox {
     margin-top: 2rem;

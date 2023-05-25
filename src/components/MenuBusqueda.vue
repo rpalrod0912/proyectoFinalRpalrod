@@ -25,13 +25,13 @@
   </label>
 
   <ul class="TopMenu__box">
-    <li class="headerBusq">
+    <div class="headerBusq">
       <SearchHeader
         class="TopMenu__item"
         menuButtonColor="Dark"
         tipo="Dark"
       ></SearchHeader>
-    </li>
+    </div>
     <div class="TopMenu__item cajaBusqueda">
       <div class="lineaBusqueda">
         <img src="../assets/lupaBlack.png" />
@@ -278,7 +278,7 @@ input[type="text"]:focus {
     }
     .inputBusqueda {
       padding-left: 1em;
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   }
 }

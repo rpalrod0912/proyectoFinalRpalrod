@@ -1,10 +1,12 @@
 <template>
   <WhiteHeader tipo="Dark"></WhiteHeader>
-  <FilterMenu
-    @cambTalla="changeParentTalla"
-    @cambColor="changeParentColor"
-    @cambSale="changeParentSale"
-  ></FilterMenu>
+  <div>
+    <FilterMenu
+      @cambTalla="changeParentTalla"
+      @cambColor="changeParentColor"
+      @cambSale="changeParentSale"
+    ></FilterMenu>
+  </div>
 
   <ProductosComponent
     v-if="!filterValue"

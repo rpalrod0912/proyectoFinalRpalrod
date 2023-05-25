@@ -11,18 +11,12 @@ header {
   .menu {
     margin-left: 2rem;
   }
-  ul {
-    list-style-type: none;
-
+  .searchHeaderContainer {
     display: flex;
     margin-right: 2rem;
     marker: none;
-    .searchBar {
-      width: 13rem;
-      margin-left: 0px;
-    }
-    li {
-      margin: 1rem;
+    div {
+      padding: 0.4rem;
     }
   }
   background-color: transparent;
@@ -34,50 +28,39 @@ header {
     height: 2rem;
   }
 
-  @media (max-width: 1400px) {
+  @media (max-width: 640px) {
     .logo {
-      position: revert;
+      position: initial;
+      width: 10rem;
+      height: 1.5rem;
+      padding-left: 1rem;
     }
-  }
-
-  @media (min-width: 550px) and (max-width: 780px) {
-    .logo {
-      position: sticky;
-      left: 0;
-    }
-    .menu {
-      display: none;
-    }
-    padding-left: 2rem;
-    header img {
-      width: 1.6rem;
-      height: 1.6rem;
-    }
-    .searchHeaderUl {
-      li {
-        right: 0rem;
+    header {
+      .searchHeaderContainer {
+        img {
+          width: 1.7rem;
+          height: 1.7rem;
+        }
       }
     }
   }
 
-  @media (max-width: 559px) {
-    .logo {
-      position: sticky;
-      left: 7%;
-      width: 8em;
-      height: 1.4em;
+  @media (max-width: 410px) {
+    .searchHeaderClass {
+      .logo {
+        width: 8rem;
+        height: 1.2rem;
+        padding-left: 0.4rem;
+      }
     }
-    .menu {
-      display: none;
-    }
-    padding-left: 2rem;
-    header img {
-      width: 1.6rem;
-      height: 1.6rem;
-    }
-    .searchHeaderUl {
-      li {
-        right: -2em;
+  }
+  @media (max-width: 950px) {
+    header {
+      .menu {
+        display: none;
+      }
+      .logo {
+        padding-left: 3rem;
       }
     }
   }

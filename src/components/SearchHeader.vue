@@ -1,5 +1,5 @@
 <template>
-  <header id="searchHeader">
+  <header class="searchHeaderClass" id="searchHeader">
     <MenuGeneral
       menuButtonColor="Dark"
       id="searchBusqueda"
@@ -7,17 +7,17 @@
       class="menu"
     ></MenuGeneral>
     <img class="logo" :src="this.logo" />
-    <ul class="searchHeaderUl">
-      <li>
+    <div class="searchHeaderContainer">
+      <div>
         <img @click="closeMenu" :src="this.deleteIcon" />
-      </li>
-      <li>
+      </div>
+      <div>
         <img :src="this.userIcon" />
-      </li>
-      <li>
+      </div>
+      <div>
         <img :src="this.carritoIcon" />
-      </li>
-    </ul>
+      </div>
+    </div>
   </header>
 </template>
 <script>
@@ -93,5 +93,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
-@import "../styles/components/UserUpdatePassword.scss";
+@import "../styles/layout/SearchHeader.scss";
 </style>
