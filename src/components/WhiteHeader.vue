@@ -27,7 +27,7 @@
       @mouseout="checkLogo()"
       @click="toHome()"
       id="logoWhite"
-      class="backHeaderLogo headerHoverLabel"
+      class="informationPageLogo backHeaderLogo headerHoverLabel"
       :class="!showHeader ? 'hideLogo' : ''"
       src="../assets/LogoOscuroSinFondo.png"
     />

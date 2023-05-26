@@ -66,7 +66,30 @@ header {
     }
   }
   background-color: transparent;
-
+  .informationPageLogo {
+    right: 59%;
+  }
+  @media (min-width: 1151px) and (max-width: 1500px) {
+    .informationPageLogo {
+      right: 56%;
+    }
+  }
+  @media (min-width: 900px) and (max-width: 1150px) {
+    .informationPageLogo {
+      right: 55%;
+    }
+  }
+  @media (max-width: 400px) {
+    .informationPageLogo {
+      margin-left: 1rem !important;
+    }
+  }
+  @media (max-width: 899px) {
+    .informationPageLogo {
+      right: 36%;
+      margin-left: 0rem !important;
+    }
+  }
   display: flex;
   .backHeaderLogo {
     position: sticky;
