@@ -11,16 +11,11 @@
       <div>
         <img @click="closeMenu" :src="this.deleteIcon" />
       </div>
-      <div>
-        <img :src="this.userIcon" />
-      </div>
-      <div>
-        <img :src="this.carritoIcon" />
-      </div>
     </div>
   </header>
 </template>
 <script>
+import CarritoMenu from "./CarritoMenu.vue";
 import MenuBusqueda from "./MenuBusqueda.vue";
 import MenuGeneral from "./MenuGeneral.vue";
 
@@ -84,7 +79,7 @@ export default {
         .querySelector(".menu__btn").style.opacity = "1";
     },
   },
-  components: { MenuGeneral, MenuBusqueda },
+  components: { MenuGeneral, MenuBusqueda, CarritoMenu },
   props: {
     tipo: "String",
     menuButtonColor: "Black",

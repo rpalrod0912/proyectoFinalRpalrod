@@ -72,14 +72,15 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../helpers/mixings.scss";
 @include popUpModal("#popMenu__toggle", ".menu__btn", ".popMenu__box");
 
 .buttonStyle {
   @include buttonStyle;
-  margin-top: 2.4rem;
-  margin-bottom: -2rem;
+  margin-top: 1rem;
+
+  margin-bottom: 0rem;
 }
 .buttonStyle:hover {
   transform: scale(1.1);
@@ -100,7 +101,7 @@ export default {
   height: 363%;
   top: 0;
 }
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   #popMenu__toggle:checked ~ .popMenu__box {
     width: 82%;
     .modalImg {

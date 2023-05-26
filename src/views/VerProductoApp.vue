@@ -100,7 +100,7 @@
               <img class="closeModal" src="@/assets/DeleteIcon.png" />
             </div>
 
-            <img src="@/assets/checked.png" />
+            <img class="modalImg" src="@/assets/checked.png" />
             <p>{{ this.productData.nombre }} HA SIDO AÑADIDO AL CARRITO</p>
           </div>
           <div v-else class="popMenu__item textoGuresoh1">
@@ -108,7 +108,7 @@
               <img class="closeModal" src="@/assets/DeleteIcon.png" />
             </div>
 
-            <img src="@/assets/cancel.png" />
+            <img class="modalImg" src="@/assets/cancel.png" />
             <p>DEBES ELEGIR TALLA Y COLOR PARA AÑADIR EL PRODUCTO AL CARRITO</p>
           </div>
         </ul>
