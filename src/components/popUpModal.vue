@@ -24,9 +24,13 @@
         <img class="closeModal" src="@/assets/DeleteIcon.png" />
       </div>
 
-      <img v-if="isError" src="@/assets/cancel.png" />
-      <img v-else-if="isOperation" src="@/assets/alertaPng.png" />
-      <img v-else src="@/assets/checked.png" />
+      <img class="modalImg" v-if="isError" src="@/assets/cancel.png" />
+      <img
+        class="modalImg"
+        v-else-if="isOperation"
+        src="@/assets/alertaPng.png"
+      />
+      <img class="modalImg" v-else src="@/assets/checked.png" />
       <p>{{ msj }}</p>
       <button
         v-if="isOperation"
@@ -95,5 +99,16 @@ export default {
   opacity: 0.6;
   height: 363%;
   top: 0;
+}
+@media (max-width: 400px) {
+  #popMenu__toggle:checked ~ .popMenu__box {
+    width: 82%;
+    .modalImg {
+      padding-bottom: 2rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+  }
 }
 </style>

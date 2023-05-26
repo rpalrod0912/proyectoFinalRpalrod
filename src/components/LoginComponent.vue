@@ -406,19 +406,53 @@ export default {
 @media (max-width: 800px) {
   .genericButton {
     width: 17rem;
+    p {
+      font-size: 1rem;
+      text-align: center;
+    }
   }
   .loginSubmit {
     width: 17rem;
+    font-size: 1.4rem;
   }
   .loginWindow {
     h1 {
       text-align: center;
-      font-size: 1.6em;
+      font-size: 1.3rem;
       width: 99%;
     }
   }
   .pDescrip {
     font-size: 1.1em;
+  }
+}
+@media (max-width: 600px) {
+  .loginWindow h1 {
+    font-size: 1.3rem;
+  }
+  .loginWindow {
+    .passwordInputFlex {
+      width: 14rem;
+      #loginInput {
+        width: 11.7rem;
+        right: 0rem;
+      }
+      img {
+        right: 3rem;
+      }
+    }
+    .loginSubmit {
+      width: 14rem;
+      font-size: 1.2rem;
+    }
+    .genericButton {
+      width: 14rem;
+      p {
+        font-size: 0.9rem;
+        width: 9rem;
+        text-align: center;
+      }
+    }
   }
 }
 </style>
