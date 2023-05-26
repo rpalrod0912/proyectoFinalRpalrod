@@ -1,8 +1,8 @@
 <template>
   <WhiteHeader class="headerPasarela" tipo="backHeader"></WhiteHeader>
   <section v-if="carga" class="comprasMain">
-    <ul v-if="this.userOrders.length > 0" class="orderUl">
-      <li
+    <div v-if="this.userOrders.length > 0" class="orderUl">
+      <div
         class="orderProduct"
         v-for="(item, index) in this.userOrders"
         :key="index"
@@ -27,11 +27,11 @@
           v-if="index < this.userOrders.length - 1"
           class="separadorBlack"
         ></div>
-      </li>
-    </ul>
-    <ul class="orderUl" v-else>
+      </div>
+    </div>
+    <div class="orderUl" v-else>
       <h1>TODAVÍA NO TIENES NINGÚN PEDIDO</h1>
-    </ul>
+    </div>
     <RightDesktopMenu
       selectedOption="firstOption"
       :userData="this.userData"

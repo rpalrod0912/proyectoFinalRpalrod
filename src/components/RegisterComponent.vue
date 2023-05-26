@@ -321,4 +321,32 @@ export default {
     font-size: 1.1em;
   }
 }
+@media (max-width: 470px) {
+  .registerWindow {
+    h1 {
+      text-align: center;
+      font-size: 1rem;
+      width: 13rem;
+    }
+    .passwordInput,
+    .passwordInputError {
+      input[type="password"],
+      input[type="password"]:focus,
+      input[type="text"],
+      input[type="email"],
+      input[type="email"]:focus,
+      input[type="password"]:focus {
+        width: 11rem;
+      }
+    }
+    .alertText {
+      font-size: 1rem;
+      width: 60%;
+    }
+    .registerSubmit {
+      width: 13rem;
+      font-size: 1.2rem;
+    }
+  }
+}
 </style>

@@ -149,8 +149,7 @@
             {{ comentario.text }}
           </p>
         </div>
-        <p v-if="this.auth"></p>
-        <p v-else>NO LOGEADO</p>
+
         <div v-if="comentarioUsuario === -1" class="comentarioContainer">
           <form @submit.prevent="postComments()">
             <div class="cabeceraPost">
