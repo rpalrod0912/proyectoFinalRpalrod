@@ -13,7 +13,7 @@
     :is-opened="true"
     msj="¡GRACIAS, TU PEDIDO SE ESTA PROCESANDO CORRECTAMENTE!"
   ></PopUpModal>
-  <div style="padding-top: 3rem" class="pasarelaMain">
+  <div class="pasarelaMain">
     <section class="pasarelaOptions">
       <h1>DETALLES DEL PEDIDO</h1>
       <ul class="options">
