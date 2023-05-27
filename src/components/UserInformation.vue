@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent="submitUpdate()" class="updateData" novalidate>
-      <h1>DATOS PERSONALES</h1>
+      <h1 class="secTitle">DATOS PERSONALES</h1>
 
       <div class="genderDiv">
         <label for="gender">
@@ -86,7 +86,7 @@
           <p @click="focusInput('phoneDataInput')">Numero móvil</p>
         </label>
       </div>
-      <h2>DIRECCIÓN DE FACTURACIÓN</h2>
+      <h2 class="secTitle">DIRECCIÓN DE FACTURACIÓN</h2>
       <div class="updateSec3">
         <label
           :class="

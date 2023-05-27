@@ -96,6 +96,11 @@ header {
   }
 }
 .pasarelaOptions {
+  padding-top: 7rem;
+  padding-bottom: 9rem;
+
+  .options {
+  }
   @include fuenteSemiBold;
   ul {
     margin: 0;
@@ -217,7 +222,7 @@ header {
 }
 @media (max-width: 581px) {
   .pasarelaOptions {
-    ul {
+    .options {
       li {
         width: 16rem;
       }
@@ -228,8 +233,20 @@ header {
   .pasarelaMain {
     .pasarelaOptions {
       ul {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        flex-direction: column;
+        align-items: center;
         li {
           width: 71%;
+          padding: 1rem;
+          .updateData {
+            .secTitle {
+              font-size: 1rem;
+              text-align: center;
+            }
+          }
         }
       }
       .directionData {

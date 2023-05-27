@@ -190,7 +190,12 @@
               />
             </section>
             <section class="prodOptions">
-              <div class="optionContainer"></div>
+              <div class="optionContainer">
+                <span
+                  class="spanHeight"
+                  :style="{ backgroundColor: item.color.estilo }"
+                ></span>
+              </div>
               <div class="optionContainer">
                 {{ item.talla }}
               </div>
