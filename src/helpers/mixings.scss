@@ -924,6 +924,18 @@
       transition-duration: 0.25s;
     }
   }
+  @media (max-width: 430px) {
+    #{$id2} > span,
+    #{$id2} > span::before,
+    #{$id2} > span::after {
+      width: 1.2rem;
+      height: 2.7px;
+    }
+    .headerHoverLabel[data-v-2d1537ee]:hover {
+      transform: scale(1);
+      cursor: pointer;
+    }
+  }
 }
 @mixin estiloMenuBusqueda($id, $id2, $id3) {
   #{$id} {

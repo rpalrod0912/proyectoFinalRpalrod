@@ -572,6 +572,14 @@ export default {
   display: flex;
   flex-direction: column;
 }
+@media (max-width: 500px) {
+  .totalPrice {
+    margin-top: 3rem;
+  }
+  .CarritoMenu__box .contenidoCarrito .cartProduct {
+    padding-bottom: 1.8rem;
+  }
+}
 .cartWithNumber {
   position: relative;
   .carritoNumber {
@@ -800,6 +808,23 @@ export default {
   }
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);
 }
+
+@media (max-width: 400px) {
+  .CarritoMenu__box {
+    .cabeceraMenu {
+      img {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      p {
+        font-size: 0.8rem;
+      }
+      .marcador {
+        width: 100%;
+      }
+    }
+  }
+}
 .textoP {
   font-size: 2rem;
   @include fuenteSemiBold;
@@ -952,7 +977,7 @@ export default {
         padding-left: 2rem;
       }
       .cartProduct {
-        padding-left: 3rem;
+        padding-left: 1rem;
         .options {
           .carrPSec1 {
             img {
