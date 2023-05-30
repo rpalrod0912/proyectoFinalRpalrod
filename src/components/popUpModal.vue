@@ -74,41 +74,5 @@ export default {
 <style lang="scss">
 @import "../helpers/mixings.scss";
 @include popUpModal("#popMenu__toggle", ".menu__btn", ".popMenu__box");
-
-.buttonStyle {
-  @include buttonStyle;
-  margin-top: 1rem;
-
-  margin-bottom: 0rem;
-}
-.buttonStyle:hover {
-  transform: scale(1.1);
-}
-.popMenu__item {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  //padding: 12px 24px;
-  //margin-top: 0.5rem;
-}
-.outsideClick {
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-  background-color: #6e7272;
-  opacity: 0.6;
-  height: 363%;
-  top: 0;
-}
-@media (max-width: 500px) {
-  #popMenu__toggle:checked ~ .popMenu__box {
-    width: 82%;
-    .modalImg {
-      padding-bottom: 2rem;
-    }
-    p {
-      font-size: 1rem;
-    }
-  }
-}
+@import "../styles/layout/popUpModal.scss";
 </style>

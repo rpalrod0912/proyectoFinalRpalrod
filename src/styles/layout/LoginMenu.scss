@@ -1,0 +1,231 @@
+.menuOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  .parentOptionsContainer {
+    display: flex;
+    flex-direction: column;
+    div {
+      margin-bottom: 1.8rem;
+
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+      justify-content: space-between;
+      h2 {
+        @include fuenteSemiBold;
+        color: #949494;
+      }
+      .menuOptionsImg {
+        padding-left: 1.5rem;
+        width: 2.8rem;
+        height: 2.3rem;
+      }
+    }
+  }
+  .nextButtonSubmit {
+    width: 100%;
+  }
+}
+@media (max-width: 440px) {
+  .menuOptions {
+    .parentOptionsContainer {
+      div {
+        h2 {
+          font-size: 1.1rem;
+        }
+        .menuOptionsImg {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
+    }
+  }
+}
+.nextButtonSubmit {
+  @include loginButton("black", "white", "2rem");
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  height: 3rem;
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.socialButton {
+  @include loginButton("#DADADA", "black", "0.6rem;");
+  font-size: 1rem;
+  justify-content: flex-start;
+  img {
+    padding-right: 0.4rem;
+  }
+  padding-top: 1.8rem;
+  padding-bottom: 1.8rem;
+}
+.nextButton {
+  @include loginButton("black", "white", "2rem");
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.contenidoLogin {
+  display: flex;
+
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 80%;
+
+  label {
+    width: 60%;
+    text-align: left;
+  }
+
+  input[type="text"],
+  input[type="text"]:focus {
+    margin-top: 2rem;
+    height: 2.5rem;
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 2rem;
+    @include fuenteSemiBold;
+    font-size: 1rem;
+  }
+}
+.cabeceraMenu {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    left: 10%;
+    bottom: 1%;
+  }
+  .authCloseMenu {
+    left: -1rem;
+  }
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);
+}
+.RightMenu__box {
+  .loadingLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 14rem;
+  }
+}
+#checkedBusqueda {
+  display: none;
+}
+.searchMenu {
+  cursor: pointer;
+}
+
+.bodyStyle {
+  overflow: hidden;
+}
+@include estiloMenuDerecho(
+  "#RightMenu__toggle",
+  ".menu__btn",
+  ".RightMenu__box"
+);
+
+.RightMenu__box {
+  z-index: 4;
+}
+.TopMenu__item {
+  padding: 12px 24px;
+  margin-top: 0.5rem;
+}
+.textoPlano {
+  margin-left: 9%;
+  margin-right: 9%;
+  @include fuenteSemiBold;
+  color: #95a3a4;
+  font-size: 1.2rem;
+}
+.textoPlanoFino {
+  @include fuenteSemiBold;
+  color: black;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.textoGrueso {
+  margin-left: 9%;
+  margin-right: 9%;
+  @include fuenteSemiBold;
+  color: black;
+  font-size: 1.8rem;
+}
+.textoGruesoh1 {
+  margin-left: 9%;
+  margin-right: 9%;
+  @include fuenteSemiBold;
+  color: black;
+  font-size: 1.3rem;
+  text-align: center;
+}
+@media (min-width: 900px) and (max-width: 1430px) {
+  .RightMenu__box {
+    width: 40%;
+  }
+  #RightMenu__toggle:checked ~ .RightMenu__box .greyContainer {
+    left: 0% !important;
+    width: 60%;
+  }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .RightMenu__box {
+    width: 100%;
+  }
+
+  #RightMenu__toggle:checked ~ .RightMenu__box .greyContainer {
+    left: -4% !important;
+    width: 0%;
+  }
+  .contenidoLogin {
+    label {
+      text-align: center;
+    }
+  }
+}
+
+@media (min-width: 300px) and (max-width: 599px) {
+  .itemsBox {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    li {
+      position: relative;
+      right: auto;
+      margin: 1rem;
+    }
+  }
+  .TopMenu__item {
+    font-size: 1rem;
+  }
+  .nextButtonSubmit {
+    font-size: 1rem;
+  }
+
+  .contenidoLogin {
+    label {
+      text-align: center;
+    }
+  }
+
+  .RightMenu__box {
+    width: 100%;
+  }
+  .greyContainer {
+    display: none;
+  }
+}

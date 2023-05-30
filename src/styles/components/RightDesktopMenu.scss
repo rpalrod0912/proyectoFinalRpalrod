@@ -1,0 +1,82 @@
+.userOrderMenu {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #f9f9f9;
+  width: 30%;
+  height: 100%;
+  right: 0rem;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .cabeceraMenu {
+    box-shadow: none;
+  }
+  .separadorBlack {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 1.3rem;
+    margin-bottom: 1.3rem;
+  }
+}
+.menuOptions .parentElement {
+  list-style: none;
+}
+.menuOptions {
+  img {
+    padding-left: 1.5rem;
+    width: 2.8rem;
+    height: 2.3rem;
+  }
+}
+.menuOptions .subElement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.menuOptions .usOption h2 {
+  color: #242424;
+}
+.menuOptions .parentElement .subElement h2 {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+
+  color: #949494;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 900px) and (max-width: 1400px) {
+  .userOrderMenu {
+    width: 35%;
+    font-size: 0.8rem;
+
+    .menuOptions ul {
+      left: -4rem;
+    }
+    .menuOptions li img {
+      left: 18rem;
+    }
+    .nextButtonSubmit {
+      width: 16rem;
+    }
+  }
+}
+
+@media (min-width: 686px) and (max-width: 899px) {
+  .userOrderMenu {
+    display: none;
+  }
+}
+
+@media (min-width: 580px) and (max-width: 685px) {
+  .userOrderMenu {
+    display: none;
+  }
+}
+
+@media (max-width: 579px) {
+  .userOrderMenu {
+    display: none;
+  }
+}

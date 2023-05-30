@@ -153,7 +153,6 @@ const reauthWithOldPwd = async (oldPassword) => {
       valid = true;
     })
     .catch((err) => {
-      console.log(err.message);
       valid = false;
     });
   return valid;
@@ -165,7 +164,6 @@ const hasPwdMatches = (plainTxt, hash) => {};
 export default {
   name: "UserUpdatePassword",
   created() {
-    console.log(this.userData.pwd);
     hasPwdMatches("Rafapr_01", this.userData.pwd);
   },
   data() {
@@ -251,7 +249,6 @@ export default {
 
       //LUEGO DE ACTUALIZAR EN FIREBAE, ACTUALIZAMOS EN NUESTRA BD
 
-      console.log(status);
       if (status === 200) {
         this.exito = true;
       }
@@ -260,25 +257,13 @@ export default {
       this.v$.$validate();
 
       if (!this.v$.$error && (await reauthWithOldPwd(this.oldPwd))) {
-        console.log("TODO BIEN");
         await this.putData();
         if (this.exito === true) {
           this.$emit("changePopUpState", true);
           await this.logOut();
-
-          /*this.$router
-            .push({
-              name: "Inicio",
-              query: { recienRegistrado: "SI" },
-            })
-            .then(() => {
-              this.$router.go();
-            });*/
         }
       }
       if (!(await reauthWithOldPwd(this.oldPwd))) this.isOgPwd = false;
-      console.log("ALGO ANDA MAL");
-      console.log(this.v$.$error);
       this.v$.$validate();
     },
     showPassword(id, dataState) {

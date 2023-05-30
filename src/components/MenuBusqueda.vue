@@ -104,13 +104,6 @@ export default {
       }
       const pageBody = document.querySelector("body");
       pageBody.classList.toggle("bodyStyle");
-      /*
-      if (document.getElementById("TopMenu__toggle").checked) {
-        alert("checked");
-      } else {
-        alert("You didn't check it! Let me check it for you.");
-      }
-      */
     },
   },
   data() {
@@ -124,139 +117,11 @@ export default {
       searchInput: "",
     };
   },
-  /*
-  watch: {
-    searchInput(newval, oldval) {
-      this.fetchProductsByValue(newval);
-    },
-    
-  },*/
 };
 </script>
 <style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 
 @include headerIconHover;
-
-.bodyStyle {
-  overflow: hidden;
-}
-.menuBotonError {
-  display: none;
-}
-
-.headerError {
-  display: none;
-  .menu__btn {
-    left: 3.5em;
-    top: 6.2em;
-  }
-}
-
-input[type="text"],
-input[type="text"]:focus {
-  background: transparent;
-  border: none;
-  outline-width: 0;
-}
-.cajaBusqueda {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin: 0 auto;
-  align-items: flex-start;
-  img {
-    width: 4rem;
-    height: 4rem;
-  }
-  .lineaBusqueda {
-    display: flex;
-    flex-direction: row;
-  }
-  .inputBusqueda {
-    padding-left: 2rem;
-    @include fuenteSemiBold;
-    font-size: 2rem;
-    color: DADADA;
-  }
-}
-
-#checkedBusqueda {
-  display: none;
-}
-.searchMenu {
-  cursor: pointer;
-}
-
-.bodyStyle {
-  overflow: hidden;
-}
-@include estiloMenuBusqueda("#TopMenu__toggle", ".menu__btn", ".TopMenu__box");
-
-.TopMenu__item {
-  padding: 12px 24px;
-  margin-top: 0.5rem;
-  position: initial;
-}
-.textoPlano {
-  margin-left: 9%;
-  margin-right: 9%;
-  @include fuenteSemiBold;
-  color: #95a3a4;
-  font-size: 1.2rem;
-}
-.textoGrueso {
-  margin-left: 9%;
-  margin-right: 9%;
-  @include fuenteSemiBold;
-  color: black;
-  font-size: 1.8rem;
-}
-
-@media (max-width: 780px) {
-  .TopMenu__box {
-    height: 100%;
-  }
-
-  #TopMenu__toggle:checked ~ .TopMenu__box .greyContainer {
-    display: none;
-  }
-  .headerError {
-    display: none;
-    .menu__btn {
-      left: 3.5em;
-      top: 6.2em;
-    }
-  }
-}
-@media (min-width: 500px) and (max-width: 550px) {
-  .cajaBusqueda {
-    .inputBusqueda {
-      font-size: 1.8em;
-    }
-  }
-}
-@media (min-width: 400px) and (max-width: 499px) {
-  .cajaBusqueda {
-    img {
-      width: 2rem;
-      height: 2rem;
-    }
-    .inputBusqueda {
-      font-size: 1.4rem;
-    }
-  }
-}
-@media (max-width: 399px) {
-  .cajaBusqueda {
-    img {
-      width: 2rem;
-      height: 2rem;
-    }
-    .inputBusqueda {
-      padding-left: 1em;
-      font-size: 1rem;
-    }
-  }
-}
+@import "../styles/layout/MenuBusqueda.scss";
 </style>
