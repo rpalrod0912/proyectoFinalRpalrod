@@ -33,9 +33,6 @@ export default {
       this.userIcon = this.iconos.userClaro;
       this.deleteIcon = this.iconos.deleteClaro;
       this.carritoIcon = this.iconos.carritoClaro;
-      console.log(this.logo);
-      console.log(this.searchIcon);
-      console.log(this.userIcon);
     }
   },
   name: "SearchHeader",

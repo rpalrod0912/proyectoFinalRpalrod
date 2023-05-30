@@ -32,14 +32,12 @@ export default {
       .then((res) => {
         this.$store.commit("setCurrentToken", res.data);
       });
-    console.log(this.$store.state.currentToken);
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };
   },
   async created() {
     await this.getToken();
-    console.log(this.$store.state.currentToken);
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };

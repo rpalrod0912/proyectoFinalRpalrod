@@ -130,12 +130,9 @@ const reauthWithOldPwd = async (oldPassword) => {
   let valid;
   await reauthenticateWithCredential(user, cred)
     .then((res) => {
-      debugger;
       valid = true;
     })
     .catch((err) => {
-      debugger;
-      console.log(err.message);
       valid = false;
     });
   return valid;
@@ -209,9 +206,7 @@ export default {
     },
     async emailUpdate() {
       this.v$.$validate();
-      console.log(this.v$);
       if (!this.v$.$error && (await reauthWithOldPwd(this.pwd))) {
-        console.log("TODO BIEN");
         await this.putData();
         if (this.exito === true) {
           this.$emit("changePopUpState", true);
@@ -230,8 +225,6 @@ export default {
         }
       }
       if (!(await reauthWithOldPwd(this.pwd))) this.validPwd = false;
-      console.log("ALGO ANDA MAL");
-      console.log(this.v$.$error);
       this.v$.$validate();
     },
     async putData() {
@@ -250,11 +243,8 @@ export default {
             .put(`${API_URL}users/${this.userData.idUser}`, datosUsuario)
             .then((res) => (status = res.status))
             .catch((error) => error);
-          console.log(status);
         })
         .catch((error) => {
-          debugger;
-          console.log(error.message);
           if (
             error.message === "Firebase: Error (auth/requires-recent-login)."
           ) {

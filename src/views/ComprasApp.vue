@@ -58,8 +58,7 @@ export default {
     };
     await this.getUserOrders();
     await this.getOrdersImages();
-    console.log(this.ordersImages);
-    console.log(this.userOrders);
+
     this.carga = true;
   },
   data() {
@@ -84,7 +83,6 @@ export default {
         .then((res) => res.data)
         .catch((error) => error);
       this.userData = data;
-      console.log(this.userData);
       const idUser = data.idUser;
       const getUserOrders = await axios
         .get(`${API_URL}orders/user/${idUser}`)

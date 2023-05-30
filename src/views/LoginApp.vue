@@ -42,9 +42,7 @@ import { scrollTop } from "@/helpers/basicHelpers";
 export default {
   /*eslint-disable */
   created() {
-    debugger;
     scrollTop();
-    console.log(this.$route.query);
     if (this.loginMode === "email") {
       this.dataValue = this.$route.query.email;
     }
@@ -70,7 +68,6 @@ export default {
       this.showEmailWarning = val;
     },
     setLoginType(val) {
-      debugger;
       this.changeLoginType = val;
     },
   },
@@ -80,8 +77,6 @@ export default {
   },
   watch: {
     changeLoginType: function (newVal, OldVal) {
-      debugger;
-
       if (newVal === "mail") {
         this.changeLoginType = "mail";
       }

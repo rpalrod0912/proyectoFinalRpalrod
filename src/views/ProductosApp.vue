@@ -58,7 +58,6 @@ export default {
     axios.defaults.headers.common = {
       Authorization: `Bearer ${this.$store.state.currentToken}`,
     };
-    console.log(this.$);
     //METODO DE MI API ANTERIOR SOLO PARA PRUEBAS
     if (this.$route.query.oferta === "MOSTRAR") {
       await this.getPages("products/ofertas/paginas");
@@ -108,15 +107,12 @@ export default {
           this.tallaElegida !== "Ninguno" &&
           this.mostrarOfer
         ) {
-          console.log(this.tallaElegida);
           this.filterArray = this.imgArray.filter(
             (objeto) =>
               objeto.talla.includes(this.tallaElegida) && objeto.oferta !== null
           );
-          console.log(this.filterArray);
           this.filterValue = true;
         } else if (this.tallaElegida && this.tallaElegida !== "Ninguno") {
-          console.log(this.tallaElegida);
           this.filterArray = this.imgArray.filter((objeto) =>
             objeto.talla.includes(this.tallaElegida)
           );
@@ -135,17 +131,14 @@ export default {
           this.tallaElegida !== "Ninguno" &&
           this.mostrarOfer
         ) {
-          console.log(this.tallaElegida);
           this.filterArray = this.imgArray.filter(
             (objeto) =>
               objeto.color.includes(this.colorElegido.color) &&
               objeto.talla.includes(this.tallaElegida) &&
               objeto.oferta !== null
           );
-          console.log(this.filterArray);
           this.filterValue = true;
         } else if (this.tallaElegida && this.tallaElegida !== "Ninguno") {
-          console.log(this.tallaElegida);
           this.filterArray = this.imgArray.filter(
             (objeto) =>
               objeto.color.includes(this.colorElegido.color) &&
@@ -164,7 +157,6 @@ export default {
           this.filterArray = this.imgArray.filter((objeto) =>
             objeto.color.includes(this.colorElegido.color)
           );
-          console.log(this.filterArray);
           this.filterValue = true;
         }
       }
@@ -204,8 +196,6 @@ export default {
           this.filterArray = this.imgArray.filter(
             (objeto) => objeto.oferta !== null
           );
-          console.log(this.imgArray);
-          console.log(this.filterArray);
           this.filterValue = true;
         }
       } else {
@@ -277,8 +267,6 @@ export default {
           this.filterArray = this.imgArray.filter((objeto) =>
             objeto.talla.includes(tallaVal)
           );
-          console.log(this.imgArray);
-          console.log(this.filterArray);
           this.filterValue = true;
         }
       } else {
@@ -305,11 +293,9 @@ export default {
               objeto.talla.includes(tallaVal) && objeto.oferta !== null
           );
         } else {
-          console.log();
           this.filterArray = this.imgArray.filter((objeto) =>
             objeto.talla.includes(tallaVal)
           );
-          console.log(this.filterArray);
           this.filterValue = true;
         }
       }
@@ -322,19 +308,14 @@ export default {
       return this.ofertasArray;
     },
     changeParentColor(val) {
-      console.log(val);
       this.colorElegido = val;
       this.colorFilterState(val);
     },
     changeParentSale(val) {
-      console.log(val);
       this.mostrarOfer = val;
-      console.log(this.mostrarOfer);
       this.saleFilterState(val);
     },
     changeParentTalla(val) {
-      console.log(val);
-
       this.tallaElegida = val;
       this.sizeFilterState(val);
     },
@@ -368,7 +349,6 @@ export default {
     },
     async cargarPagina(endPoint, page) {
       this.carga = false;
-      console.log(`${API_URL}${endPoint}${page}`);
 
       const data = await axios
         .get(`${API_URL}${endPoint}${page}`)

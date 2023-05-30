@@ -125,7 +125,6 @@ export default {
       this.modo = this.UserClaro;
       this.deleteIcon = this.deleteClaro;
     }
-    console.log(this.authentication);
   },
   data() {
     return {
@@ -196,17 +195,11 @@ export default {
   },
   watch: {
     userData: function (newVal, oldVal) {
-      console.log("ES AHORA", newVal, "ERA ANTES ", oldVal);
       if (newVal !== null && this.authentication === true) {
         this.cargando = true;
         let datos = JSON.parse(JSON.stringify(this.userData));
-        console.log(datos);
-        console.log(datos.nombre);
-        console.log(datos.apellidos);
         this.userName = datos.nombre;
         this.userLastName = datos.apellidos;
-        console.log(this.name);
-        console.log(this.userLastName);
       }
     },
     salesCheck: function (newVal, oldVal) {
@@ -250,32 +243,11 @@ export default {
     menuAction(bool) {
       document.querySelector("#FilterMenu__toggle").checked = bool;
       if (bool === true) {
-        /*
-        document
-          .getElementById("menuGeneral")
-          .querySelector(".menu__btn").style.opacity = "0";
-        const pageBody = document.querySelector("body");
-        pageBody.classList.add("bodyStyle");
-        */
         document.getElementById("headerId").style.display = "none";
       }
       if (bool === false) {
-        /*
-        document
-          .getElementById("menuGeneral")
-          .querySelector(".menu__btn").style.opacity = "1";
-        const pageBody = document.querySelector("body");
-        pageBody.classList.remove("bodyStyle");
-        */
         document.getElementById("headerId").style.display = "flex";
       }
-      console.log("estilos");
-      /*
-                if (document.getElementById("TopMenu__toggle").checked) {
-                  alert("checked");
-                } else {box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);k it! Let me check it for you.");
-                }
-                */
     },
   },
   components: { LoadingSpinner, ButtonComponent },

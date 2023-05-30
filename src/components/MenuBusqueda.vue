@@ -82,30 +82,7 @@ export default {
         query: { prodFiltrados: this.searchInput },
       });
     },
-    /*
-    async fetchProductsByValue(val) {
-      debugger;
-      let datos;
-      const data = await axios
-        .get(`${API_URL}products`)
-        .then((res) => (datos = res.data));
-      let index = 0;
-      let encontrados = [];
-      while (index < datos.length) {
-        if (
-          datos[index].nombre
-            .split(" ")
-            .join("")
-            .toLowerCase()
-            .includes(val.split(" ").join("").toLowerCase())
-        ) {
-          encontrados.push(datos[index]);
-        }
-        index += 1;
-      }
-      this.searchsArray = encontrados;
-    },
-    */
+
     menuAction(bool) {
       document.querySelector("#logoWhite").classList.toggle("headerError");
       document.querySelector("#loginMenuId").classList.toggle("headerError");

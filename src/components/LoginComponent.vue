@@ -145,7 +145,6 @@ export default {
     formatPhoneNumber(str) {
       let result = str.replace(/.{3}/g, "$&-");
       result = result.slice(0, -1);
-      console.log(result);
       return `+34 ${result}`;
     },
     verifyCode() {
@@ -213,11 +212,8 @@ export default {
           //Password reset email sent!
         })
         .catch((error) => {
-          debugger;
           const errorCode = error.code;
-          console.log(errorCode);
           const errorMessage = error.message;
-          console.log(errorMessage);
         });
     },
     showPassword() {
@@ -231,25 +227,18 @@ export default {
       }
     },
     async submitLogin() {
-      debugger;
       if (this.loginMode === "mail") {
-        debugger;
-        console.log(this.password);
         await sendSignInLinkToEmail(auth, this.password, actionCodeSettings)
           .then(() => {
             // The link was successfully sent. Inform the user.
             // Save the email locally so you don't need to ask the user for it again
             // if they open the link on the same device.
-            debugger;
-            console.log("correo enviado");
             window.localStorage.setItem("emailForSignIn", this.password);
-            console.log(localStorage.getItem("emailForSignIn"));
             // ...
           })
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log(error);
             // ...
           });
       } else if (this.loginMode === "sms") {
@@ -272,7 +261,6 @@ export default {
           appVerifier
         )
           .then((confirmationResult) => {
-            debugger;
             // SMS sent. Prompt user to type the code from the message, then sign the
             // user in with confirmationResult.confirm(code).
             window.confirmationResult = confirmationResult;
@@ -281,8 +269,6 @@ export default {
           .catch((error) => {
             // Error; SMS not sent
             // ...
-            debugger;
-            console.log(error);
           });
       } else {
         await this.logInFirebase();
@@ -312,7 +298,6 @@ export default {
         })
         .catch((error) => {
           const errorCode = error.code;
-          console.log(error);
           if (errorCode === "auth/user-not-found") {
             this.userNotFound = true;
           }
@@ -331,7 +316,6 @@ export default {
           (res) => res.json();
         })
         .catch((error) => error);
-      debugger;
       if (!auth.currentUser.emailVerified) {
         this.notVerified = true;
         await this.logOut();
@@ -356,7 +340,6 @@ export default {
   },
   watch: {
     loginModeProp: function (newVal, OldVal) {
-      debugger;
       this.loginMode = newVal;
     },
   },

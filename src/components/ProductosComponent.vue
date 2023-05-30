@@ -41,10 +41,6 @@ import LoadingSpinner from "./LoadingSpinner.vue";
 
 /*eslint-disable */
 export default {
-  created() {
-    console.log(this.carga);
-  },
-
   name: "ProductosComponent",
   props: {
     carga: {

@@ -77,7 +77,6 @@ export default {
       this.userData = data;
     },
     setToTrue(val) {
-      debugger;
       this.showPopUp = val;
     },
   },

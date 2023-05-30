@@ -150,11 +150,9 @@ const reauthWithOldPwd = async (oldPassword) => {
   let valid;
   await reauthenticateWithCredential(user, cred)
     .then((res) => {
-      debugger;
       valid = true;
     })
     .catch((err) => {
-      debugger;
       console.log(err.message);
       valid = false;
     });
@@ -235,7 +233,6 @@ export default {
       }
     },
     async putData() {
-      debugger;
       //ACTUALIZAMOS PASSWORD EN FIREBASE
       let status;
       const datosUsuario = {
@@ -260,16 +257,7 @@ export default {
       }
     },
     async passwordUpdate() {
-      debugger;
       this.v$.$validate();
-      console.log(this.v$);
-      console.log(`El usurio es ${await reauthWithOldPwd(this.oldPwd)}`);
-      debugger;
-      if (reauthWithOldPwd(this.oldPwd)) {
-        console.log("Contraseña Valida");
-      } else {
-        console.log("Contraseña No Valida");
-      }
 
       if (!this.v$.$error && (await reauthWithOldPwd(this.oldPwd))) {
         console.log("TODO BIEN");

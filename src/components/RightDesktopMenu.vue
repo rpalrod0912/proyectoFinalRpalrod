@@ -43,10 +43,8 @@ export default {
   name: "RightDesktopMenu",
   mounted() {
     if (this.selectedOption !== null) {
-      console.log(this.selectedOption);
       document.getElementById(this.selectedOption).classList.add("usOption");
     }
-    console.log(this.userData);
   },
   data() {
     return {};

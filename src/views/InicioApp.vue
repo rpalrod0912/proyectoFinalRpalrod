@@ -63,7 +63,6 @@ export default {
       // the sign-in operation.
       // Get the email if available. This should be available if the user completes
       // the flow on the same device where they started it.
-      console.log(window.localStorage.getItem("emailForSignIn"));
       let email = window.localStorage.getItem("emailForSignIn");
       if (!email) {
         // User opened the link on a different device. To prevent session fixation

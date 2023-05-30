@@ -142,7 +142,6 @@ export default {
         })
         .catch((error) => {
           const errorCode = error.code;
-          console.log(error);
           if (errorCode === "auth/user-not-found") {
             this.userNotFound = true;
           }

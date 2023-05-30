@@ -298,7 +298,6 @@ export default {
       }
     },
     async putData() {
-      debugger;
       const datosUsuario = {
         nombre: this.nombre,
         apellidos: this.apellidos,
@@ -311,32 +310,23 @@ export default {
         provincia: this.provincia,
       };
       let status;
-      console.log(datosUsuario);
       const data = await axios
         .put(`${API_URL}users/${this.userData.idUser}`, datosUsuario)
         .then((res) => (status = res.status))
         .catch((error) => error);
-      console.log(status);
       if (status === 200) {
         this.exito = true;
       }
     },
     async submitUpdate() {
-      debugger;
-      console.log(this.v$);
-      // this.v$.$touch();
-
       this.v$.$validate();
       if (!this.v$.$error) {
-        console.log("TODO BIEN");
         await this.putData();
         if (this.exito === true) {
           this.$emit("changePopUpState", true);
           this.$emit("updateWindow", true);
         }
       }
-      console.log("ALGO ANDA MAL");
-      console.log(this.v$.$error);
     },
   },
   components: { ButtonComponent, PopUpModal },

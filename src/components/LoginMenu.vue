@@ -164,9 +164,6 @@ export default {
       this.modo = this.UserClaro;
       this.deleteIcon = this.deleteClaro;
     }
-
-    console.log(this.userData);
-    console.log(this.authentication);
   },
   data() {
     return {
@@ -190,23 +187,16 @@ export default {
   },
   watch: {
     authentication: function (newVal, oldVal) {
-      console.log("ES AHORA", newVal, "ERA ANTES ", oldVal);
       if (newVal === true && this.userData !== null) {
         this.cargando = true;
       }
     },
     userData: function (newVal, oldVal) {
-      console.log("ES AHORA", newVal, "ERA ANTES ", oldVal);
       if (newVal !== null && this.authentication === true) {
         this.cargando = true;
         let datos = JSON.parse(JSON.stringify(this.userData));
-        console.log(datos);
-        console.log(datos.nombre);
-        console.log(datos.apellidos);
         this.userName = datos.nombre;
         this.userLastName = datos.apellidos;
-        console.log(this.name);
-        console.log(this.userLastName);
       }
     },
   },
@@ -217,8 +207,6 @@ export default {
   },
   methods: {
     async getGoogleRedirectToken() {
-      debugger;
-      console.log(auth);
       await getRedirectResult(auth)
         .then((result) => {
           // This gives you a Google Access Token. You can use it to access Google APIs.
@@ -244,24 +232,18 @@ export default {
     async googleSignIn() {
       await signInWithPopup(auth, googleProvider)
         .then((result) => {
-          debugger;
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           const user = result.user;
           var loggedInUser = result.user;
-          console.log(loggedInUser);
-          console.log(result);
           const isNewUser = result.additionalUserInfo.isNewUser;
           if (isNewUser) {
             loggedInUser.delete().then(() => {
               auth.signOut("SIGNED OUT");
             });
-          } else {
-            console.log("is new user :", result.additionalUserInfo.isNewUser);
           }
         })
         .catch((error) => {
-          debugger;
           const errorCode = error.code;
           const errorMessage = error.message;
           // The email of the user's account used.
@@ -276,8 +258,6 @@ export default {
     },
     async continueLogin() {
       if (phoneRegex.test(this.mail)) {
-        console.log("es un telefono");
-
         return this.$router.push({
           name: "login",
           query: { phone: this.mail },
@@ -288,7 +268,6 @@ export default {
       }
       await fetchSignInMethodsForEmail(auth, this.mail)
         .then((signInMethods) => {
-          console.log(signInMethods);
           if (signInMethods.length) {
             // The email already exists in the Auth database. You can check the
             // sign-in methods associated with it by checking signInMethods array.
@@ -347,13 +326,6 @@ export default {
 
         pageBody.classList.remove("bodyStyle");
       }
-      console.log("estilos");
-      /*
-              if (document.getElementById("TopMenu__toggle").checked) {
-                alert("checked");
-              } else {box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);k it! Let me check it for you.");
-              }
-              */
     },
   },
   components: { LoadingSpinner },

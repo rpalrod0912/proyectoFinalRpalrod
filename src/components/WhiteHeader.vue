@@ -99,9 +99,6 @@ export default {
       this.searchIcon = this.iconos.busquedaClaro;
       this.userIcon = this.iconos.userClaro;
       this.carritoIcon = this.iconos.carritoClaro;
-      console.log(this.logo);
-      console.log(this.searchIcon);
-      console.log(this.userIcon);
     }
     let self = this;
     auth.onAuthStateChanged(async function (user) {
@@ -113,17 +110,10 @@ export default {
         const datosUsuario = await self.fetchUserData(user.uid);
 
         self.userData = JSON.parse(JSON.stringify(datosUsuario));
-        console.log(self.userData);
 
         //self.carritoNumero = await self.contarProd(user.uid);
         self.$store.commit("setCurrentAuth", true);
-        /*
-        self.$store.commit(
-          "setCurrentCartLength",
-          await self.contarProd(user.uid)
-        );
-        */
-        console.log("Autenticacion es " + self.authentication);
+
         self.$store.commit("setCurrentUser", user.uid);
       } else {
         self.authentication = false;
@@ -162,7 +152,6 @@ export default {
   },
   methods: {
     onScroll() {
-      debugger;
       const currentScrollPos =
         window.pageYOffset || document.documentElement.scrollTop;
 
@@ -175,8 +164,6 @@ export default {
       this.scrollPos = currentScrollPos;
     },
     checkLogo() {
-      console.log(this.tipoHeader);
-      console.log(this.tipo);
       if (this.tipo === "blanco") {
         if (this.logo === this.iconos.logoOscuro) {
           this.logo = this.iconos.logoClaro;
@@ -199,7 +186,6 @@ export default {
       const data = await axios
         .get(`${API_URL}users/firebase/${id}`)
         .then((res) => (datosUsuario = res.data));
-      console.log(data);
       return data;
     },
   },

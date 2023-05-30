@@ -220,14 +220,11 @@ export default {
 
     this.productData = JSON.parse(JSON.stringify(this.datosProduct));
     this.productColors = this.filteredColors();
-    console.log(this.productData);
     this.comentarioUsuario = this.IsLoggedUserComment(
       this.productData.comentarios
     );
 
     this.carga = true;
-    console.log(this.auth);
-    console.log(this.userData);
   },
   data() {
     return {
@@ -302,20 +299,13 @@ export default {
     },
     async IsLoggedIn() {
       try {
-        debugger;
-
         await new Promise((resolve, reject) =>
           auth.onAuthStateChanged(
             async (user) => {
-              debugger;
-
               if (user) {
-                debugger;
                 this.userData = await this.findUserByMail(user.email);
                 resolve("Usuario logeado");
               } else {
-                debugger;
-
                 reject("No Logeado");
               }
             },
@@ -325,7 +315,6 @@ export default {
         );
         return true;
       } catch (error) {
-        console.log(error);
         return false;
       }
     },
@@ -349,13 +338,9 @@ export default {
       }, 1200);
     },
     async postComments() {
-      debugger;
       this.v$.$validate();
-      console.log(this.v$);
-      debugger;
-      if (!this.v$.$error) {
-        console.log(this.userData.idUser);
 
+      if (!this.v$.$error) {
         const objetoComentario = {
           text: this.comentario,
           productId: this.productData.idProduct,
@@ -364,7 +349,7 @@ export default {
         };
         const data = axios
           .post(`${API_URL}comments`, objetoComentario)
-          .then((res) => console.log(res));
+          .then(res);
         this.comentarioPublicado = true;
         setInterval(() => {
           this.$router.go();
@@ -404,7 +389,6 @@ export default {
         color: this.colorElegido,
       };
 
-      console.log(carrito);
       const productAlreadyInCart = carrito.cesta.findIndex((producto) => {
         return (
           producto.productName === datosPrd.productName &&
@@ -412,13 +396,7 @@ export default {
           datosPrd.color.color === producto.color.color
         );
       });
-      console.log(datosPrd.talla);
       if (productAlreadyInCart !== -1) {
-        console.log(carrito.cesta[productAlreadyInCart].talla);
-        console.log(datosPrd.talla);
-        console.log(carrito.cesta[productAlreadyInCart].color);
-        console.log(datosPrd.color);
-
         if (
           carrito.cesta[productAlreadyInCart].talla === datosPrd.talla &&
           carrito.cesta[productAlreadyInCart].color.color ===
@@ -449,7 +427,6 @@ export default {
     },
     añadirProd() {
       if (!this.added) {
-        console.log(document.querySelector("#popMenu__toggle").checked);
         this.added = true;
         if (this.tallaElegida) {
           this.añadirCarro();
@@ -459,7 +436,6 @@ export default {
       }
     },
     async getProductData(id) {
-      console.log(id);
       this.carga = false;
       const data = await axios
         .get(`${API_URL}products/nombre/${id}`)
@@ -467,33 +443,10 @@ export default {
       return data;
     },
     async findUserByMail(mail) {
-      debugger;
       const data = await axios
         .get(`${API_URL}users/email/${mail}`)
         .then((res) => (this.datosProduct = res.data));
-      debugger;
-      console.log(data);
       return data;
-    },
-  },
-
-  watch: {
-    "$store.state.currentFilterMenu": {
-      deep: true,
-      handler(newVal) {
-        debugger;
-        /*
-        if (newVal) {
-          document.querySelector(".productoInfo1").style.zIndex = "-1";
-        }
-        if (!newVal) {
-          document.querySelector(".productoInfo1").style.zIndex = "0";
-        }
-        */
-      },
-    },
-    yourScore: function (newVal, oldVal) {
-      console.log(newVal);
     },
   },
 };

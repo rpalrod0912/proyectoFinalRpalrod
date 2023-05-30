@@ -265,7 +265,6 @@ export default {
     if (this.$store.state.currentToken === null) {
       await this.getToken();
     }
-    debugger;
     this.userData = await this.fetchUserData();
     if (
       this.userData.cp === null ||
@@ -278,12 +277,8 @@ export default {
     } else {
       this.orderData = true;
     }
-    debugger;
-    console.log(this.carga);
-    console.log(this.userData);
-    debugger;
+
     if (this.carrito === null) {
-      debugger;
       this.$store.commit(
         "setCurrentCart",
         JSON.parse(localStorage.getItem("userProducts"))
@@ -295,7 +290,6 @@ export default {
       this.carga = false;
 
       if (this.carrito.cesta.length > 0) {
-        debugger;
         let dataArr = [];
         let productsId = [];
         let producstQuantity = [];
@@ -329,7 +323,6 @@ export default {
       this.$router.go();
     },
     async fetchUserData() {
-      debugger;
       const data = await axios
         .get(`${API_URL}users/email/${this.$store.state.currentMail}`)
         .then((res) => res.data)
@@ -344,10 +337,8 @@ export default {
       if (bool === false) {
         //document.getElementById("headerId").style.display = "flex";
       }
-      console.log("estilos");
     },
     async tramitarPedido() {
-      console.log("TRAMITADO");
       if (
         this.userData.cp === null ||
         this.userData.direccion === null ||
@@ -362,10 +353,9 @@ export default {
           products: this.productsId,
           quantity: this.producstQuantity,
         };
-        console.log(orderDto);
         const postOrder = await axios
           .post(`${API_URL}orders`, orderDto)
-          .then((res) => console.log(res));
+          .then(res);
         this.pedidoProcesado = true;
         setInterval(() => {
           this.$router
@@ -400,7 +390,6 @@ export default {
         });
     },
     async getProductData(id) {
-      console.log(id);
       this.carga = false;
       const data = await axios
         .get(`${API_URL}products/nombre/${id}`)

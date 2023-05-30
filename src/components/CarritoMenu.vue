@@ -266,7 +266,6 @@ export default {
     if (this.$store.state.currentToken === null) {
       await this.getToken();
     }
-    console.log(this.token);
     await this.getToken();
 
     axios.defaults.headers.common = {
@@ -305,14 +304,12 @@ export default {
         }
         this.productsData = dataArr;
       }
-      console.log(this.wishList);
 
       if (this.wishList.wishList.length > 0) {
         this.carga = false;
         let wishListArr = [];
 
         for (let name of this.wishList.wishList) {
-          console.log(name);
           const wishListItemData = await this.getProductData(name);
           wishListArr.push(wishListItemData);
         }
@@ -320,13 +317,11 @@ export default {
       }
       this.carga = true;
     }
-    console.log(this.carrito);
 
     this.checked = "#cartCheck";
   },
   mounted() {
     this.toggleTab(this.checked);
-    console.log(this.carrito);
   },
   name: "CarritoMenu",
   props: {
@@ -351,7 +346,6 @@ export default {
         return;
       }
       if (operation === "add") {
-        console.log("sumando");
         this.carrito.cesta[itemIndex].cantidad += 1;
         localStorage.setItem("userProducts", JSON.stringify(this.carrito));
       }
@@ -379,17 +373,11 @@ export default {
           this.token = res.data;
           this.$store.commit("setCurrentToken", res.data);
         });
-      console.log(data);
-      console.log(this.token);
     },
     deleteItem(index) {
-      console.log(this.carrito.cesta);
       this.carrito.cesta.splice(index, 1);
-      console.log(this.carrito.cesta);
-      console.log(this.$store.state.currentCart);
       localStorage.setItem("userProducts", JSON.stringify(this.carrito));
       this.$store.commit("setCurrentCart", this.carrito);
-      console.log(this.$store.state.currentCart);
     },
     calcularPrecioCarrito() {
       let price = 0;
@@ -411,7 +399,6 @@ export default {
       return resultado;
     },
     async getProductData(id) {
-      console.log(id);
       this.carga = false;
       const data = await axios
         .get(`${API_URL}products/nombre/${id}`)
@@ -440,32 +427,20 @@ export default {
           .querySelector(".menu__btn").style.opacity = "1";
         pageBody.classList.remove("bodyStyle");
       }
-      console.log("estilos");
-      /*
-                if (document.getElementById("TopMenu__toggle").checked) {
-                  alert("checked");
-                } else {box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);k it! Let me check it for you.");
-                }
-                */
     },
     toggleTab(selectorName) {
       if (selectorName === "#cartCheck") {
-        //document.querySelector("Checked").className = "labelCarrito";
-        console.log(document.querySelector(selectorName));
         document.querySelector(selectorName).checked = true;
         this.checked = true;
-        console.log(this.checked);
         document.querySelector("#likeCheck").checked = false;
         //document.querySelector("label[for=likeCheck]").className =
         ("labelUnchecked");
       } else if (selectorName === "#likeCheck") {
         /*document.querySelector("label[for=likeCheck]").className =
                   "labelCarrito";*/
-        console.log(document.querySelector(selectorName));
         document.querySelector(selectorName).checked = true;
         this.checked = false;
 
-        console.log(this.checked);
         document.querySelector("#cartCheck").checked = false;
         /*document.querySelector("label[for=cartCheck]").className =
                   "labelUnchecked";*/
@@ -494,9 +469,7 @@ export default {
   },
   watch: {
     authentication: function (newVal, oldVal) {
-      console.log("ES AHORA", newVal, "ERA ANTES ", oldVal);
       if (newVal === true) {
-        console.log("LOGEADO");
       }
     },
     "$store.state.currentCart": {

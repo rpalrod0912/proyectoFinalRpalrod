@@ -90,13 +90,11 @@ export default {
   },
   methods: {
     likedProduct() {
-      debugger;
       let list = JSON.parse(localStorage.getItem("userLikes"));
       if (list === null) {
         localStorage.setItem("userLikes", JSON.stringify({ wishList: [] }));
         list = JSON.parse(localStorage.getItem("userLikes"));
       }
-      console.log(this.productName);
       const productAlreadyInList = list.wishList.findIndex((string) => {
         return string === this.productName;
       });
