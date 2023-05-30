@@ -205,7 +205,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../helpers/mixings.scss";
 
 @include headerIconHover;
