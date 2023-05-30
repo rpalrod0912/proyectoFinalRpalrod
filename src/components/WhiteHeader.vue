@@ -205,9 +205,12 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../helpers/mixings.scss";
 
 @include headerIconHover;
 @import "../styles/layout/WhiteHeader.scss";
+header {
+  z-index: 4;
+}
 </style>
