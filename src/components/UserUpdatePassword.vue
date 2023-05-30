@@ -235,6 +235,7 @@ export default {
       }
     },
     async putData() {
+      debugger;
       //ACTUALIZAMOS PASSWORD EN FIREBASE
       let status;
       const datosUsuario = {
@@ -259,10 +260,11 @@ export default {
       }
     },
     async passwordUpdate() {
+      debugger;
       this.v$.$validate();
       console.log(this.v$);
       console.log(`El usurio es ${await reauthWithOldPwd(this.oldPwd)}`);
-
+      debugger;
       if (reauthWithOldPwd(this.oldPwd)) {
         console.log("Contraseña Valida");
       } else {
@@ -271,7 +273,7 @@ export default {
 
       if (!this.v$.$error && (await reauthWithOldPwd(this.oldPwd))) {
         console.log("TODO BIEN");
-        // await this.putData();
+        await this.putData();
         if (this.exito === true) {
           this.$emit("changePopUpState", true);
           await this.logOut();
