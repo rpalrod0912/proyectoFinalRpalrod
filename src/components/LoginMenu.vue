@@ -502,6 +502,9 @@ export default {
   ".RightMenu__box"
 );
 
+.RightMenu__box {
+  z-index: 4;
+}
 .TopMenu__item {
   padding: 12px 24px;
   margin-top: 0.5rem;
