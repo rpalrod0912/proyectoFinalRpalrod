@@ -1,82 +1,87 @@
+/*eslint-disable */
 import { createRouter, createWebHistory } from "vue-router";
+import store from "@/store";
 
 const routes = [
   {
     path: "/",
     name: "Inicio",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/InicioApp.vue"),
+    component: () => import("../views/InicioApp.vue"),
   },
 
   {
     path: "/login/:loginMode",
     name: "login",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/LoginApp.vue"),
+    component: () => import("../views/LoginApp.vue"),
     props: true,
   },
   {
     path: "/register",
     name: "register",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/RegisterApp.vue"),
+    component: () => import("../views/RegisterApp.vue"),
   },
   {
     path: "/products",
     name: "products",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ProductosApp.vue"),
+    component: () => import("../views/ProductosApp.vue"),
   },
   {
     path: "/verProducto",
 
     name: "product",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/VerProductoApp.vue"),
+    component: () => import("../views/VerProductoApp.vue"),
   },
 
   {
     path: "/pedidos",
     name: "ComprasApp",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ComprasApp.vue"),
+    component: () => import("../views/ComprasApp.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/pago",
     name: "PasarelaApp",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/PasarelaApp.vue"),
+    component: () => import("../views/PasarelaApp.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/cartLogin",
     name: "cartLogin",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/LoginCartView.vue"),
+    component: () => import("../views/LoginCartView.vue"),
   },
   {
     path: "/tuinformacion",
     name: "tuInfo",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/UserDataView.vue"),
+    component: () => import("../views/UserDataView.vue"),
     children: [],
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/tuinformacion/password",
     name: "pwdUpdate",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/UserPasswordView.vue"),
+    component: () => import("../views/UserPasswordView.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/tuinformacion/email",
     name: "emailUpdate",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/UserUpdateMailView"),
+    component: () => import("../views/UserUpdateMailView"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/guiadecompra",
     name: "guiadecompra",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/GuideView.vue"),
+    component: () => import("../views/GuideView.vue"),
   },
   {
     path: "/Contacto",
@@ -88,6 +93,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const currentAuth = store.state.currentAuth;
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  if (requiresAuth && !currentAuth) {
+    next("/cartLogin");
+  } else next();
 });
 
 export default router;

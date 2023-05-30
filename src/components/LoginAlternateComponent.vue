@@ -4,14 +4,14 @@
       <h1 v-if="this.loginMode === 'sms' || this.loginMode === 'mail'">
         CÓDIGO DE VERIFICACÓN
       </h1>
-      <h1 v-else>INICIA SESIÓN PARA CONTINUAR EL PEDIDO</h1>
+      <h1 v-else>INICIA SESIÓN PARA CONTINUAR</h1>
     </label>
     <p v-if="this.loginMode === 'sms'" class="pDescrip">
       Introduce el código que te hemos enviado al SMS al número de teléfono
       +34XXXXXXXX
     </p>
     <p v-else-if="this.loginMode === 'mail'" class="pDescrip">
-      Introduce el código que te hemos enviado por e-mail a ********02@gmail.com
+      Introduce el código que te hemos enviado por e-mail a tu correo
     </p>
     <div class="passwordInputFlex">
       <input
@@ -40,8 +40,11 @@
         src="../assets/SeeThrough.png"
       />
     </div>
-    <span class="alertText" v-if="passwordNotFound"
-      >Contraseña Incorrecta
+    <span class="alertText" v-if="passwordNotFound || userNotFound"
+      >Datos Incorrectos
+    </span>
+    <span class="alertText" v-if="missingPassword">
+      Rellena todos lo campos
     </span>
     <input class="loginSubmit" type="submit" />
     <ButtonComponent
@@ -102,6 +105,8 @@ export default {
       password: "",
       passwordNotFound: false,
       correo: null,
+      missingPassword: false,
+      userNotFound: false,
     };
   },
   name: "LoginAlternateComponent",
@@ -142,28 +147,23 @@ export default {
         })
         .catch((error) => {
           const errorCode = error.code;
+          console.log(errorCode);
           if (errorCode === "auth/user-not-found") {
             this.userNotFound = true;
           }
           if (errorCode === "auth/wrong-password") {
             this.passwordNotFound = true;
           }
+          if (
+            errorCode === "auth/missing-password" ||
+            errorCode === "auth/missing-email"
+          ) {
+            this.missingPassword = true;
+          }
         });
       this.userNotFound;
     },
-    /*
-      async encontrarUsuario(email) {
-        const mail = email;
-        const foundUser = await fetch(`${API_URL}users/email/${mail}`).then(
-          (res) => res.json()
-        );
-        foundUser;
-        if (foundUser !== "NOTFOUND") {
-          this.$router.push("/");
-        }
-        
-      },
-      */
+
     async encontrarUsuario(email) {
       const mail = email;
       const data = await axios
