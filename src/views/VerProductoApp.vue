@@ -347,9 +347,7 @@ export default {
           userId: this.userData.idUser,
           rating: this.yourScore,
         };
-        const data = axios
-          .post(`${API_URL}comments`, objetoComentario)
-          .then(res);
+        const data = axios.post(`${API_URL}comments`, objetoComentario);
         this.comentarioPublicado = true;
         setInterval(() => {
           this.$router.go();

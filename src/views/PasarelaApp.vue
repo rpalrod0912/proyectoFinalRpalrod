@@ -353,9 +353,7 @@ export default {
           products: this.productsId,
           quantity: this.producstQuantity,
         };
-        const postOrder = await axios
-          .post(`${API_URL}orders`, orderDto)
-          .then(res);
+        const postOrder = await axios.post(`${API_URL}orders`, orderDto);
         this.pedidoProcesado = true;
         setInterval(() => {
           this.$router

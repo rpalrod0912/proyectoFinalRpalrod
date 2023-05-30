@@ -6,7 +6,7 @@
     msj="LA CONTRASEÑA HA SIDO ACTUALIZADA CORRECTAMENTE"
   ></PopUpModal>
   <section v-if="carga">
-    <div class="showAccountInfo">
+    <div class="showAccountInfo pdPwd">
       <UserUpdatePassword
         @changePopUpState="setToTrue"
         :userData="this.userData"
@@ -21,7 +21,7 @@
       :userData="this.userData"
     ></RightDesktopMenu>
   </section>
-  <section v-else>
+  <section class="loadingUserInfo" v-else>
     <LoadingSpinner></LoadingSpinner>
   </section>
 </template>

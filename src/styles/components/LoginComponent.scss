@@ -36,6 +36,7 @@
 }
 .loginWindow {
   @include formWindow;
+  top: 12rem;
 }
 @media (max-width: 800px) {
   .genericButton {

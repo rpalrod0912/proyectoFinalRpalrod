@@ -24,10 +24,6 @@
         class="colorButton saveDataButton"
         msj="ACTUALIZAR EMAIL"
       ></ButtonComponent>
-      <ButtonComponent
-        class="colorButton saveDataButton"
-        msj="ACTUALIZAR TELÉFONO"
-      ></ButtonComponent>
     </div>
 
     <RightDesktopMenu
