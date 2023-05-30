@@ -292,7 +292,10 @@ export default {
           localStorage.setItem("userLikes", JSON.stringify({ wishList: [] }));
         }
       }
+      this.cartLength = this.cartQuantity();
     } else {
+      this.cartLength = this.cartQuantity();
+
       this.carga = false;
       if (this.carrito.cesta.length > 0) {
         let dataArr = [];
@@ -317,7 +320,6 @@ export default {
       }
       this.carga = true;
     }
-    this.cartLength = this.cartQuantity();
     console.log(this.carrito);
 
     this.checked = "#cartCheck";

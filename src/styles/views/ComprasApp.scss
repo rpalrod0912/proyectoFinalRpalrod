@@ -67,6 +67,12 @@
   display: flex;
   min-height: 100vh;
 }
+.loadingCompras {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rem;
+}
 .orderUl {
   display: flex;
   flex-direction: column;

@@ -35,7 +35,7 @@
       :userData="this.userData"
     ></RightDesktopMenu>
   </section>
-  <section v-else>
+  <section class="loadingUserInfo" v-else>
     <LoadingSpinner></LoadingSpinner>
   </section>
 </template>

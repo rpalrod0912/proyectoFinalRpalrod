@@ -100,7 +100,7 @@ export default {
 main {
   width: 100%;
   padding-top: 9rem;
-  margin-bottom: 10rem;
+  margin-bottom: 4rem;
 }
 .contenedorImagenes {
   display: flex;

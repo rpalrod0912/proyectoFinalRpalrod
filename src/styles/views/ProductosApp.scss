@@ -13,10 +13,18 @@ body {
   border: 2px solid black;
   cursor: pointer;
 }
+@media (max-width: 400px) {
+  .contenedorLi {
+    width: 2rem;
+    height: 2rem;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .pagination {
   display: flex;
   justify-content: center;
-
+  padding: 0rem;
   list-style: none;
   li {
     cursor: pointer;

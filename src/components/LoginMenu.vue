@@ -109,7 +109,7 @@
         />
       </div>
     </div>
-    <div v-else>
+    <div class="loadingLogin" v-else>
       <LoadingSpinner></LoadingSpinner>
 
       <input
@@ -478,7 +478,14 @@ export default {
   }
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.28);
 }
-
+.RightMenu__box {
+  .loadingLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 14rem;
+  }
+}
 #checkedBusqueda {
   display: none;
 }
