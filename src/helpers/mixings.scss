@@ -1387,6 +1387,13 @@
       }
     }
   }
+  @media (max-width: 599px) {
+    #{$id3} {
+      .greyContainer {
+        display: none;
+      }
+    }
+  }
 }
 
 @mixin estiloMenuCompra($id, $id2, $id3) {
