@@ -4,6 +4,7 @@
 </template>
 
 <script>
+import { API_URL } from "./helpers/basicHelpers";
 /*eslint-disable */
 import axios from "axios";
 import WhiteHeader from "./components/WhiteHeader.vue";
@@ -19,7 +20,7 @@ export default {
   async beforeCreate() {
     const data = await axios
       .post(
-        "http://localhost:8080/token",
+        `${API_URL}token`,
         {},
         {
           auth: {
@@ -48,7 +49,7 @@ export default {
     async getToken() {
       const data = await axios
         .post(
-          "http://localhost:8080/token",
+          `${API_URL}token`,
           {},
           {
             auth: {

@@ -386,7 +386,7 @@ export default {
     async getToken() {
       const data = await axios
         .post(
-          "http://localhost:8080/token",
+          `${API_URL}token`,
           {},
           {
             auth: {

@@ -326,7 +326,7 @@ export default {
     async encontrarUsuario(email) {
       const mail = email;
       const data = await axios
-        .get(`http://localhost:8080/users/email/${mail}`)
+        .get(`${API_URL}users/email/${mail}`)
         .then((res) => {
           (res) => res.json();
         })

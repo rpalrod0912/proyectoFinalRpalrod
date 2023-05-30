@@ -1,8 +1,7 @@
 /*eslint-disable */
 
-//const API_URL = "https://rpalrodcommerceapi.onrender.com/v1/api/";
-
-const API_URL = "http://localhost:8080/";
+//const API_URL = "http://localhost:8080/";
+const API_URL = "https://rpalrodpostgreapi.onrender.com/";
 
 function toHome() {
   this.$router.push("/");
