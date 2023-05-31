@@ -1,8 +1,34 @@
 $baseColor: white;
 $secondColor: black;
-
+.separadorNoMargin {
+  border-top: 1.4px solid #dadada;
+  width: 100%;
+  padding: 0;
+}
+@media (min-width: 700px) {
+  .separadorNoMargin {
+    display: none;
+  }
+  .itemsBox {
+    li:hover {
+      a {
+        scale: (1.2);
+        padding-left: 5rem;
+      }
+      transition: none;
+      background-color: white;
+    }
+  }
+}
 .bodyStyle {
   overflow: hidden;
+}
+.itemsBox {
+  margin-top: 3rem;
+  li {
+    margin: 0rem;
+    transition: background-color 300ms linear;
+  }
 }
 
 @include estiloMenus("#menu__toggle", ".menu__btn", ".menu__box");
@@ -26,8 +52,13 @@ $secondColor: black;
   text-decoration: none;
   transition-duration: 0.25s;
 }
-.menu__item:hover {
-  background-color: #cfd8dc;
+li {
+  a {
+    cursor: pointer;
+  }
+}
+li:hover {
+  background-color: #dadada;
 }
 @media (min-width: 900px) and (max-width: 1430px) {
   .menu__box {
@@ -55,8 +86,11 @@ $secondColor: black;
     justify-content: center;
     li {
       position: relative;
+      display: flex;
       right: auto;
-      margin: 1rem;
+      width: 100%;
+      padding: 1rem;
+      justify-content: center;
     }
   }
 

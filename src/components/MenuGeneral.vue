@@ -22,12 +22,36 @@
 
       <ul class="menu__box">
         <div class="itemsBox">
-          <li><a class="menu__item" href="#">Inicio</a></li>
-          <li><a class="menu__item" href="#">Sobre Nosotros</a></li>
-          <li><a class="menu__item" href="#">Contacto</a></li>
-          <li><a class="menu__item" href="#">Productos</a></li>
-          <li><a class="menu__item" href="#">Método de Pago</a></li>
+          <div class="separadorNoMargin"></div>
+          <li>
+            <a @click="this.$router.push('/')" class="menu__item">Inicio</a>
+          </li>
+          <div class="separadorNoMargin"></div>
+          <li>
+            <a @click="this.$router.push('/guiadecompra')" class="menu__item"
+              >Ayuda</a
+            >
+          </li>
+          <div class="separadorNoMargin"></div>
+          <li>
+            <a @click="this.$router.push('/Contacto')" class="menu__item"
+              >Contacto</a
+            >
+          </li>
+          <div class="separadorNoMargin"></div>
+          <li>
+            <a @click="this.$router.push('/products')" class="menu__item"
+              >Productos</a
+            >
+          </li>
+          <div class="separadorNoMargin"></div>
+          <li>
+            <a @click="this.$router.push('/tuinformacion')" class="menu__item"
+              >Tu Cuenta</a
+            >
+          </li>
           <div @click="menuAction(false)" class="greyContainer"></div>
+          <div class="separadorNoMargin"></div>
         </div>
       </ul>
     </div>

@@ -1,5 +1,5 @@
 @mixin carrito() {
-  z-index: 2;
+  z-index: 0;
   background-color: #242424;
   border-radius: 100%;
   width: 1.3rem;
@@ -102,6 +102,7 @@
     font-size: 1.3rem;
     display: flex;
     justify-content: space-between;
+    padding: 1.5rem;
   }
   .precio {
     @include fuenteSemiBold;
@@ -110,6 +111,7 @@
     padding-top: 0.5rem;
     display: flex;
     padding-bottom: 0.5rem;
+    padding: 1.5rem;
   }
 }
 .mgBottom {

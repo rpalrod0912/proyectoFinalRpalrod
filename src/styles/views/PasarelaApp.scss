@@ -2,6 +2,12 @@ header {
   z-index: 0;
   width: 100%;
 }
+.loadingSpinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
 
 .cartImg {
   display: flex;
@@ -170,6 +176,13 @@ header {
   }
   .cartProduct {
     right: 0rem;
+    .options {
+      .carrPSec1 {
+        img {
+          right: 0rem;
+        }
+      }
+    }
   }
   .options {
     img,

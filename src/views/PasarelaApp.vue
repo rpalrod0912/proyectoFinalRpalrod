@@ -134,7 +134,7 @@
         <LoadingSpinner></LoadingSpinner>
       </div>
     </div>
-    <div v-else class="cartInfo">
+    <div v-else class="loadingSpinner cartInfo">
       <LoadingSpinner></LoadingSpinner>
     </div>
     <div class="bottomMenu">
