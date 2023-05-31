@@ -10,7 +10,4 @@ module.exports = defineConfig({
     name: "StreetUp",
     themeColor: "#242424",
   },
-  configureWebpack: {
-    plugins: [new GenerateSW()],
-  },
 });
