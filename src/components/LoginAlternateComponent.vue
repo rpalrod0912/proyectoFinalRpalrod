@@ -161,7 +161,6 @@ export default {
             this.missingPassword = true;
           }
         });
-      this.userNotFound;
     },
 
     async encontrarUsuario(email) {
