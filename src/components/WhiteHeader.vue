@@ -5,6 +5,7 @@
       v-if="tipo === 'backHeader'"
       class="hoverArrow"
       src="../assets/back.png"
+      alt="goBack"
     />
     <MenuGeneral
       :color="this.tipoHeader"
@@ -30,6 +31,7 @@
       class="informationPageLogo backHeaderLogo headerHoverLabel"
       :class="!showHeader ? 'hideLogo' : ''"
       src="../assets/LogoOscuroSinFondo.png"
+      alt="logoOscuro"
     />
     <img
       v-else
@@ -40,6 +42,7 @@
       class="backHeaderLogo headerHoverLabel"
       :class="!showHeader ? 'hideLogo' : ''"
       :src="this.logo"
+      alt="logo"
     />
     <ul v-if="tipo !== 'backHeader'" class="userOptions">
       <li>

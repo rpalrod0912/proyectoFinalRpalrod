@@ -4,7 +4,7 @@
     <section class="guide">
       <div class="contactoContainer">
         <div class="contactoContainerHeader">
-          <img src="../assets/whatsapp.png" />
+          <img src="../assets/whatsapp.png" alt="whatssapIcon" />
           <h2>WHATSAPP</h2>
           <div class="serviceDown">
             <p class="circleDown"></p>

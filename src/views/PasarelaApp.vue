@@ -18,15 +18,15 @@
       <h1>DETALLES DEL PEDIDO</h1>
       <ul class="options">
         <li class="optionBox">
-          <img src="../assets/delivery.png" />
+          <img src="../assets/delivery.png" alt="envio" />
           <h1>Envío Standard</h1>
         </li>
         <li class="optionBox">
-          <img src="../assets/tarjeta.png" />
+          <img src="../assets/tarjeta.png" alt="pago" />
           <h1>Método de Pago</h1>
         </li>
         <li class="optionBox">
-          <img src="../assets/gift.png" />
+          <img src="../assets/gift.png" alt="datosRegalo" />
           <h1>Datos del Regalo</h1>
         </li>
         <li v-if="!this.orderData && this.loadData">
@@ -80,7 +80,7 @@
           :key="index"
         >
           <div class="imgContainer">
-            <img :src="this.productsData[index].imagen" />
+            <img :src="this.productsData[index].imagen" alt="productImagen" />
           </div>
           <div class="options">
             <section class="carrPSec1">
@@ -90,6 +90,7 @@
               <img
                 @click="this.deleteItem(index)"
                 src="../assets/trash-can.png"
+                alt="eliminarIcon"
               />
             </section>
             <section class="prodOptions">
@@ -153,11 +154,12 @@
           @click="menuAction(true)"
           class="openIcon headerHoverLabel"
           src="../assets/upIcon.png"
+          alt="upIcon"
         />
       </label>
       <div class="cartImg" v-if="this.carga">
         <div v-for="(item, index) in this.carrito.cesta" :key="index">
-          <img :src="this.productsData[index].imagen" />
+          <img :src="this.productsData[index].imagen" alt="productImg" />
         </div>
       </div>
       <div class="bottomMenu__box cartInfoProducts" v-if="this.carga">
@@ -168,6 +170,7 @@
               @click="menuAction(false)"
               class="closeIcon"
               src="../assets/upIcon.png"
+              alt="upIcon"
             />
           </div>
         </div>
@@ -177,7 +180,7 @@
           :key="index"
         >
           <div class="imgContainer">
-            <img :src="this.productsData[index].imagen" />
+            <img :src="this.productsData[index].imagen" alt="productData" />
           </div>
           <div class="options">
             <section class="carrPSec1">
@@ -187,6 +190,7 @@
               <img
                 @click="this.deleteItem(index)"
                 src="../assets/trash-can.png"
+                alt="eliminar"
               />
             </section>
             <section class="prodOptions">

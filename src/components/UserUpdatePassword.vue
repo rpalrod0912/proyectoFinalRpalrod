@@ -51,11 +51,13 @@
             v-if="!this.modoTextoInput1"
             @click="showPassword('newPwdDataInput', 'modoTextoInput1')"
             src="../assets/UnHideIcon.png"
+            alt="mostrarTexto"
           />
           <img
             v-else
             @click="showPassword('newPwdDataInput', 'modoTextoInput1')"
             src="../assets/HideIcon.png"
+            alt="esconderTexto"
           />
           <div class="borderBottom"></div>
         </label>
@@ -84,6 +86,7 @@
             v-if="!this.modoTextoInput2"
             @click="showPassword('confirmNewPwdDataInput', 'modoTextoInput2')"
             src="../assets/UnHideIcon.png"
+            alt="mostrarTexto"
           />
 
           <img
@@ -91,6 +94,7 @@
             class="pd-3rem"
             @click="showPassword('confirmNewPwdDataInput', 'modoTextoInput2')"
             src="../assets/HideIcon.png"
+            alt="ocultarTexto"
           />
 
           <div class="borderBottom"></div>

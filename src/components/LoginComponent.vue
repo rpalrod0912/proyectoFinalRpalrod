@@ -26,11 +26,13 @@
         v-if="!this.modoTexto"
         @click="showPassword()"
         src="../assets/blindIcon.png"
+        alt="vistaOculta"
       />
       <img
         v-else-if="this.modoTexto"
         @click="showPassword()"
         src="../assets/SeeThrough.png"
+        alt="vistaPermitida"
       />
     </div>
     <span class="alertText" v-if="passwordNotFound"

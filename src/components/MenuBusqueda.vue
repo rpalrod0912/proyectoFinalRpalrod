@@ -8,19 +8,26 @@
   />
 
   <label id="searchImg" @click="menuAction(true)" for="checkBusqueda">
-    <img id="searchImg" class="searchBar searchMenu" :src="this.modo" />
+    <img
+      id="searchImg"
+      class="searchBar searchMenu"
+      :src="this.modo"
+      alt="lupa"
+    />
 
     <img
       id="searchImg"
       class="searchIcon"
       v-if="this.color === 'Dark'"
       src="../assets/lupaNegra.png"
+      alt="lupaNegra"
     />
     <img
       id="searchImg"
       class="searchIcon"
       v-else
       src="../assets/LupaBlanca.png"
+      alt="lupaBlanca"
     />
   </label>
 
@@ -34,7 +41,7 @@
     </div>
     <div class="TopMenu__item cajaBusqueda">
       <div class="lineaBusqueda">
-        <img src="../assets/lupaBlack.png" />
+        <img src="../assets/lupaBlack.png" alt="lupaNegra" />
         <input
           type="text"
           v-model="searchInput"

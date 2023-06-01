@@ -28,7 +28,7 @@
     <div class="contenedorImagenes" v-if="this.carga">
       <section class="presentacionProd">
         <div class="productDiv">
-          <img :src="this.productData.imagen" />
+          <img :src="this.productData.imagen" alt="productImg" />
         </div>
         <div class="productoInfo1">
           <h2 class="textoH2">{{ this.productData.nombre }}</h2>
@@ -97,18 +97,30 @@
             class="popMenu__item textoGuresoh1"
           >
             <div @click="añadirProd()" class="hoverBox">
-              <img class="closeModal" src="@/assets/DeleteIcon.png" />
+              <img
+                class="closeModal"
+                src="@/assets/DeleteIcon.png"
+                alt="eliminarIcon"
+              />
             </div>
 
-            <img class="modalImg" src="@/assets/checked.png" />
+            <img class="modalImg" src="@/assets/checked.png" alt="checked" />
             <p>{{ this.productData.nombre }} HA SIDO AÑADIDO AL CARRITO</p>
           </div>
           <div v-else class="popMenu__item textoGuresoh1">
             <div @click="añadirProd()" class="hoverBox">
-              <img class="closeModal" src="@/assets/DeleteIcon.png" />
+              <img
+                class="closeModal"
+                src="@/assets/DeleteIcon.png"
+                alt="borrar"
+              />
             </div>
 
-            <img class="modalImg" src="@/assets/cancel.png" />
+            <img
+              class="modalImg"
+              src="@/assets/cancel.png"
+              alt="CancelarIcono"
+            />
             <p>DEBES ELEGIR TALLA Y COLOR PARA AÑADIR EL PRODUCTO AL CARRITO</p>
           </div>
         </ul>
@@ -131,7 +143,7 @@
               v-if="index === this.comentarioUsuario"
               class="deleteImg"
             >
-              <img src="../assets/DeleteIcon.png" />
+              <img src="../assets/DeleteIcon.png" alt="EliminarIcono" />
             </div>
           </div>
           <div class="puntuacion">
@@ -140,8 +152,13 @@
                 <img
                   v-if="index <= comentario.rating"
                   src="../assets/rating/voted.png"
+                  alt="Opiniones"
                 />
-                <img v-else src="../assets/rating/unVoted.png" />
+                <img
+                  v-else
+                  src="../assets/rating/unVoted.png"
+                  alt="Sin Opiniones"
+                />
               </template>
             </div>
           </div>
@@ -160,11 +177,13 @@
                     v-if="index > this.yourScore"
                     @click="this.yourScore = index"
                     src="../assets/rating/unVoted.png"
+                    alt="Sin opiniones"
                   />
                   <img
                     v-else
                     @click="this.yourScore = index"
                     src="../assets/rating/voted.png"
+                    alt="opiniones"
                   />
                 </template>
               </div>

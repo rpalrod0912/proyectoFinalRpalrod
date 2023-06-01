@@ -9,7 +9,7 @@
       >
         <div class="orderDiv">
           <div class="imgContainer">
-            <img :src="this.ordersImages[index].imagen" />
+            <img :src="this.ordersImages[index].imagen" alt="imagenPedidos" />
           </div>
           <div class="options">
             <section class="carrPSec1">

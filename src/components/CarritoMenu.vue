@@ -18,7 +18,7 @@
     >
       <p>{{ this.cartLength }}</p>
     </div>
-    <img class="headerHoverLabel" :src="this.modo" />
+    <img class="headerHoverLabel" :src="this.modo" alt="carrito" />
   </label>
 
   <ul class="CarritoMenu__box">
@@ -35,12 +35,12 @@
             v-if="this.carrito.cesta.length > 0 || this.carrito !== null"
             class="grupoFlex"
           >
-            <img src="../assets/bolso.png" />
+            <img src="../assets/bolso.png" alt="bolso" />
             <p>CARRITO ({{ this.cartLength }})</p>
           </div>
 
           <div v-else class="grupoFlex">
-            <img src="../assets/bolso.png" />
+            <img src="../assets/bolso.png" alt="bolso" />
             <p>CARRITO (0)</p>
           </div>
 
@@ -53,14 +53,14 @@
           class="labelUnchecked"
           for="likeCheck"
         >
-          <img src="../assets/likeWhite.png" />
+          <img src="../assets/likeWhite.png" alt="like" />
           <p v-if="wishList.wishList.length > 0 || wishList !== null">
             WISHLIST ({{ wishList.wishList.length }})
           </p>
           <p v-else>WISHLIST (0)</p>
         </label>
         <div class="closeDiv" @click="menuAction(false)">
-          <img :src="this.deleteIcon" />
+          <img :src="this.deleteIcon" alt="delete" />
         </div>
       </div>
 
@@ -78,7 +78,7 @@
             :key="index"
           >
             <div class="imgContainer">
-              <img :src="this.productsData[index].imagen" />
+              <img :src="this.productsData[index].imagen" alt="product" />
             </div>
             <div class="options">
               <section class="carrPSec1">
@@ -88,6 +88,7 @@
                 <img
                   @click="this.deleteItem(index)"
                   src="../assets/trash-can.png"
+                  alt="eliminar"
                 />
               </section>
               <section class="prodOptions">
@@ -105,6 +106,7 @@
                     class="minusQuantity"
                     src="../assets/minus-sign.png"
                     @click="this.modifyCantity('delete', index)"
+                    alt="menos"
                   />
                   {{ item.cantidad }}
                   <p @click="this.modifyCantity('add', index)">+</p>
@@ -156,7 +158,7 @@
           class="labelUnchecked"
           for="cartCheck"
         >
-          <img src="../assets/bolso.png" />
+          <img src="../assets/bolso.png" alt="bolso" />
           <p v-if="this.carrito.cesta.length > 0 || carrito !== null">
             CARRITO ({{ carrito.cesta.length }})
           </p>
@@ -169,17 +171,17 @@
             v-if="wishList.wishList.length > 0 || wishList !== null"
             class="grupoFlex"
           >
-            <img src="../assets/likeWhite.png" />
+            <img src="../assets/likeWhite.png" alt="like" />
             <p>WISHLIST ({{ wishList.wishList.length }})</p>
           </div>
           <div v-else class="grupoFlex">
-            <img src="../assets/likeWhite.png" />
+            <img src="../assets/likeWhite.png" alt="like" />
             <p>WISHLIST (0)</p>
           </div>
           <div class="marcador"></div>
         </label>
         <div class="closeDiv" @click="menuAction(false)">
-          <img :src="this.deleteIcon" />
+          <img :src="this.deleteIcon" alt="borrar" />
         </div>
       </div>
       <div
@@ -196,14 +198,18 @@
             :key="index"
           >
             <div class="imgContainer">
-              <img :src="this.wishListData[index].imagen" />
+              <img :src="this.wishListData[index].imagen" alt="likedProduct" />
             </div>
             <div class="options">
               <section class="carrPSec1">
                 <p>
                   {{ this.wishListData[index].nombre }}
                 </p>
-                <img @click="unLike(index)" src="../assets/trash-can.png" />
+                <img
+                  @click="unLike(index)"
+                  src="../assets/trash-can.png"
+                  alt="eliminar"
+                />
               </section>
             </div>
           </div>

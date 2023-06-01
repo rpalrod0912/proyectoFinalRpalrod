@@ -21,16 +21,27 @@
         "
         class="hoverBox"
       >
-        <img class="closeModal" src="@/assets/DeleteIcon.png" />
+        <img class="closeModal" src="@/assets/DeleteIcon.png" alt="closeIcon" />
       </div>
 
-      <img class="modalImg" v-if="isError" src="@/assets/cancel.png" />
+      <img
+        class="modalImg"
+        v-if="isError"
+        src="@/assets/cancel.png"
+        alt="CancelIcon"
+      />
       <img
         class="modalImg"
         v-else-if="isOperation"
         src="@/assets/alertaPng.png"
+        alt="alertIcon"
       />
-      <img class="modalImg" v-else src="@/assets/checked.png" />
+      <img
+        class="modalImg"
+        v-else
+        src="@/assets/checked.png"
+        alt="checkedIcon"
+      />
       <p>{{ msj }}</p>
       <button
         v-if="isOperation"

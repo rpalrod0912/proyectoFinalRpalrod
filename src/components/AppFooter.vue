@@ -12,22 +12,35 @@
       <ul class="social">
         <h1>REDES SOCIALES</h1>
         <div class="socialDiv">
-          <li><img src="../assets/isntagramIcon.png" /></li>
-          <li><img src="../assets/youtubeIcon.png" /></li>
-          <li><img src="../assets/twitterIcon.png" /></li>
+          <li><img src="../assets/isntagramIcon.png" alt="instagram" /></li>
+          <li><img src="../assets/youtubeIcon.png" alt="youtube" /></li>
+          <li><img src="../assets/twitterIcon.png" alt="twitter" /></li>
         </div>
       </ul>
       <ul class="payment">
         <h1>MÉTODOS DE PAGO</h1>
         <div class="paymentDiv">
-          <li><img src="@/assets/paymentsIcons/visaIcon.png" /></li>
-          <li><img src="@/assets/paymentsIcons/masterCardIcon.png" /></li>
-          <li><img src="@/assets/paymentsIcons/amazonIcon.png" /></li>
+          <li><img src="@/assets/paymentsIcons/visaIcon.png" alt="visa" /></li>
+          <li>
+            <img
+              src="@/assets/paymentsIcons/masterCardIcon.png"
+              alt="masterCard"
+            />
+          </li>
+          <li>
+            <img src="@/assets/paymentsIcons/amazonIcon.png" alt="amazon" />
+          </li>
         </div>
         <div class="paymentDiv payment2">
-          <li><img src="@/assets/paymentsIcons/paysafeIcon.png" /></li>
-          <li><img src="@/assets/paymentsIcons/appleIcon.png" /></li>
-          <li><img src="@/assets/paymentsIcons/paypalIcon.png" /></li>
+          <li>
+            <img src="@/assets/paymentsIcons/paysafeIcon.png" alt="payasafe" />
+          </li>
+          <li>
+            <img src="@/assets/paymentsIcons/appleIcon.png" alt="apple" />
+          </li>
+          <li>
+            <img src="@/assets/paymentsIcons/paypalIcon.png" alt="paypal" />
+          </li>
         </div>
       </ul>
     </section>
@@ -41,7 +54,7 @@
         <li>Política de Cookies</li>
       </ul>
       <div class="pageLang">
-        <img src="../assets/worldIcon.png" />
+        <img src="../assets/worldIcon.png" alt="world" />
         <p>España</p>
         <div class="sepVerticalBlack">|</div>
         <p>Español</p>

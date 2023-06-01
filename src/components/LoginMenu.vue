@@ -7,13 +7,18 @@
   />
 
   <label class="headerHoverLabel" @click="menuAction(true)" for="checkBusqueda">
-    <img id="loginMenuId" class="headerHoverLabel" :src="this.modo" />
+    <img
+      id="loginMenuId"
+      class="headerHoverLabel"
+      :src="this.modo"
+      alt="Persona"
+    />
   </label>
 
   <ul v-if="!this.authentication" class="RightMenu__box">
     <div class="cabeceraMenu">
       <h1 class="TopMenu__item textoGruesoh1">ACCEDER</h1>
-      <img @click="menuAction(false)" :src="this.deleteIcon" />
+      <img @click="menuAction(false)" :src="this.deleteIcon" alt="eliminar" />
     </div>
     <form @submit.prevent="continueLogin" class="contenidoLogin">
       <label for="emailPhoneInput" class="TopMenu__item textoGruesoh1">

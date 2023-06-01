@@ -8,7 +8,7 @@
   <ul class="filterMenu__box">
     <div class="cabeceraMenu">
       <h1 class="TopMenu__item textoGruesoh1">FILTRAR</h1>
-      <img @click="menuAction(false)" :src="this.deleteIcon" />
+      <img @click="menuAction(false)" :src="this.deleteIcon" alt="eliminar" />
     </div>
 
     <section class="secColor">

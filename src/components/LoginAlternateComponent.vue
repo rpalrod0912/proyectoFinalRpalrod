@@ -33,11 +33,13 @@
         v-if="!this.modoTexto"
         @click="showPassword()"
         src="../assets/blindIcon.png"
+        alt="ojoCiego"
       />
       <img
         v-else-if="this.modoTexto"
         @click="showPassword()"
         src="../assets/SeeThrough.png"
+        alt="ojoConVista"
       />
     </div>
     <span class="alertText" v-if="passwordNotFound || userNotFound"

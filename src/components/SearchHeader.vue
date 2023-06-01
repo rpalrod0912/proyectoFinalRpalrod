@@ -6,10 +6,10 @@
       @click="check"
       class="menu"
     ></MenuGeneral>
-    <img class="logo" :src="this.logo" />
+    <img class="logo" :src="this.logo" alt="logo" />
     <div class="searchHeaderContainer">
       <div>
-        <img @click="closeMenu" :src="this.deleteIcon" />
+        <img @click="closeMenu" :src="this.deleteIcon" alt="cerrarIcono" />
       </div>
     </div>
   </header>

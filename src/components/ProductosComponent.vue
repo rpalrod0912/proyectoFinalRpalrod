@@ -8,7 +8,7 @@
         :key="index"
       >
         <div class="productDiv divMedia">
-          <img :src="producto.imagen" />
+          <img :src="producto.imagen" alt="productImg" />
         </div>
         <div class="salesParenCont" v-if="producto.oferta">
           <div class="saleContainer">

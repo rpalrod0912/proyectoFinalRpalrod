@@ -1,7 +1,7 @@
 <template>
   <header>
     <MenuGeneral @click="check" class="menu"></MenuGeneral>
-    <img class="logo" src="../assets/LogoOscuroSinFondo.png" />
+    <img class="logo" src="../assets/LogoOscuroSinFondo.png" alt="logoOscuro" />
     <ul>
       <li>
         <MenuBusqueda></MenuBusqueda>

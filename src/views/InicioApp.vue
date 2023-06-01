@@ -2,7 +2,11 @@
   <WhiteHeader tipo="blanco"></WhiteHeader>
   <main>
     <section class="secIni1">
-      <img class="imgSec1" src="../assets/imInicioUsoWeb.jpg" />
+      <img
+        class="imgSec1"
+        src="../assets/imInicioUsoWeb.jpg"
+        alt="hombresSentadosFondo"
+      />
       <video
         autoplay
         class="vidSec1"
@@ -22,12 +26,28 @@
       ></ButtonComponent>
     </section>
     <section class="secIni2">
-      <img class="imgSecDesktop" src="../assets/imSec2.png" />
-      <img class="imgSecMobile" src="../assets/mobile/imSec2Comprimida.jpg" />
+      <img
+        class="imgSecDesktop"
+        src="../assets/imSec2.png"
+        alt="imagenSeccion2"
+      />
+      <img
+        class="imgSecMobile"
+        src="../assets/mobile/imSec2Comprimida.jpg"
+        alt="imagenSeccion2Mobile"
+      />
     </section>
     <section class="secIni3">
-      <img class="imgSecDesktop" src="../assets/imSec3.jpg" />
-      <img class="imgSecMobile" src="../assets/mobile/imSec3comprimida.jpg" />
+      <img
+        class="imgSecDesktop"
+        src="../assets/imSec3.jpg"
+        alt="imagenSeccion3"
+      />
+      <img
+        class="imgSecMobile"
+        src="../assets/mobile/imSec3comprimida.jpg"
+        alt="imagenSeccion3Mobile"
+      />
     </section>
   </main>
   <AppFooter></AppFooter>

@@ -15,7 +15,7 @@
           id="firstOption"
         >
           <h2>Mis Compras</h2>
-          <img src="../assets/Caja.png" />
+          <img src="../assets/Caja.png" alt="boxIcon" />
         </div>
         <div
           @click="this.$router.push('/tuinformacion')"
@@ -23,7 +23,7 @@
           id="secondOption"
         >
           <h2>Datos Personales</h2>
-          <img src="../assets/huella.png" />
+          <img src="../assets/huella.png" alt="huellaIcono" />
         </div>
         <div
           @click="this.$router.push('/contacto')"
@@ -31,7 +31,7 @@
           id="thirdOption"
         >
           <h2>Contacto</h2>
-          <img src="../assets/contact-mail.png" />
+          <img src="../assets/contact-mail.png" alt="EmailIcono" />
         </div>
         <div
           @click="this.$router.push('/guiadecompra')"
@@ -39,7 +39,7 @@
           id="fourthOption"
         >
           <h2>Guía de Compra</h2>
-          <img src="../assets/infoIcon.png" />
+          <img src="../assets/infoIcon.png" alt="infoIcono" />
         </div>
       </div>
       <div class="separadorBlack"></div>
