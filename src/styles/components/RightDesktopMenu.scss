@@ -32,6 +32,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+.menuOptions .subElement:hover {
+  scale: (1.1);
 }
 .menuOptions .usOption h2 {
   color: #242424;
