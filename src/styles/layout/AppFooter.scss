@@ -112,3 +112,49 @@ ul {
     }
   }
 }
+@media (max-width: 634px) {
+  .secFoot2 {
+    ul {
+      padding: 0rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
+@media (max-width: 599px) {
+  .secFoot1 {
+    h1 {
+      font-size: 1.3rem;
+    }
+    .help {
+      width: 80%;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .social {
+      h1 {
+        text-align: center;
+      }
+      margin-bottom: 2rem;
+      .socialDiv {
+        li {
+          padding-right: 0rem;
+          margin: 0.3rem;
+        }
+      }
+    }
+
+    .payment {
+      text-align: center;
+      .paymentDiv {
+        justify-content: center;
+      }
+      li {
+        padding-right: 0rem;
+        margin: 0.3rem;
+      }
+    }
+    ul {
+      padding: 0rem;
+    }
+  }
+}
