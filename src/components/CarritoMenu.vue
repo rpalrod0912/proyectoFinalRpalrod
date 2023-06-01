@@ -203,15 +203,13 @@
                 <p>
                   {{ this.wishListData[index].nombre }}
                 </p>
-                <img
-                  @click="this.deleteItem(index)"
-                  src="../assets/trash-can.png"
-                />
+                <img @click="unLike(index)" src="../assets/trash-can.png" />
               </section>
             </div>
           </div>
 
           <ButtonComponent
+            @click="seeProducts()"
             class="colorBoton mgBottom"
             msj="VER MAS PRODUCTOS"
           ></ButtonComponent>
@@ -329,6 +327,15 @@ export default {
     authentication: Boolean,
   },
   methods: {
+    unLike(index) {
+      let list = JSON.parse(localStorage.getItem("userLikes"));
+      list.wishList.splice(index, 1);
+      localStorage.setItem("userLikes", JSON.stringify(list));
+      this.$store.commit(
+        "setCurrentWishList",
+        JSON.parse(localStorage.getItem("userLikes"))
+      );
+    },
     cartQuantity() {
       let cantidad = 0;
       this.carrito.cesta.forEach((prod) => {
