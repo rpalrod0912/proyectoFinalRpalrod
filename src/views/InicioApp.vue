@@ -78,7 +78,6 @@ export default {
 
   created() {
     if (document.querySelector("body").classList.contains("bodyStyle")) {
-      debugger;
       document.querySelector("body").classList.remove("bodyStyle");
     }
     if (isSignInWithEmailLink(auth, window.location.href)) {
