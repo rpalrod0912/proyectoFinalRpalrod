@@ -28,7 +28,7 @@
     <section class="secIni2">
       <img
         class="imgSecDesktop"
-        src="../assets/imSec2.png"
+        src="../assets/imSec2.webp"
         alt="imagenSeccion2"
       />
       <img
