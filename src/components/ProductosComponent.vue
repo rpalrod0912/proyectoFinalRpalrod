@@ -1,7 +1,16 @@
 <template>
   <main>
     <div class="contenedorImagenes" v-if="this.carga">
+      <div class="notFound" v-if="this.imgArray.length === 0">
+        <img src="../assets/notFound.png" />
+        <h1>
+          LO SENTIMOS, NO HAY RESULTADOS SIMILARES A '{{
+            this.$route.query.prodFiltrados.toUpperCase()
+          }}'
+        </h1>
+      </div>
       <div
+        v-else
         class="prodContainer"
         @click="this.seeProduct(producto.nombre)"
         v-for="(producto, index) in this.imgArray"

@@ -1,3 +1,33 @@
+.notFound {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6rem;
+  margin-bottom: 12rem;
+  flex-direction: column;
+  h1 {
+    @include fuenteSemiBold;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    text-align: center;
+  }
+  img {
+    padding-bottom: 6rem;
+    width: 8rem;
+  }
+}
+@media (max-width: 440px) {
+  .notFound {
+    margin-top: 0rem;
+    h1 {
+      font-size: 1.4rem;
+    }
+    img {
+      width: 5rem;
+    }
+  }
+}
 .saleContainer {
   display: flex;
   margin: 0 auto;

@@ -343,6 +343,7 @@ export default {
       );
     },
     cartQuantity() {
+      debugger;
       let cantidad = 0;
       this.carrito.cesta.forEach((prod) => {
         cantidad += prod.cantidad;
@@ -488,17 +489,24 @@ export default {
     "$store.state.currentCart": {
       //Para añadir reactividad al carrito debemos escuchar el objeto store
       deep: true,
-      async handler(newVal) {
+      async handler(newVal, oldVal) {
         this.carga = false;
+
         this.carrito = newVal;
         let dataArr = [];
-        for (let objeto of this.carrito.cesta) {
-          const prodData = await this.getProductData(objeto.productName);
-          dataArr.push(prodData);
+        debugger;
+        console.log(newVal);
+        console.log(oldVal);
+        if (oldVal.cesta.length !== newVal.cesta.length) {
+          for (let objeto of this.carrito.cesta) {
+            const prodData = await this.getProductData(objeto.productName);
+            dataArr.push(prodData);
+          }
+          this.productsData = dataArr;
         }
-        this.cartLength = this.cartQuantity();
-        this.productsData = dataArr;
         this.carga = true;
+
+        this.cartLength = this.cartQuantity();
       },
     },
     "$store.state.currentWishList": {
@@ -515,9 +523,11 @@ export default {
         this.carga = true;
       },
     },
+    /*
     isOpened: function (newVal, oldVal) {
       this.$store.commit("setCurrentFilterMenu", newVal);
     },
+    */
   },
 
   components: { LoadingSpinner, ButtonComponent },

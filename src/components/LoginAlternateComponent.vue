@@ -97,6 +97,9 @@ export default {
     if (document.querySelector("body").classList.contains("bodyStyle")) {
       document.querySelector("body").classList.toggle("bodyStyle");
     }
+    if (this.$store.state.currentAuth === true) {
+      this.$router.push("/");
+    }
   },
   data() {
     return {

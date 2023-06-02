@@ -9,6 +9,32 @@ header {
   justify-items: center;
 }
 
+.emptyCartDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18rem;
+  flex-direction: column;
+  h1 {
+    @include fuenteSemiBold;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    text-align: center;
+  }
+  img {
+    padding-bottom: 2rem;
+    width: 8rem;
+  }
+}
+@media (max-width: 400px) {
+  .emptyCartDiv {
+    h1 {
+      font-size: 1.4rem;
+    }
+  }
+}
+
 .cartImg {
   display: flex;
 

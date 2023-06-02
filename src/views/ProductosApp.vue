@@ -75,6 +75,8 @@ export default {
     } else {
       await this.cargarProductosBusqueda(this.$route.query.prodFiltrados);
       this.imgArray = JSON.parse(JSON.stringify(this.datosProd));
+      debugger;
+      console.log(this.imgArray);
       this.carga = true;
     }
 

@@ -13,7 +13,7 @@
     :is-opened="true"
     msj="¡GRACIAS, TU PEDIDO SE ESTA PROCESANDO CORRECTAMENTE!"
   ></PopUpModal>
-  <div class="pasarelaMain">
+  <div v-if="!this.emptyCart" class="pasarelaMain">
     <section class="pasarelaOptions">
       <h1>DETALLES DEL PEDIDO</h1>
       <ul class="options">
@@ -226,6 +226,10 @@
       </div>
     </div>
   </div>
+  <div class="emptyCartDiv" v-else>
+    <img src="../assets/emptyCart.png" />
+    <h1>NO TIENES PRODUCTOS EN EL CARRITO</h1>
+  </div>
 </template>
 <script>
 /*eslint-disable */
@@ -248,6 +252,7 @@ export default {
   data() {
     return {
       carga: false,
+      emptyCart: false,
       carrito: this.$store.state.currentCart,
       productsData: null,
       productsId: null,
@@ -306,6 +311,8 @@ export default {
         this.productsData = dataArr;
         this.productsId = productsId;
         this.producstQuantity = producstQuantity;
+      } else {
+        this.emptyCart = true;
       }
 
       this.carga = true;
@@ -316,9 +323,27 @@ export default {
       }
     }
   },
+  watch: {
+    "$store.state.currentCart": {
+      //Para añadir reactividad al carrito debemos escuchar el objeto store
+      deep: true,
+      async handler(newVal) {
+        debugger;
+        if (this.carrito.cesta.length === 0) {
+          debugger;
+          this.emptyCart = true;
+        }
+      },
+    },
+  },
   methods: {
     setPopValue(val) {
       this.postError = val;
+    },
+    deleteItem(index) {
+      this.carrito.cesta.splice(index, 1);
+      localStorage.setItem("userProducts", JSON.stringify(this.carrito));
+      this.$store.commit("setCurrentCart", this.carrito);
     },
     setPedidoProcesado(val) {
       this.pedidoProcesado = val;
