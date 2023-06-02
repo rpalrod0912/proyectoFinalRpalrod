@@ -26,28 +26,24 @@
       ></ButtonComponent>
     </section>
     <section class="secIni2">
-      <img
-        class="imgSecDesktop"
-        src="../assets/imSec2.webp"
-        alt="imagenSeccion2"
-      />
-      <img
-        class="imgSecMobile"
-        src="../assets/mobile/imSec2Comprimida.jpg"
-        alt="imagenSeccion2Mobile"
-      />
+      <picture>
+        <source
+          media="(max-width:500px)"
+          srcset="../assets/mobile/imSec2Comprimida.jpg"
+          alt="imagenSeccion2Mobile"
+        />
+        <img src="../assets/imSec2.webp" alt="imagenSeccion2" />
+      </picture>
     </section>
     <section class="secIni3">
-      <img
-        class="imgSecDesktop"
-        src="../assets/imSec3.jpg"
-        alt="imagenSeccion3"
-      />
-      <img
-        class="imgSecMobile"
-        src="../assets/mobile/imSec3comprimida.jpg"
-        alt="imagenSeccion3Mobile"
-      />
+      <picture>
+        <source
+          media="(max-width:500px)"
+          srcset="../assets/mobile/imSec3comprimida.jpg"
+          alt="imagenSeccion3Mobile"
+        />
+        <img src="../assets/imSec3.jpg" alt="imagenSeccion3" />
+      </picture>
     </section>
   </main>
   <AppFooter></AppFooter>
