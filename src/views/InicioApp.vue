@@ -77,6 +77,10 @@ export default {
   /*eslint-disable */
 
   created() {
+    if (document.querySelector("body").classList.contains("bodyStyle")) {
+      debugger;
+      document.querySelector("body").classList.remove("bodyStyle");
+    }
     if (isSignInWithEmailLink(auth, window.location.href)) {
       // Additional state parameters can also be passed via URL.
       // This can be used to continue the user's intended action before triggering
@@ -105,10 +109,7 @@ export default {
           // Common errors could be invalid email and invalid or expired OTPs.
         });
     }
-    if (document.querySelector("body").classList.contains("bodyStyle")) {
-      debugger;
-      document.querySelector("body").classList.remove("bodyStyle");
-    }
+
     scrollTop();
 
     this.recienRegistrado = this.$route.query.recienRegistrado;
