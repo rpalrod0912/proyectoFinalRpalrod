@@ -105,8 +105,12 @@ export default {
           // Common errors could be invalid email and invalid or expired OTPs.
         });
     }
-
+    if (document.querySelector("body").classList.contains("bodyStyle")) {
+      debugger;
+      document.querySelector("body").classList.remove("bodyStyle");
+    }
     scrollTop();
+
     this.recienRegistrado = this.$route.query.recienRegistrado;
     this.recienLogeado = this.$route.query.recienLogeado;
   },
