@@ -8,6 +8,7 @@
         alt="hombresSentadosFondo"
       />
       <video
+        loop
         autoplay
         class="vidSec1"
         src="../assets/video/videoSection1.mp4"
