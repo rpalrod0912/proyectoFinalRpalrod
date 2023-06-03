@@ -67,7 +67,7 @@ header {
   }
   background-color: transparent;
   .informationPageLogo {
-    right: 59%;
+    right: 55%;
   }
   @media (min-width: 1151px) and (max-width: 1500px) {
     .informationPageLogo {
@@ -84,9 +84,9 @@ header {
       margin-left: 1rem !important;
     }
   }
-  @media (max-width: 899px) {
+  @media (max-width: 843px) {
     .informationPageLogo {
-      right: 36%;
+      right: 32%;
       margin-left: 0rem !important;
     }
   }

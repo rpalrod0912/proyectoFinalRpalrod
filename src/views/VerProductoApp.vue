@@ -166,7 +166,12 @@
             {{ comentario.text }}
           </p>
         </div>
-
+        <div
+          v-for="(comentario, index) in this.productData.comentarios"
+          :key="index"
+        >
+          {{ comentario.text }}
+        </div>
         <div v-if="comentarioUsuario === -1" class="comentarioContainer">
           <form @submit.prevent="postComments()">
             <div class="cabeceraPost">

@@ -1,5 +1,4 @@
 header {
-  z-index: 0;
   width: 100%;
 }
 .loadingSpinner {
@@ -190,6 +189,7 @@ header {
   overflow: scroll;
   position: fixed;
   right: 0rem;
+  padding-top: 5rem;
   cartInfoProducts {
     overflow: scroll;
   }
@@ -202,6 +202,7 @@ header {
   }
   .cartProduct {
     right: 0rem;
+    margin-top: 2rem;
     .options {
       .carrPSec1 {
         img {

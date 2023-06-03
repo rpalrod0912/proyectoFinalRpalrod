@@ -1,5 +1,4 @@
 const { defineConfig } = require("@vue/cli-service");
-const { GenerateSW } = require("workbox-webpack-plugin");
 module.exports = defineConfig({
   transpileDependencies: true,
   //publicPath: "/proyectoFinalRpalrod/",
