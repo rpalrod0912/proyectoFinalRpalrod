@@ -1,5 +1,6 @@
 .allColors {
   div {
+    cursor: pointer;
     list-style: none;
     font-family: "Noto Sans";
     font-style: normal;
@@ -89,6 +90,9 @@ button:focus {
 .secColor {
   @include fuenteSemiBold;
   @include flexInputDpNone;
+  div {
+    cursor: pointer;
+  }
 }
 
 .secTallas {
