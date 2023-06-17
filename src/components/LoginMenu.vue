@@ -37,10 +37,7 @@
         <img src="../assets/gmail.png" alt="gmail img" />
         <p>CONTINUAR CON GMAIL</p>
       </button>
-      <button class="socialButton">
-        <img src="../assets/facebook.png" alt="facebook img" />
-        <p>CONTINUAR CON FACEBOOK</p>
-      </button>
+  
 
       <p class="TopMenu__item textoPlanoFino">
         Al iniciar sesión con mi login social, acepto vincular mi cuenta
