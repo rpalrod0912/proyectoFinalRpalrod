@@ -16,7 +16,7 @@
               <p>Nº {{ item.id }}</p>
               <p>21/03/2023</p>
               <p class="color">Pendiente de envío</p>
-              <p href="#">Ver Detalles</p>
+              <!--<p href="#">Ver Detalles</p>-->
               <p>{{ item.products.length }} artículos</p>
             </section>
             <p class="orderPrice">{{ item.totalPrice }} €</p>

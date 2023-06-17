@@ -172,8 +172,8 @@
         >
           {{ comentario.text }}
         </div>
-        <div v-if="comentarioUsuario === -1" class="comentarioContainer">
-          <form @submit.prevent="postComments()">
+        <div v-if="comentarioUsuario === -1 && auth" class="comentarioContainer">
+          <form  @submit.prevent="postComments()">
             <div class="cabeceraPost">
               <label for="tuComentario"> ¡Danos tu Opinión!</label>
               <div class="puntuacion">
