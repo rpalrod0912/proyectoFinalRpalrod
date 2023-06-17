@@ -328,9 +328,7 @@ export default {
       //Para añadir reactividad al carrito debemos escuchar el objeto store
       deep: true,
       async handler(newVal) {
-        debugger;
         if (this.carrito.cesta.length === 0) {
-          debugger;
           this.emptyCart = true;
         }
       },

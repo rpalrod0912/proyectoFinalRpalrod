@@ -343,7 +343,6 @@ export default {
       );
     },
     cartQuantity() {
-      debugger;
       let cantidad = 0;
       this.carrito.cesta.forEach((prod) => {
         cantidad += prod.cantidad;
@@ -494,7 +493,6 @@ export default {
 
         this.carrito = newVal;
         let dataArr = [];
-        debugger;
         console.log(newVal);
         console.log(oldVal);
         if (oldVal.cesta.length !== newVal.cesta.length) {
