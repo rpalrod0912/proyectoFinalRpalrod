@@ -1,24 +1,27 @@
 # proyectofinal
 
-## Project setup
+##IMPORTANTE: Instalar Vue CLI:
+
+```
+npm install -g @vue/cli
+```
+
+## Instalar dependecias del node 
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Para ejecutar el servidor de desarrollo
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compilar para producción
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Ejectura el linter
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
