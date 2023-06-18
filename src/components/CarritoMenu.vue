@@ -495,13 +495,9 @@ export default {
         if (this.cartCopy===null){
           this.cartCopy=oldVal.cesta;
         }
-          console.log(this.cartCopy);
-        debugger;
-        console.log(this.cartCopy);
-        console.log(this.$store.state.currentCart);
+         
         this.carrito = newVal;
         let dataArr = [];
-        console.log(newVal);
 
 
         if (this.cartCopy.length !== newVal.cesta.length) {
