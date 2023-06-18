@@ -1,6 +1,6 @@
 # proyectofinal
 
-##IMPORTANTE: Instalar Vue CLI:
+### IMPORTANTE: Instalar Vue CLI:
 
 ```
 npm install -g @vue/cli
