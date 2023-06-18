@@ -321,7 +321,6 @@ export default {
       }
       this.carga = true;
     }
-
     this.checked = "#cartCheck";
   },
   mounted() {
@@ -388,7 +387,9 @@ export default {
         });
     },
     deleteItem(index) {
+      this.cartCopy=[...this.carrito.cesta];
       this.carrito.cesta.splice(index, 1);
+
       localStorage.setItem("userProducts", JSON.stringify(this.carrito));
       this.$store.commit("setCurrentCart", this.carrito);
     },
@@ -478,6 +479,7 @@ export default {
       isOpened: false,
       token: null,
       cartLength: null,
+      cartCopy:null
     };
   },
   watch: {
@@ -490,12 +492,19 @@ export default {
       deep: true,
       async handler(newVal, oldVal) {
         this.carga = false;
-
+        if (this.cartCopy===null){
+          this.cartCopy=oldVal.cesta;
+        }
+          console.log(this.cartCopy);
+        debugger;
+        console.log(this.cartCopy);
+        console.log(this.$store.state.currentCart);
         this.carrito = newVal;
         let dataArr = [];
         console.log(newVal);
-        console.log(oldVal);
-        if (oldVal.cesta.length !== newVal.cesta.length) {
+
+
+        if (this.cartCopy.length !== newVal.cesta.length) {
           for (let objeto of this.carrito.cesta) {
             const prodData = await this.getProductData(objeto.productName);
             dataArr.push(prodData);
